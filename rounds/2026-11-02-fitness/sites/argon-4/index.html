@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-black text-zinc-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VULCAN COLLECTIVE // HIGH-PERFORMANCE TRAINING LAB</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Oswald, Anton, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vulcan: {
+              black: '#000000',
+              charcoal: '#0D0D0D',
+              panel: '#141414',
+              surface: '#1A1A1A',
+              orange: '#FF5500',
+              orangeHover: '#FF6E24',
+              silver: '#C0C0C0',
+              steel: '#8E9299',
+              border: '#262626'
+            }
+          },
+          fontFamily: {
+            display: ['Oswald', 'Anton', 'sans-serif'],
+            impact: ['Anton', 'Oswald', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       INDUSTRIAL BRUTALIST DESIGN TOKENS & TEXTURAL OVERLAYS
+       ========================================================================== */
+    :root {
+      --neon-orange: #FF5500;
+      --metallic-silver: #C0C0C0;
+      --charcoal-dark: #0D0D0D;
+    }
+
+    body {
+      background-color: #000000;
+      color: #F4F4F5;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      /* Raw industrial carbon-grid background texture */
+      background-image: 
+        linear-gradient(to right, rgba(192, 192, 192, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(192, 192, 192, 0.04) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0%, rgba(255, 85, 0, 0.07) 0%, transparent 55%);
+      background-size: 32px 32px, 32px 32px, 100% 100%;
+    }
+
+    /* High-Contrast Black & White Photography Filter Emphasizing Sweat, Muscle & Equipment */
+    .bw-athletic-photo {
+      filter: grayscale(100%) contrast(135%) brightness(88%);
+      transition: filter 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .group:hover .bw-athletic-photo,
+    .bw-athletic-photo.active-photo {
+      filter: grayscale(100%) contrast(148%) brightness(95%);
+      transform: scale(1.03);
+    }
+
+    /* Blurred Depth-of-Field Vignette so the Athlete Remains the Sharp Focal Point */
+    .focal-vignette {
+      position: relative;
+      overflow: hidden;
+    }
+    .focal-vignette::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at 50% 38%,
+        transparent 30%,
+        rgba(0, 0, 0, 0.48) 68%,
+        rgba(0, 0, 0, 0.92) 100%
+      );
+      z-index: 2;
+    }
+
+    /* Subtle Peripheral Blur Frame to Simulate Shallow Depth of Field Around Subject */
+    .dof-edge-blur::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      mask-image: radial-gradient(circle at 50% 42%, transparent 45%, black 92%);
+      -webkit-mask-image: radial-gradient(circle at 50% 42%, transparent 45%, black 92%);
+      z-index: 1;
+    }
+
+    /* Exposed Industrial Hairline Borders & Corner Crosshairs */
+    .industrial-border {
+      border: 1px solid rgba(192, 192, 192, 0.18);
+    }
+    .industrial-card {
+      background: linear-gradient(180deg, #121212 0%, #0A0A0A 100%);
+      border: 1px solid rgba(192, 192, 192, 0.18);
+      position: relative;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .industrial-card:hover {
+      border-color: rgba(255, 85, 0, 0.65);
+      box-shadow: 0 0 25px -5px rgba(255, 85, 0, 0.22);
+    }
+
+    /* Corner Tech Brackets */
+    .tech-corner {
+      position: relative;
+    }
+    .tech-corner::before,
+    .tech-corner::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-color: #FF5500;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .tech-corner::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid #FF5500;
+      border-left: 2px solid #FF5500;
+    }
+    .tech-corner::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 2px solid #FF5500;
+      border-right: 2px solid #FF5500;
+    }
+
+    /* Neon Orange Glow Button */
+    .btn-neon {
+      background-color: #FF5500;
+      color: #000000;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(255, 85, 0, 0.35);
+    }
+    .btn-neon:hover {
+      background-color: #FF6A1F;
+      box-shadow: 0 0 28px rgba(255, 85, 0, 0.65);
+      transform: translateY(-1px);
+    }
+    .btn-neon:active {
+      transform: translateY(0);
+    }
+
+    /* Metallic Silver Outline Button */
+    .btn-silver {
+      background-color: rgba(20, 20, 20, 0.9);
+      color: #E4E4E7;
+      border: 1px solid rgba(192, 192, 192, 0.38);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .btn-silver:hover {
+      border-color: #FF5500;
+      color: #FF5500;
+      background-color: rgba(255, 85, 0, 0.07);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090909;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2E2E2E;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF5500;
+    }
+
+    /* Subtle Scanline Overlay on Telemetry Elements */
+    .scanline-bg {
+      background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.02) 0px,
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    }
+
+    /* Pulse indicator animation */
+    @keyframes pulseOrange {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.15); }
+    }
+    .pulse-dot {
+      animation: pulseOrange 1.8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="selection:bg-vulcan-orange selection:text-black antialiased">
+
+  <!-- ==========================================================================
+       1. TOP TELEMETRY BAR & STICKY NAVIGATION
+       ========================================================================== -->
+  <div class="bg-vulcan-charcoal border-b border-zinc-800 text-[11px] font-mono tracking-wider uppercase py-1.5 px-3 sm:px-6">
+    <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Live Lab Status & Community Ticker -->
+      <div class="flex items-center space-x-3 overflow-x-auto no-scrollbar py-0.5">
+        <span class="inline-flex items-center px-2 py-0.5 rounded bg-vulcan-orange/15 border border-vulcan-orange/50 text-vulcan-orange font-bold shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-vulcan-orange mr-1.5 pulse-dot"></span>
+          LAB TELEMETRY: LIVE
+        </span>
+        <span class="text-zinc-300 shrink-0">
+          ACTIVE ON FLOOR: <strong id="telemetry-active-floor" class="text-white">42 ATHLETES</strong>
+        </span>
+        <span class="text-zinc-600 shrink-0">//</span>
+        <span class="text-zinc-300 shrink-0">
+          MONTHLY PRs LOGGED: <strong id="telemetry-prs" class="text-vulcan-orange">318</strong>
+        </span>
+        <span class="text-zinc-600 hidden md:inline shrink-0">//</span>
+        <span class="text-zinc-300 hidden md:inline shrink-0">
+          NEXT SESSION: <strong class="text-vulcan-silver">METCON-X [SQUAD B] IN 14 MIN</strong>
+        </span>
+        <span class="text-zinc-600 hidden xl:inline shrink-0">//</span>
+        <span class="text-zinc-400 hidden xl:inline shrink-0">
+          DAILY VOLUME LIFTED: <strong id="telemetry-tonnage" class="text-white">54,820 KG</strong>
+        </span>
+      </div>
+
+      <!-- Right Location & Facility Spec Tag -->
+      <div class="hidden sm:flex items-center space-x-3 text-zinc-400 shrink-0">
+        <span>SECTOR 04 // IRON DISTRICT</span>
+        <span class="text-zinc-700">|</span>
+        <span class="text-vulcan-silver">05:00 – 23:00 DAILY</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-zinc-800">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <!-- Brand Identity -->
+      <a href="#top" class="flex items-center space-x-3 group focus:outline-none">
+        <div class="w-10 h-10 rounded bg-vulcan-orange flex items-center justify-center text-black font-display font-bold text-xl tracking-tighter shadow-[0_0_15px_rgba(255,85,0,0.4)] group-hover:scale-105 transition-transform">
+          V//C
+        </div>
+        <div>
+          <div class="font-display font-bold text-lg sm:text-xl tracking-wider uppercase leading-none text-white flex items-center gap-1.5">
+            VULCAN COLLECTIVE
+            <span class="text-[10px] font-mono bg-zinc-800 text-vulcan-silver px-1.5 py-0.5 rounded border border-zinc-700">LAB.01</span>
+          </div>
+          <div class="font-mono text-[10px] tracking-widest text-zinc-400 uppercase mt-0.5">
+            HIGH-PERFORMANCE STRENGTH &amp; CONDITIONING
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a href="#attitude" class="px-3.5 py-2 rounded text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-vulcan-orange hover:bg-zinc-900/80 transition-colors">
+          01 // ATTITUDE
+        </a>
+        <a href="#curriculum" class="px-3.5 py-2 rounded text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-vulcan-orange hover:bg-zinc-900/80 transition-colors">
+          02 // CURRICULUM
+        </a>
+        <a href="#coaches" class="px-3.5 py-2 rounded text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-vulcan-orange hover:bg-zinc-900/80 transition-colors">
+          03 // COACHES
+        </a>
+        <a href="#transformations" class="px-3.5 py-2 rounded text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-vulcan-orange hover:bg-zinc-900/80 transition-colors">
+          04 // TRANSFORMATIONS
+        </a>
+        <a href="#trial-booking" class="px-3.5 py-2 rounded text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-vulcan-orange hover:bg-zinc-900/80 transition-colors">
+          05 // FACILITY &amp; PASS
+        </a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-2.5">
+        <a href="#trial-booking" class="btn-neon px-4 sm:px-5 py-2.5 rounded text-xs sm:text-sm font-display tracking-wider inline-flex items-center gap-2">
+          <span>BOOK A TRIAL CLASS</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" type="button" aria-label="Toggle Navigation" class="lg:hidden p-2.5 rounded border border-zinc-700 bg-zinc-900 text-zinc-200 hover:border-vulcan-orange hover:text-vulcan-orange">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-zinc-950 border-b border-zinc-800 px-4 pt-2 pb-4 space-y-1.5 font-mono text-xs">
+      <a href="#attitude" class="mobile-nav-link block py-2.5 px-3 rounded bg-zinc-900/60 text-zinc-200 hover:text-vulcan-orange">01 // ATTITUDE &amp; MANIFESTO</a>
+      <a href="#curriculum" class="mobile-nav-link block py-2.5 px-3 rounded bg-zinc-900/60 text-zinc-200 hover:text-vulcan-orange">02 // GOAL-BASED CURRICULUM</a>
+      <a href="#coaches" class="mobile-nav-link block py-2.5 px-3 rounded bg-zinc-900/60 text-zinc-200 hover:text-vulcan-orange">03 // ELITE COACHING CADRE</a>
+      <a href="#transformations" class="mobile-nav-link block py-2.5 px-3 rounded bg-zinc-900/60 text-zinc-200 hover:text-vulcan-orange">04 // MEMBER TRANSFORMATIONS</a>
+      <a href="#trial-booking" class="mobile-nav-link block py-2.5 px-3 rounded bg-vulcan-orange text-black font-bold text-center mt-2">BOOK A TRIAL CLASS NOW</a>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. HERO SECTION (BRAND ATTITUDE + INTERACTIVE COACH TEAM SHOWCASE)
+       ========================================================================== -->
+  <section id="attitude" class="relative border-b border-zinc-800">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12">
+
+      <!-- LEFT COLUMN (7 Cols): Brand Manifesto, Community Ethos & Lab Specs -->
+      <div class="lg:col-span-7 p-4 sm:p-8 lg:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-zinc-800 relative overflow-hidden">
+        <!-- Background Hero Watermark -->
+        <div class="pointer-events-none select-none absolute -right-8 -top-6 font-display font-bold text-[110px] sm:text-[160px] leading-none text-white/[0.025] tracking-tighter">
+          VULCAN
+        </div>
+
+        <div>
+          <!-- Technical Classification Header -->
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 font-mono text-[11px] text-vulcan-silver uppercase tracking-widest">
+              SYS.MANIFESTO // EST. 2019
+            </span>
+            <span class="px-2.5 py-1 rounded bg-vulcan-orange/10 border border-vulcan-orange/40 font-mono text-[11px] text-vulcan-orange uppercase tracking-widest">
+              ZERO EGO. 100% OUTPUT.
+            </span>
+            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] text-zinc-400 uppercase">
+              RETENTION RATE: 94.2%
+            </span>
+          </div>
+
+          <!-- Commanding Uppercase Headline -->
+          <h1 class="font-display font-bold uppercase text-4xl sm:text-6xl xl:text-[68px] leading-[0.94] tracking-tight text-white mb-5">
+            FORGED IN <span class="text-vulcan-orange">RAW IRON.</span><br />
+            UNITED BY <span class="underline decoration-vulcan-orange decoration-4 underline-offset-8">UNBREAKABLE</span> GRIT.
+          </h1>
+
+          <!-- Dense Forceful Manifesto & Community Belonging Copy -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 mb-6 bg-zinc-950/90 p-4 rounded industrial-border">
+            <div class="sm:col-span-7 space-y-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+              <p class="font-semibold text-white">
+                WE ARE NOT A HEALTH CLUB. WE ARE A HIGH-PERFORMANCE TRAINING COLLECTIVE.
+              </p>
+              <p>
+                Every barbell loaded, every metabolic threshold crossed, and every 05:30AM squad session is engineered around scientific periodization and relentless peer accountability. You don't rent floor space here—you earn a permanent rank inside a tribe that refuses to let you quit.
+              </p>
+            </div>
+            <div class="sm:col-span-5 border-t sm:border-t-0 sm:border-l border-zinc-800 pt-3 sm:pt-0 sm:pl-4 flex flex-col justify-between font-mono text-[11px]">
+              <div class="text-vulcan-silver uppercase tracking-wider font-bold mb-1.5">COLLECTIVE CODE OF CONDUCT:</div>
+              <ul class="space-y-1.5 text-zinc-300">
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-vulcan-orange rounded-full"></span>
+                  <span>LOG EVERY LIFT &amp; SPLIT</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-vulcan-orange rounded-full"></span>
+                  <span>SPOT YOUR SQUAD FIRST</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-vulcan-orange rounded-full"></span>
+                  <span>CHALK UP. LOCK IN. EXECUTE.</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-vulcan-orange rounded-full"></span>
+                  <span>LEAVE ONLY SWEAT ON THE DECK</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Dual Primary CTAs -->
+          <div class="flex flex-wrap items-center gap-3 mb-7">
+            <a href="#trial-booking" class="btn-neon px-6 py-3.5 rounded font-display text-sm sm:text-base tracking-wider inline-flex items-center gap-2.5">
+              <span>CLAIM 7-DAY LAB TRIAL PASS</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#curriculum" class="btn-silver px-5 py-3.5 rounded font-display text-sm sm:text-base tracking-wider inline-flex items-center gap-2">
+              <span>EXPLORE TRAINING CURRICULUM</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- High-Density Facility Specs & Live Community Belonging Bar -->
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div class="bg-zinc-950 p-3 rounded border border-zinc-800">
+              <div class="font-mono text-[10px] text-zinc-400 uppercase">TRAINING FLOOR</div>
+              <div class="font-display font-bold text-xl sm:text-2xl text-white mt-0.5">18,500 <span class="text-xs text-vulcan-orange">SQ FT</span></div>
+              <div class="font-mono text-[10px] text-vulcan-silver mt-0.5">24 ELEIKO IWF PLATFORMS</div>
+            </div>
+            <div class="bg-zinc-950 p-3 rounded border border-zinc-800">
+              <div class="font-mono text-[10px] text-zinc-400 uppercase">SQUAD RATIO</div>
+              <div class="font-display font-bold text-xl sm:text-2xl text-white mt-0.5">1 : 8 <span class="text-xs text-vulcan-orange">MAX</span></div>
+              <div class="font-mono text-[10px] text-vulcan-silver mt-0.5">PRECISION BIOMECHANICS</div>
+            </div>
+            <div class="bg-zinc-950 p-3 rounded border border-zinc-800">
+              <div class="font-mono text-[10px] text-zinc-400 uppercase">TURF SLED TRACK</div>
+              <div class="font-display font-bold text-xl sm:text-2xl text-white mt-0.5">60M <span class="text-xs text-vulcan-orange">INDOOR</span></div>
+              <div class="font-mono text-[10px] text-vulcan-silver mt-0.5">FORCE-PLATE TIMING GATES</div>
+            </div>
+            <div class="bg-zinc-950 p-3 rounded border border-zinc-800">
+              <div class="font-mono text-[10px] text-zinc-400 uppercase">ACTIVE COLLECTIVE</div>
+              <div class="font-display font-bold text-xl sm:text-2xl text-white mt-0.5">480 <span class="text-xs text-vulcan-orange">CAP</span></div>
+              <div class="font-mono text-[10px] text-vulcan-silver mt-0.5">PRIVATE CAPPED ROSTER</div>
+            </div>
+          </div>
+
+          <!-- Community Floor Check-In Strip -->
+          <div class="bg-zinc-900/70 border border-zinc-800 rounded p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2.5">
+              <div class="flex -space-x-2">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=120&q=80" alt="Athlete" onerror="this.src='https://placehold.co/100x100/111111/FF5500?text=A1'" class="w-7 h-7 rounded-full object-cover border border-vulcan-orange bw-athletic-photo" />
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=120&q=80" alt="Athlete" onerror="this.src='https://placehold.co/100x100/111111/FF5500?text=A2'" class="w-7 h-7 rounded-full object-cover border border-zinc-600 bw-athletic-photo" />
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=120&q=80" alt="Athlete" onerror="this.src='https://placehold.co/100x100/111111/FF5500?text=A3'" class="w-7 h-7 rounded-full object-cover border border-zinc-600 bw-athletic-photo" />
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=120&q=80" alt="Athlete" onerror="this.src='https://placehold.co/100x100/111111/FF5500?text=A4'" class="w-7 h-7 rounded-full object-cover border border-zinc-600 bw-athletic-photo" />
+              </div>
+              <span class="font-mono text-[11px] text-zinc-300">
+                <strong class="text-vulcan-orange">RECENT BELL RING:</strong> MARCUS V. (#104) HIT A <strong class="text-white">235KG DEADLIFT PR</strong> ON PLATFORM 04
+              </span>
+            </div>
+            <span class="font-mono text-[10px] text-vulcan-silver bg-black px-2 py-0.5 rounded border border-zinc-800">
+              VERIFIED BY COACH K. VANCE
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN (5 Cols): Interactive "ELITE COACHING CADRE" Hero Showcase -->
+      <div class="lg:col-span-5 bg-vulcan-charcoal flex flex-col justify-between p-4 sm:p-6 relative">
+        <!-- Top Header Bar for Hero Coach Showcase -->
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-3 mb-3">
+          <div>
+            <div class="font-mono text-[10px] text-vulcan-orange uppercase tracking-widest font-bold">
+              INTERACTIVE CADRE SPOTLIGHT // CLICK COACH TO INSPECT
+            </div>
+            <h2 class="font-display font-bold text-lg sm:text-xl uppercase tracking-wide text-white">
+              ELITE COACHING COMMAND
+            </h2>
+          </div>
+          <a href="#coaches" class="font-mono text-[11px] text-vulcan-silver hover:text-vulcan-orange underline">
+            FULL ROSTER (06) →
+          </a>
+        </div>
+
+        <!-- Featured Coach High-Contrast B&W Portrait Stage with Blurred Vignette -->
+        <div class="relative rounded overflow-hidden border border-zinc-700 bg-black flex-1 min-h-[360px] sm:min-h-[410px] flex flex-col justify-end focal-vignette dof-edge-blur tech-corner group">
+          <img
+            id="hero-coach-img"
+            src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1000&q=85"
+            alt="Lead Coach Kaelen Vance"
+            onerror="this.src='https://placehold.co/800x900/111111/FF5500?text=COACH+PORTRAIT'"
+            class="absolute inset-0 w-full h-full object-cover object-top bw-athletic-photo active-photo"
+          />
+
+          <!-- Top Telemetry Overlay on Portrait -->
+          <div class="relative z-10 top-0 left-0 right-0 p-3.5 mb-auto flex items-center justify-between">
+            <span id="hero-coach-code" class="px-2.5 py-1 rounded bg-black/85 border border-zinc-700 font-mono text-[11px] text-vulcan-orange font-bold">
+              ID // CDR-01 • HEAD OF STRENGTH
+            </span>
+            <span id="hero-coach-cert" class="px-2.5 py-1 rounded bg-black/85 border border-zinc-700 font-mono text-[10px] text-vulcan-silver">
+              NSCA-CSCS // USAW-L2
+            </span>
+          </div>
+
+          <!-- Bottom Coach Dossier Readout on Portrait -->
+          <div class="relative z-10 p-4 sm:p-5 bg-gradient-to-t from-black via-black/90 to-transparent">
+            <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+              <h3 id="hero-coach-name" class="font-display font-bold text-2xl sm:text-3xl uppercase text-white tracking-wide">
+                KAELEN VANCE
+              </h3>
+              <span id="hero-coach-specialty" class="font-mono text-xs text-vulcan-orange font-semibold uppercase">
+                MAXIMAL STRENGTH &amp; MYOFIBRILLAR HYPERTROPHY
+              </span>
+            </div>
+
+            <p id="hero-coach-quote" class="text-xs sm:text-sm text-zinc-300 italic mb-3 border-l-2 border-vulcan-orange pl-3">
+              "Iron doesn't care about your excuses or your mood. We build structural armor through progressive overload and relentless technical precision."
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-zinc-800/90 font-mono text-[11px]">
+              <div>
+                <span class="text-zinc-400 block text-[10px]">EXP TENURE</span>
+                <strong id="hero-coach-exp" class="text-white">14 YEARS</strong>
+              </div>
+              <div>
+                <span class="text-zinc-400 block text-[10px]">SIGNATURE METRIC</span>
+                <strong id="hero-coach-metric" class="text-vulcan-orange">310KG DEADLIFT</strong>
+              </div>
+              <div class="text-right">
+                <button
+                  id="hero-coach-book-btn"
+                  type="button"
+                  onclick="selectCoachAndScroll('Kaelen Vance')"
+                  class="px-2.5 py-1.5 rounded bg-vulcan-orange text-black font-bold text-[11px] hover:bg-vulcan-orangeHover transition-colors"
+                >
+                  TRAIN W/ COACH →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive 4-Coach Selector Strip -->
+        <div class="grid grid-cols-4 gap-2 mt-3" id="hero-coach-selector">
+          <!-- Populated dynamically via JS for instant switching -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. GOAL-BASED CURRICULUM SECTION
+       ========================================================================== -->
+  <section id="curriculum" class="py-12 sm:py-16 border-b border-zinc-800">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6">
+
+      <!-- Section Header + Telemetry Summary -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-zinc-800">
+        <div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-vulcan-orange uppercase tracking-widest mb-2">
+            <span>SECTION 02 // PERIODIZED PROGRAMMING</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-vulcan-silver">12-WEEK MESOCYCLE BLOCKS</span>
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+            GOAL-ENGINEERED <span class="text-vulcan-orange">TRAINING CURRICULUM</span>
+          </h2>
+        </div>
+
+        <p class="text-xs sm:text-sm text-zinc-400 max-w-xl font-mono">
+          Every class is part of a structured 12-week mesocycle—never random workouts. Filter by your primary physiological objective below and reserve your platform slot.
+        </p>
+      </div>
+
+      <!-- Interactive Goal Filter Tabs + Equipment Legend Bar -->
+      <div class="my-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-zinc-950 p-3 rounded industrial-border">
+        <div class="flex flex-wrap gap-2" id="curriculum-filter-tabs">
+          <button
+            type="button"
+            data-filter="ALL"
+            class="curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-vulcan-orange text-black shadow-[0_0_15px_rgba(255,85,0,0.35)]"
+          >
+            [ALL PROGRAMS // 06]
+          </button>
+          <button
+            type="button"
+            data-filter="MUSCLE_GAIN"
+            class="curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange"
+          >
+            [MUSCLE GAIN // HYPERTROPHY]
+          </button>
+          <button
+            type="button"
+            data-filter="FAT_LOSS"
+            class="curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange"
+          >
+            [FAT LOSS // METABOLIC]
+          </button>
+          <button
+            type="button"
+            data-filter="ATHLETIC_FITNESS"
+            class="curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange"
+          >
+            [ATHLETIC FITNESS // CONDITIONING]
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 font-mono text-[11px] text-zinc-400 border-t md:border-t-0 pt-2 md:pt-0 border-zinc-800">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-vulcan-orange inline-block"></span>
+            PEAK CNS/METABOLIC LOAD
+          </span>
+          <span class="text-zinc-700">|</span>
+          <span id="curriculum-count-readout" class="text-vulcan-silver font-bold">SHOWING 6 OF 6 PROTOCOLS</span>
+        </div>
+      </div>
+
+      <!-- High-Density Program Cards Grid -->
+      <div id="curriculum-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. COACH PROFILES (PROFESSIONAL BACKGROUND + VERIFIED CERTIFICATIONS)
+       ========================================================================== -->
+  <section id="coaches" class="py-12 sm:py-16 border-b border-zinc-800 bg-vulcan-charcoal/50">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6">
+
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-zinc-800 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-vulcan-orange uppercase tracking-widest mb-2">
+            <span>SECTION 03 // VERIFIED CREDENTIALS</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-vulcan-silver">MINIMUM 8+ YRS FLOOR COMMAND</span>
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+            THE COACHING <span class="text-vulcan-orange">DIRECTORATE</span>
+          </h2>
+        </div>
+
+        <!-- Certification Standards Callout -->
+        <div class="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+          <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 text-vulcan-silver">✓ NSCA-CSCS MANDATED</span>
+          <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 text-vulcan-silver">✓ USAW OLYMPIC LIFTING</span>
+          <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 text-vulcan-silver">✓ EXOS PERFORMANCE</span>
+        </div>
+      </div>
+
+      <!-- Coach Dossier Cards Grid -->
+      <div id="coaches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       5. MEMBER STORIES (REAL TRANSFORMATION CASE STUDIES & BELONGING)
+       ========================================================================== -->
+  <section id="transformations" class="py-12 sm:py-16 border-b border-zinc-800">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6">
+
+      <!-- Section Header + Community Accountability Metrics -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-zinc-800 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-vulcan-orange uppercase tracking-widest mb-2">
+            <span>SECTION 04 // DEXA &amp; FORCE-PLATE VERIFIED</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-vulcan-silver">REAL ATHLETES. RAW DATA.</span>
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+            FORGED IN THE COLLECTIVE: <span class="text-vulcan-orange">CASE STUDIES</span>
+          </h2>
+        </div>
+
+        <!-- Filter Buttons for Case Studies -->
+        <div class="flex flex-wrap gap-2" id="story-filter-tabs">
+          <button type="button" data-story-filter="ALL" class="story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-vulcan-orange text-black">
+            ALL CASES (04)
+          </button>
+          <button type="button" data-story-filter="HYPERTROPHY" class="story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange">
+            STRENGTH &amp; MASS
+          </button>
+          <button type="button" data-story-filter="METABOLIC" class="story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange">
+            FAT LOSS RECOMP
+          </button>
+          <button type="button" data-story-filter="ATHLETIC" class="story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange">
+            ENGINE &amp; CONDITIONING
+          </button>
+        </div>
+      </div>
+
+      <!-- Collective Belonging Banner -->
+      <div class="mb-7 p-4 rounded bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded bg-vulcan-orange/15 border border-vulcan-orange flex items-center justify-center text-vulcan-orange font-display font-bold text-xl shrink-0">
+            94%
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base sm:text-lg uppercase text-white">
+              THE ACCOUNTABILITY EFFECT: WHY SOLO TRAINING FAILS
+            </h3>
+            <p class="text-xs text-zinc-300">
+              Every member is assigned to a permanent 8-athlete training squad with a dedicated Head Coach and shared digital leaderboard. When you miss a 06:00 lift, your squad calls you directly.
+            </p>
+          </div>
+        </div>
+        <div class="font-mono text-xs text-vulcan-silver shrink-0 bg-black px-3 py-2 rounded border border-zinc-800">
+          AVG 16-WK STRENGTH DELTA: <strong class="text-vulcan-orange">+34.8%</strong>
+        </div>
+      </div>
+
+      <!-- Member Case Studies Grid -->
+      <div id="stories-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       6. BOOK A TRIAL CLASS SECTION & INTERACTIVE BOARDING PASS ENGINE
+       ========================================================================== -->
+  <section id="trial-booking" class="py-12 sm:py-16 bg-gradient-to-b from-black to-vulcan-charcoal">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6">
+
+      <!-- Section Heading -->
+      <div class="pb-6 border-b border-zinc-800 mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-vulcan-orange uppercase tracking-widest mb-2">
+            <span>SECTION 05 // ATHLETE INTAKE PROTOCOL</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-vulcan-silver">INCLUDES DEXA + FORCE-PLATE BASELINE</span>
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+            STEP ONTO THE FLOOR: <span class="text-vulcan-orange">BOOK YOUR TRIAL SESSION</span>
+          </h2>
+        </div>
+        <div class="font-mono text-xs text-zinc-300 bg-zinc-950 px-3.5 py-2 rounded border border-zinc-800">
+          TRIAL INTAKE AVAILABILITY TODAY: <strong class="text-vulcan-orange">4 SLOTS REMAINING</strong>
+        </div>
+      </div>
+
+      <!-- Interactive Split Booking Engine (Left: Step Form | Right: Live Boarding Pass Preview) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- LEFT 7 COLS: Step-by-Step Interactive Configuration Form -->
+        <form id="trial-booking-form" class="lg:col-span-7 industrial-card rounded p-5 sm:p-7 space-y-6">
+
+          <!-- STEP 1: Select Primary Training Goal -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="font-display font-bold text-base sm:text-lg uppercase tracking-wide text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded bg-vulcan-orange text-black font-mono text-xs font-bold inline-flex items-center justify-center">01</span>
+                SELECT PRIMARY TRAINING OBJECTIVE
+              </label>
+              <span class="font-mono text-[10px] text-vulcan-silver uppercase">REQUIRED</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="booking-goal-options">
+              <button
+                type="button"
+                data-goal="MUSCLE GAIN // HYPERTROPHY"
+                class="booking-goal-btn p-3 rounded border border-vulcan-orange bg-vulcan-orange/15 text-left transition-all"
+              >
+                <div class="font-mono text-[10px] text-vulcan-orange font-bold">OBJ-01</div>
+                <div class="font-display font-bold text-sm uppercase text-white mt-0.5">MUSCLE GAIN</div>
+                <div class="font-mono text-[10px] text-zinc-400 mt-1">Hypertrophy &amp; Max Force</div>
+              </button>
+
+              <button
+                type="button"
+                data-goal="FAT LOSS // METABOLIC"
+                class="booking-goal-btn p-3 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 text-left transition-all"
+              >
+                <div class="font-mono text-[10px] text-vulcan-silver font-bold">OBJ-02</div>
+                <div class="font-display font-bold text-sm uppercase text-white mt-0.5">FAT LOSS</div>
+                <div class="font-mono text-[10px] text-zinc-400 mt-1">Metabolic Conditioning</div>
+              </button>
+
+              <button
+                type="button"
+                data-goal="ATHLETIC FITNESS // CONDITIONING"
+                class="booking-goal-btn p-3 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 text-left transition-all"
+              >
+                <div class="font-mono text-[10px] text-vulcan-silver font-bold">OBJ-03</div>
+                <div class="font-display font-bold text-sm uppercase text-white mt-0.5">ATHLETIC ENGINE</div>
+                <div class="font-mono text-[10px] text-zinc-400 mt-1">Power, VO2Max &amp; Work Cap</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Select Curriculum Protocol & Assigned Coach -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-zinc-800">
+            <div>
+              <label for="booking-program" class="block font-display font-bold text-sm uppercase tracking-wide text-white mb-2">
+                <span class="text-vulcan-orange font-mono mr-1">02A //</span> CURRICULUM PROTOCOL
+              </label>
+              <select
+                id="booking-program"
+                class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-xs sm:text-sm font-mono text-white focus:border-vulcan-orange focus:outline-none"
+              >
+                <option value="VLC-HYP-01 // IRON ARCHITECTURE">VLC-HYP-01 // IRON ARCHITECTURE (Hypertrophy)</option>
+                <option value="VLC-STR-02 // MONOLITH BARBELL">VLC-STR-02 // MONOLITH BARBELL (Max Strength)</option>
+                <option value="VLC-MET-03 // FURNACE METCON-X">VLC-MET-03 // FURNACE METCON-X (Fat Loss)</option>
+                <option value="VLC-SHD-04 // ANAEROBIC SHRED">VLC-SHD-04 // ANAEROBIC SHRED (Alactic Sprints)</option>
+                <option value="VLC-ATH-05 // APEX COMBINED ARMS">VLC-ATH-05 // APEX COMBINED ARMS (Athletic)</option>
+                <option value="VLC-ENG-06 // VO2 THRESHOLD LAB">VLC-ENG-06 // VO2 THRESHOLD LAB (Endurance)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="booking-coach" class="block font-display font-bold text-sm uppercase tracking-wide text-white mb-2">
+                <span class="text-vulcan-orange font-mono mr-1">02B //</span> PREFERRED COMMAND COACH
+              </label>
+              <select
+                id="booking-coach"
+                class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-xs sm:text-sm font-mono text-white focus:border-vulcan-orange focus:outline-none"
+              >
+                <option value="Kaelen Vance (Head of Strength)">Kaelen Vance // Head of Strength</option>
+                <option value="Elena Rostova (Metabolic & Conditioning)">Elena Rostova // Metabolic &amp; Conditioning</option>
+                <option value="Marcus Thorne (Olympic Lifting & Power)">Marcus Thorne // Olympic Lifting &amp; Power</option>
+                <option value="Sora Takahashi (Hypertrophy & Biomechanics)">Sora Takahashi // Hypertrophy &amp; Biomechanics</option>
+                <option value="Dante Morales (Tactical Work Capacity)">Dante Morales // Tactical Work Capacity</option>
+                <option value="Freya Lindqvist (Athletic Speed & VO2)">Freya Lindqvist // Athletic Speed &amp; VO2</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STEP 3: Choose Session Date & Squad Time Slot -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-zinc-800">
+            <div>
+              <label for="booking-date" class="block font-display font-bold text-sm uppercase tracking-wide text-white mb-2">
+                <span class="text-vulcan-orange font-mono mr-1">03A //</span> TRIAL INTAKE DATE
+              </label>
+              <input
+                type="date"
+                id="booking-date"
+                required
+                class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-xs sm:text-sm font-mono text-white focus:border-vulcan-orange focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label for="booking-slot" class="block font-display font-bold text-sm uppercase tracking-wide text-white mb-2">
+                <span class="text-vulcan-orange font-mono mr-1">03B //</span> SQUAD DISPATCH WINDOW
+              </label>
+              <select
+                id="booking-slot"
+                class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-xs sm:text-sm font-mono text-white focus:border-vulcan-orange focus:outline-none"
+              >
+                <option value="05:30 AM // DAWN PATROL SQUAD">05:30 AM // DAWN PATROL SQUAD (2 Spots)</option>
+                <option value="07:00 AM // MORNING IRON SQUAD">07:00 AM // MORNING IRON SQUAD (3 Spots)</option>
+                <option value="12:00 PM // HIGH NOON EXPRESS">12:00 PM // HIGH NOON EXPRESS (4 Spots)</option>
+                <option value="17:30 PM // PRIME FLOOR SESSION">17:30 PM // PRIME FLOOR SESSION (1 Spot)</option>
+                <option value="19:00 PM // NIGHT SHIFT COLLECTIVE">19:00 PM // NIGHT SHIFT COLLECTIVE (3 Spots)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STEP 4: Athlete Telemetry & Contact Details -->
+          <div class="pt-2 border-t border-zinc-800 space-y-4">
+            <div class="font-display font-bold text-base uppercase tracking-wide text-white flex items-center gap-2">
+              <span class="w-6 h-6 rounded bg-vulcan-orange text-black font-mono text-xs font-bold inline-flex items-center justify-center">04</span>
+              ATHLETE REGISTRATION &amp; BASELINE PROFILE
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="athlete-name" class="block font-mono text-[11px] uppercase text-zinc-400 mb-1">FULL ATHLETE NAME *</label>
+                <input
+                  type="text"
+                  id="athlete-name"
+                  required
+                  placeholder="e.g. ALEX MERCER"
+                  class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-sm font-mono text-white placeholder-zinc-600 focus:border-vulcan-orange focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="athlete-email" class="block font-mono text-[11px] uppercase text-zinc-400 mb-1">DISPATCH EMAIL ADDRESS *</label>
+                <input
+                  type="email"
+                  id="athlete-email"
+                  required
+                  placeholder="athlete@domain.com"
+                  class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-sm font-mono text-white placeholder-zinc-600 focus:border-vulcan-orange focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="athlete-phone" class="block font-mono text-[11px] uppercase text-zinc-400 mb-1">SMS SQUAD ALERT PHONE *</label>
+                <input
+                  type="tel"
+                  id="athlete-phone"
+                  required
+                  placeholder="+1 (555) 234-5678"
+                  class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-sm font-mono text-white placeholder-zinc-600 focus:border-vulcan-orange focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="athlete-level" class="block font-mono text-[11px] uppercase text-zinc-400 mb-1">CURRENT BARBELL PROFICIENCY</label>
+                <select
+                  id="athlete-level"
+                  class="w-full rounded bg-zinc-950 border border-zinc-700 px-3.5 py-2.5 text-sm font-mono text-white focus:border-vulcan-orange focus:outline-none"
+                >
+                  <option value="INTERMEDIATE // 2-4 YRS CONSISTENT">INTERMEDIATE // 2-4 YRS CONSISTENT</option>
+                  <option value="ADVANCED // 5+ YRS / COMPETITIVE">ADVANCED // 5+ YRS / COMPETITIVE</option>
+                  <option value="FOUNDATIONAL // READY TO LEARN">FOUNDATIONAL // READY TO COMMIT</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="w-full btn-neon py-4 rounded font-display text-base sm:text-lg tracking-wider flex items-center justify-center gap-3"
+            >
+              <span>GENERATE DIGITAL TRIAL BOARDING PASS</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+            <p class="font-mono text-[11px] text-zinc-400 text-center mt-2">
+              ZERO OBLIGATION • INCLUDES 20-MIN BIOMETRIC FORCE-PLATE ASSESSMENT PRIOR TO FLOOR ENTRY
+            </p>
+          </div>
+
+        </form>
+
+        <!-- RIGHT 5 COLS: Live Interactive Digital Trial Boarding Pass Preview -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="industrial-card rounded p-5 sm:p-6 tech-corner scanline-bg">
+            <!-- Pass Header -->
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-3 mb-4">
+              <div>
+                <span class="font-mono text-[10px] text-vulcan-orange uppercase tracking-widest block font-bold">
+                  LIVE FLOOR ACCESS CREDENTIAL
+                </span>
+                <h3 class="font-display font-bold text-xl uppercase text-white">
+                  VULCAN LAB // TRIAL BOARDING PASS
+                </h3>
+              </div>
+              <div class="text-right font-mono">
+                <span class="text-[10px] text-zinc-400 block">PASS ID</span>
+                <span id="preview-pass-id" class="text-xs font-bold text-vulcan-silver">VLC-8849-X</span>
+              </div>
+            </div>
+
+            <!-- Pass Body Telemetry Grid -->
+            <div class="space-y-3 font-mono text-xs">
+              <div class="bg-black/80 p-3 rounded border border-zinc-800 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-zinc-500 block">REGISTERED ATHLETE</span>
+                  <strong id="preview-athlete-name" class="text-sm text-white uppercase">AWAITING INPUT...</strong>
+                </div>
+                <span id="preview-level-badge" class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-[10px] text-vulcan-silver">
+                  INTERMEDIATE
+                </span>
+              </div>
+
+              <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">PRIMARY OBJECTIVE</span>
+                <strong id="preview-goal" class="text-vulcan-orange uppercase">MUSCLE GAIN // HYPERTROPHY</strong>
+              </div>
+
+              <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">ASSIGNED CURRICULUM CLASS</span>
+                <strong id="preview-program" class="text-white">VLC-HYP-01 // IRON ARCHITECTURE</strong>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                  <span class="text-[10px] text-zinc-500 block">COMMAND COACH</span>
+                  <strong id="preview-coach" class="text-zinc-200">Kaelen Vance</strong>
+                </div>
+                <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                  <span class="text-[10px] text-zinc-500 block">PLATFORM BAY</span>
+                  <strong class="text-vulcan-silver">ELEIKO BAY #04</strong>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                  <span class="text-[10px] text-zinc-500 block">SESSION DATE</span>
+                  <strong id="preview-date" class="text-white">--</strong>
+                </div>
+                <div class="bg-black/80 p-3 rounded border border-zinc-800">
+                  <span class="text-[10px] text-zinc-500 block">DISPATCH WINDOW</span>
+                  <strong id="preview-slot" class="text-vulcan-orange">05:30 AM</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Included Perks Checklist -->
+            <div class="mt-4 pt-3 border-t border-zinc-800">
+              <div class="font-mono text-[10px] text-vulcan-silver uppercase mb-2 font-bold">
+                INCLUDED IN YOUR TRIAL INTAKE:
+              </div>
+              <div class="grid grid-cols-2 gap-1.5 font-mono text-[11px] text-zinc-300">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-vulcan-orange">■</span> InBody 970 Scan
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-vulcan-orange">■</span> Force-Plate Jump Test
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-vulcan-orange">■</span> 1-on-1 Coach Debrief
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-vulcan-orange">■</span> Post-Session Recovery Shake
+                </div>
+              </div>
+            </div>
+
+            <!-- Industrial Barcode Graphic -->
+            <div class="mt-4 pt-3 border-t border-dashed border-zinc-700 flex items-center justify-between">
+              <div class="flex items-center space-x-1 h-8" aria-hidden="true">
+                <span class="w-1 h-full bg-zinc-300"></span>
+                <span class="w-0.5 h-full bg-zinc-500"></span>
+                <span class="w-1.5 h-full bg-vulcan-orange"></span>
+                <span class="w-0.5 h-full bg-zinc-300"></span>
+                <span class="w-2 h-full bg-zinc-200"></span>
+                <span class="w-0.5 h-full bg-zinc-600"></span>
+                <span class="w-1 h-full bg-zinc-300"></span>
+                <span class="w-1.5 h-full bg-zinc-200"></span>
+                <span class="w-0.5 h-full bg-vulcan-orange"></span>
+                <span class="w-1 h-full bg-zinc-400"></span>
+                <span class="w-2 h-full bg-zinc-200"></span>
+                <span class="w-0.5 h-full bg-zinc-500"></span>
+                <span class="w-1 h-full bg-zinc-200"></span>
+                <span class="w-1.5 h-full bg-zinc-400"></span>
+                <span class="w-0.5 h-full bg-zinc-200"></span>
+                <span class="w-1 h-full bg-vulcan-orange"></span>
+              </div>
+              <span class="font-mono text-[10px] text-zinc-400">GATE CLEARANCE: LEVEL-01</span>
+            </div>
+          </div>
+
+          <!-- Facility Location & Gear Advisory Box -->
+          <div class="bg-zinc-950 border border-zinc-800 rounded p-4 font-mono text-xs space-y-2">
+            <div class="text-vulcan-silver font-bold uppercase flex items-center justify-between">
+              <span>MANDATORY FLOOR GEAR ADVISORY</span>
+              <span class="text-vulcan-orange">PROTOCOL 09</span>
+            </div>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">
+              Arrive 15 minutes prior to squad dispatch. Flat-soled lifting footwear or Olympic weightlifting shoes recommended. Liquid chalk, Eleiko collars, and heart-rate telemetry straps are provided on deck.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER (INDUSTRIAL TELEMETRY & COLLECTIVE DIRECTORY)
+       ========================================================================== -->
+  <footer class="bg-black border-t border-zinc-800 py-10 font-mono text-xs text-zinc-400">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-zinc-900">
+        <div class="space-y-2">
+          <div class="font-display font-bold text-lg text-white uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded bg-vulcan-orange text-black flex items-center justify-center text-xs font-bold">V//C</span>
+            VULCAN COLLECTIVE
+          </div>
+          <p class="text-[11px] text-zinc-500 leading-relaxed">
+            HIGH-PERFORMANCE STRENGTH &amp; CONDITIONING LAB. ENGINEERED FOR ATHLETES WHO DEMAND MEASURABLE ADAPTATION AND BROTHERHOOD UNDER HEAVY IRON.
+          </p>
+        </div>
+
+        <div>
+          <div class="text-vulcan-silver font-bold uppercase mb-2.5">LAB COORDINATES</div>
+          <ul class="space-y-1 text-[11px]">
+            <li>740 FOUNDRY AVENUE, SECTOR 04</li>
+            <li>LOADING DOCK B // IRON DISTRICT</li>
+            <li class="text-vulcan-orange pt-1">LAT: 40.7128° N // LON: 74.0060° W</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="text-vulcan-silver font-bold uppercase mb-2.5">OPERATIONAL HOURS</div>
+          <ul class="space-y-1 text-[11px]">
+            <li>MON – FRI: 05:00 – 23:00</li>
+            <li>SAT – SUN: 06:00 – 20:00</li>
+            <li class="text-zinc-300 pt-1">OPEN GYM LIFTING: ALL OPERATING HRS</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="text-vulcan-silver font-bold uppercase mb-2.5">DIRECT DISPATCH</div>
+          <ul class="space-y-1 text-[11px]">
+            <li>INTAKE DESK: COMMAND@VULCANLAB.IO</li>
+            <li>SQUAD LINE: +1 (800) 555-IRON</li>
+            <li class="pt-2">
+              <a href="#trial-booking" class="inline-block px-3 py-1.5 rounded bg-vulcan-orange text-black font-bold hover:bg-vulcan-orangeHover transition-colors">
+                CLAIM TRIAL PASS →
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-600">
+        <div>© 2026 VULCAN COLLECTIVE TRAINING LABS LLC. ALL RIGHTS RESERVED.</div>
+        <div class="flex items-center gap-4">
+          <span>SYSTEM STATUS: NOMINAL</span>
+          <span>//</span>
+          <span>FORGED IN IRON</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL 1: CONFIRMED TRIAL BOARDING PASS MODAL
+       ========================================================================== -->
+  <div id="pass-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="industrial-card max-w-lg w-full rounded p-6 border-2 border-vulcan-orange shadow-[0_0_50px_rgba(255,85,0,0.3)] relative">
+      <button
+        type="button"
+        onclick="closePassModal()"
+        aria-label="Close Modal"
+        class="absolute top-4 right-4 w-8 h-8 rounded bg-zinc-900 border border-zinc-700 text-zinc-300 hover:text-vulcan-orange flex items-center justify-center font-mono"
+      >
+        ✕
+      </button>
+
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-vulcan-orange/20 border border-vulcan-orange text-vulcan-orange font-mono text-[11px] font-bold mb-3">
+        ✓ PLATFORM SLOT LOCKED &amp; CONFIRMED
+      </div>
+
+      <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase text-white mb-1">
+        WELCOME TO THE FLOOR, <span id="modal-athlete-name" class="text-vulcan-orange">ATHLETE</span>
+      </h3>
+      <p class="text-xs text-zinc-300 font-mono mb-4">
+        Your trial intake credential has been logged with the Coaching Directorate. Present your Pass ID at Gate 01 15 minutes prior to session start.
+      </p>
+
+      <div class="bg-black border border-zinc-800 rounded p-4 font-mono text-xs space-y-2.5 mb-5">
+        <div class="flex justify-between border-b border-zinc-900 pb-2">
+          <span class="text-zinc-500">CLEARANCE CODE:</span>
+          <strong id="modal-pass-code" class="text-vulcan-orange">VLC-8849-X</strong>
+        </div>
+        <div class="flex justify-between border-b border-zinc-900 pb-2">
+          <span class="text-zinc-500">TRAINING GOAL:</span>
+          <strong id="modal-goal" class="text-white">--</strong>
+        </div>
+        <div class="flex justify-between border-b border-zinc-900 pb-2">
+          <span class="text-zinc-500">CURRICULUM CLASS:</span>
+          <strong id="modal-program" class="text-white">--</strong>
+        </div>
+        <div class="flex justify-between border-b border-zinc-900 pb-2">
+          <span class="text-zinc-500">COMMAND COACH:</span>
+          <strong id="modal-coach" class="text-vulcan-silver">--</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500">DISPATCH SLOT:</span>
+          <strong id="modal-datetime" class="text-vulcan-orange">--</strong>
+        </div>
+      </div>
+
+      <!-- Copy Pass Code & Print Actions -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          type="button"
+          id="copy-pass-btn"
+          onclick="copyPassCode()"
+          class="flex-1 btn-silver py-3 rounded font-mono text-xs font-bold uppercase"
+        >
+          COPY PASS CODE TO CLIPBOARD
+        </button>
+        <button
+          type="button"
+          onclick="closePassModal()"
+          class="flex-1 btn-neon py-3 rounded font-display text-sm uppercase"
+        >
+          DONE // RETURN TO LAB
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: COACH FULL DOSSIER INSPECTION MODAL
+       ========================================================================== -->
+  <div id="coach-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="industrial-card max-w-2xl w-full rounded overflow-hidden border border-vulcan-silver/40 relative">
+      <button
+        type="button"
+        onclick="closeCoachModal()"
+        aria-label="Close Coach Dossier"
+        class="absolute top-3 right-3 z-20 w-8 h-8 rounded bg-black/90 border border-zinc-700 text-zinc-200 hover:text-vulcan-orange flex items-center justify-center font-mono"
+      >
+        ✕
+      </button>
+
+      <div id="coach-modal-content">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       APPLICATION DATA & INTERACTIVE CONTROLLERS
+       ========================================================================== -->
+  <script>
+    // --------------------------------------------------------------------------
+    // 1. ELITE COACHING CADRE DATA (Used in Hero Showcase & Full Coach Section)
+    // --------------------------------------------------------------------------
+    const coachesData = [
+      {
+        id: 'CDR-01',
+        name: 'Kaelen Vance',
+        role: 'Head of Strength',
+        selectValue: 'Kaelen Vance (Head of Strength)',
+        specialty: 'MAXIMAL STRENGTH & MYOFIBRILLAR HYPERTROPHY',
+        experience: '14 YEARS',
+        metric: '310KG DEADLIFT',
+        athletesCoached: '1,420+',
+        avgSquatDelta: '+42.5 KG (16 WKS)',
+        certs: ['NSCA-CSCS', 'USAW-L2', 'WESTSIDE BARBELL CERT', 'PRECISION NUTRITION L2'],
+        background: 'Former National Powerlifting Silver Medalist (100kg class) and Division I Strength & Conditioning Director. Specializes in conjugate strength periodization and structural joint resilience.',
+        quote: 'Iron doesn\'t care about your excuses or your mood. We build structural armor through progressive overload and relentless technical precision.',
+        image: 'https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1000&q=85'
+      },
+      {
+        id: 'CDR-02',
+        name: 'Elena Rostova',
+        role: 'Metabolic & Conditioning Lead',
+        selectValue: 'Elena Rostova (Metabolic & Conditioning)',
+        specialty: 'ALACTIC POWER & METABOLIC FAT OXIDATION',
+        experience: '11 YEARS',
+        metric: '6:38 2K CONCEPT2 ROW',
+        athletesCoached: '1,180+',
+        avgSquatDelta: '-7.8% BODY FAT AVG',
+        certs: ['EXOS PERFORMANCE SPEC', 'NSCA-CSCS', 'CROSSFIT L3', 'ISSN SPORTS NUTRITION'],
+        background: 'Former European Track & Field 400m Hurdler and Tactical Conditioning Consultant. Architects high-output anaerobic intervals that strip visceral fat while preserving lean contractile tissue.',
+        quote: 'When your lungs burn and your legs feel like lead, your mind wants to negotiate. In this collective, we don\'t negotiate with fatigue.',
+        image: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=1000&q=85'
+      },
+      {
+        id: 'CDR-03',
+        name: 'Marcus Thorne',
+        role: 'Olympic Lifting & Power Director',
+        selectValue: 'Marcus Thorne (Olympic Lifting & Power)',
+        specialty: 'EXPLOSIVE TRIPLE EXTENSION & RATE OF FORCE',
+        experience: '12 YEARS',
+        metric: '185KG CLEAN & JERK',
+        athletesCoached: '960+',
+        avgSquatDelta: '+19% PEAK WATTS',
+        certs: ['USAW NATIONAL COACH', 'NSCA-CSCS', 'FMS LEVEL 2', 'FRC MOBILITY SPEC'],
+        background: 'Two-time Olympic Trials qualifier in weightlifting and biomechanics lab researcher. Obsessed with bar path velocity, force-plate symmetry, and explosive athletic transfer.',
+        quote: 'Strength without speed is just heavy grinding. We train your central nervous system to fire like a high-caliber piston on command.',
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85'
+      },
+      {
+        id: 'CDR-04',
+        name: 'Sora Takahashi',
+        role: 'Hypertrophy & Biomechanics Specialist',
+        selectValue: 'Sora Takahashi (Hypertrophy & Biomechanics)',
+        specialty: 'SYMMETRICAL MASS & TIME-UNDER-TENSION',
+        experience: '9 YEARS',
+        metric: '5.8% COMPETITION BF',
+        athletesCoached: '890+',
+        avgSquatDelta: '+4.6 KG LEAN MASS',
+        certs: ['NASM-PES', 'NSCA-CSCS', 'RTS BIOMECHANICS', 'ISSA HYPERTROPHY'],
+        background: 'Natural Pro Physique competitor and Kinesiologist. Combines EMG-verified exercise mechanics with brutal eccentric tempo protocols to force muscular growth past plateaus.',
+        quote: 'Every rep has a biomechanical signature. Control the eccentric, own the end-range, and force the muscle belly to adapt.',
+        image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1000&q=85'
+      },
+      {
+        id: 'CDR-05',
+        name: 'Dante Morales',
+        role: 'Tactical Work Capacity Coach',
+        selectValue: 'Dante Morales (Tactical Work Capacity)',
+        specialty: 'LOADED CARRIES, GRIT & DURABILITY',
+        experience: '15 YEARS',
+        metric: 'SUB-34 MIN MURPH (VESTED)',
+        athletesCoached: '1,650+',
+        avgSquatDelta: '+41% WORK CAPACITY',
+        certs: ['NSCA-TSAC-F', 'CSCS', 'TACTICAL STRENGTH L2', 'RED CROSS ALS'],
+        background: 'Former Special Operations Human Performance Instructor. Designs grueling squad-based strongman and loaded-carry circuits that forge mental calluses and unshakeable team cohesion.',
+        quote: 'Nobody gets left behind on my turf. You carry the sandbag together, you suffer together, and you ring the PR bell together.',
+        image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1000&q=85'
+      },
+      {
+        id: 'CDR-06',
+        name: 'Freya Lindqvist',
+        role: 'Athletic Speed & VO2 Max Lead',
+        selectValue: 'Freya Lindqvist (Athletic Speed & VO2)',
+        specialty: 'VO2 MAX CEILING & LACTATE CLEARANCE',
+        experience: '8 YEARS',
+        metric: '68.4 ML/KG/MIN VO2MAX',
+        athletesCoached: '740+',
+        avgSquatDelta: '-14 BPM RESTING HR',
+        certs: ['EXOS XPS', 'CSCS', 'USATF LEVEL 2', 'ALTIS SHORT SPRINTS'],
+        background: 'Scandinavian decathlon & hybrid-athlete champion. Specializes in cardiac output development, SkiErg/Assault Bike threshold pacing, and multi-directional agility.',
+        quote: 'Your aerobic engine dictates how fast you recover between heavy sets. Build a massive engine and you become unstoppable in the fourth quarter.',
+        image: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?auto=format&fit=crop&w=1000&q=85'
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // 2. GOAL-BASED CURRICULUM DATA (6 High-Density Protocols)
+    // --------------------------------------------------------------------------
+    const curriculumData = [
+      {
+        code: 'VLC-HYP-01',
+        title: 'IRON ARCHITECTURE',
+        category: 'MUSCLE_GAIN',
+        categoryLabel: 'MUSCLE GAIN // HYPERTROPHY',
+        bookingSelectValue: 'VLC-HYP-01 // IRON ARCHITECTURE',
+        coach: 'Sora Takahashi',
+        duration: '75 MIN',
+        schedule: 'MON / WED / FRI • 06:00, 12:00, 18:00',
+        adaptation: 'Myofibrillar & Sarcoplasmic Hypertrophy, Mechanical Tension, Eccentric Overload',
+        equipment: ['Eleiko Competition Racks', 'Keiser Functional Cables', 'Prime Adjustable Benches', 'Watson Thick-Grip Dumbbells'],
+        cnsLoad: 85,
+        metabolicLoad: 65,
+        hypertrophyLoad: 98,
+        spotsLeft: 2,
+        image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        code: 'VLC-STR-02',
+        title: 'MONOLITH BARBELL',
+        category: 'MUSCLE_GAIN',
+        categoryLabel: 'MUSCLE GAIN // MAXIMAL STRENGTH',
+        bookingSelectValue: 'VLC-STR-02 // MONOLITH BARBELL',
+        coach: 'Kaelen Vance',
+        duration: '80 MIN',
+        schedule: 'TUE / THU / SAT • 05:30, 17:30, 19:00',
+        adaptation: 'Peak 1RM Force Production, Posterior Chain Density, CNS Motor Unit Recruitment',
+        equipment: ['Eleiko IWF Power Platforms', 'Kabuki Calibrated Plates', 'Safety Squat & Duffalo Bars', 'GymAware Velocity Trackers'],
+        cnsLoad: 98,
+        metabolicLoad: 55,
+        hypertrophyLoad: 90,
+        spotsLeft: 1,
+        image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        code: 'VLC-MET-03',
+        title: 'FURNACE METCON-X',
+        category: 'FAT_LOSS',
+        categoryLabel: 'FAT LOSS // METABOLIC',
+        bookingSelectValue: 'VLC-MET-03 // FURNACE METCON-X',
+        coach: 'Elena Rostova',
+        duration: '60 MIN',
+        schedule: 'DAILY • 06:00, 07:00, 12:00, 17:30',
+        adaptation: 'EPOC Post-Exercise Caloric Burn, Lactate Threshold Buffering, Lean Mass Preservation',
+        equipment: ['Concept2 RowErg & SkiErg', 'Rogue Echo Assault Bikes', 'Competition Kettlebells', 'Prowler Heavy Sleds'],
+        cnsLoad: 78,
+        metabolicLoad: 99,
+        hypertrophyLoad: 70,
+        spotsLeft: 3,
+        image: 'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        code: 'VLC-SHD-04',
+        title: 'ANAEROBIC SHRED',
+        category: 'FAT_LOSS',
+        categoryLabel: 'FAT LOSS // ALACTIC SPRINTS',
+        bookingSelectValue: 'VLC-SHD-04 // ANAEROBIC SHRED',
+        coach: 'Dante Morales',
+        duration: '55 MIN',
+        schedule: 'MON / WED / FRI / SAT • 07:00, 18:30',
+        adaptation: 'Visceral Adipose Reduction, Alactic Power Output, Loaded Carry Structural Conditioning',
+        equipment: ['60m Turf Sprint Track', 'Strongman Husafell Sandbags', 'Farmers Walk Handles', 'Battle Ropes & Slam Balls'],
+        cnsLoad: 82,
+        metabolicLoad: 96,
+        hypertrophyLoad: 74,
+        spotsLeft: 4,
+        image: 'https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        code: 'VLC-ATH-05',
+        title: 'APEX COMBINED ARMS',
+        category: 'ATHLETIC_FITNESS',
+        categoryLabel: 'ATHLETIC FITNESS // CONDITIONING',
+        bookingSelectValue: 'VLC-ATH-05 // APEX COMBINED ARMS',
+        coach: 'Marcus Thorne',
+        duration: '75 MIN',
+        schedule: 'MON / TUE / THU / SAT • 05:30, 17:00',
+        adaptation: 'Explosive Olympic Triple Extension, Plyometric Elasticity, Multi-Planar Speed',
+        equipment: ['Eleiko Weightlifting Bars', 'VALD ForceDecks Plates', 'Plyo Soft Boxes', 'Keiser Pneumatic Resisted Sprint'],
+        cnsLoad: 94,
+        metabolicLoad: 85,
+        hypertrophyLoad: 80,
+        spotsLeft: 2,
+        image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        code: 'VLC-ENG-06',
+        title: 'VO2 THRESHOLD LAB',
+        category: 'ATHLETIC_FITNESS',
+        categoryLabel: 'ATHLETIC FITNESS // HYBRID ENGINE',
+        bookingSelectValue: 'VLC-ENG-06 // VO2 THRESHOLD LAB',
+        coach: 'Freya Lindqvist',
+        duration: '65 MIN',
+        schedule: 'TUE / THU / SUN • 06:30, 12:00, 18:00',
+        adaptation: 'Maximal Oxygen Uptake (VO2Max), Cardiac Stroke Volume, Hybrid Race Pacing',
+        equipment: ['Woodway Curve Treadmills', 'Concept2 Erg Flotilla', 'Polar Team Pro Telemetry', 'Wall Ball Targets'],
+        cnsLoad: 75,
+        metabolicLoad: 95,
+        hypertrophyLoad: 62,
+        spotsLeft: 3,
+        image: 'https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&w=900&q=80'
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // 3. MEMBER TRANSFORMATION CASE STUDIES DATA
+    // --------------------------------------------------------------------------
+    const memberStoriesData = [
+      {
+        id: 'CASE // 0104',
+        name: 'MARCUS VANCE-HUNT',
+        age: 34,
+        role: 'STRUCTURAL ARCHITECT // SQUAD ALPHA',
+        category: 'HYPERTROPHY',
+        timeframe: '16 WEEKS',
+        program: 'VLC-STR-02 // MONOLITH BARBELL',
+        coach: 'Kaelen Vance',
+        headlineDelta: '-6.2% BODY FAT | +45KG DEADLIFT | +4.1KG LEAN MASS',
+        metrics: [
+          { label: 'DEADLIFT 1RM', before: '190 KG', after: '235 KG', delta: '+45 KG' },
+          { label: 'BACK SQUAT 1RM', before: '145 KG', after: '182.5 KG', delta: '+37.5 KG' },
+          { label: 'DEXA BODY FAT', before: '18.4%', after: '12.2%', delta: '-6.2%' }
+        ],
+        quote: 'Before Vulcan, I lifted alone in commercial gyms for six years with zero progression. Here, my 05:30AM squad expects me on Platform 4 every single morning. Having seven brothers screaming for you to lock out a 235kg pull changes who you are outside the gym.',
+        image: 'https://images.unsplash.com/photo-1583454155184-870a1f63aebc?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'CASE // 0219',
+        name: 'CLAIRE KOWALSKI',
+        age: 29,
+        role: 'ER TRAUMA RESIDENT // SQUAD ECHO',
+        category: 'METABOLIC',
+        timeframe: '24 WEEKS',
+        program: 'VLC-MET-03 // FURNACE METCON-X',
+        coach: 'Elena Rostova',
+        headlineDelta: '-9.4% BODY FAT | 6 strict PULL-UPS | RESTING HR 49 BPM',
+        metrics: [
+          { label: 'DEXA BODY FAT', before: '27.8%', after: '18.4%', delta: '-9.4%' },
+          { label: '2000M ROW TIME', before: '8:42.0', after: '7:14.5', delta: '-1:27.5' },
+          { label: 'STRICT CHIN-UPS', before: '0 REPS', after: '8 REPS', delta: '+8 REPS' }
+        ],
+        quote: 'Working 14-hour trauma shifts drained everything I had. Coach Elena and Squad Echo never let me use work as an excuse—they scaled my load when I was post-call and pushed me to empty the tank when I was fresh. This collective is my anchor.',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'CASE // 0308',
+        name: 'DEVON K. BROOKS',
+        age: 38,
+        role: 'FINTECH DIRECTOR // SQUAD BRAVO',
+        category: 'ATHLETIC',
+        timeframe: '16 WEEKS',
+        program: 'VLC-ATH-05 // APEX COMBINED ARMS',
+        coach: 'Marcus Thorne',
+        headlineDelta: '+22% PEAK FORCE WATTS | 125KG POWER CLEAN | -8.1KG FAT',
+        metrics: [
+          { label: 'POWER CLEAN 1RM', before: '95 KG', after: '125 KG', delta: '+30 KG' },
+          { label: 'VERTICAL JUMP', before: '56 CM', after: '68.5 CM', delta: '+12.5 CM' },
+          { label: 'VO2 MAX SCORE', before: '46 ML/KG', after: '58 ML/KG', delta: '+12 ML/KG' }
+        ],
+        quote: 'At 38 I thought my explosive athletic prime was behind me. Force-plate testing every four weeks proved otherwise. The camaraderie on the turf during Saturday team relays feels exactly like being back in a varsity locker room.',
+        image: 'https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'CASE // 0412',
+        name: 'HANNAH LINDSTRÖM',
+        age: 31,
+        role: 'AEROSPACE ENGINEER // SQUAD DELTA',
+        category: 'HYPERTROPHY',
+        timeframe: '20 WEEKS',
+        program: 'VLC-HYP-01 // IRON ARCHITECTURE',
+        coach: 'Sora Takahashi',
+        headlineDelta: '+3.8KG LEAN MUSCLE | 140KG HIP THRUST | 115KG SQUAT',
+        metrics: [
+          { label: 'BACK SQUAT 1RM', before: '77.5 KG', after: '115 KG', delta: '+37.5 KG' },
+          { label: 'LEAN MASS (DEXA)', before: '48.2 KG', after: '52.0 KG', delta: '+3.8 KG' },
+          { label: 'BENCH PRESS 1RM', before: '45 KG', after: '67.5 KG', delta: '+22.5 KG' }
+        ],
+        quote: 'Vulcan taught me not to fear heavy iron. There are no mirrors for vanity here—just chalk, calibrated plates, and women who celebrate adding another 5kg to the bar like we just won a world title.',
+        image: 'https://images.unsplash.com/photo-1609899537878-88d5ba429bdb?auto=format&fit=crop&w=800&q=80'
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // 4. RENDER HERO COACH SELECTOR & INTERACTIVE SWITCHING
+    // --------------------------------------------------------------------------
+    let currentHeroCoachIndex = 0;
+
+    function renderHeroCoachSelector() {
+      const container = document.getElementById('hero-coach-selector');
+      if (!container) return;
+
+      const heroCoaches = coachesData.slice(0, 4);
+      container.innerHTML = heroCoaches.map((coach, idx) => {
+        const isActive = idx === currentHeroCoachIndex;
+        return `
+          <button
+            type="button"
+            onclick="setHeroCoach(${idx})"
+            onmouseenter="setHeroCoach(${idx})"
+            class="text-left rounded overflow-hidden border transition-all p-1.5 bg-zinc-950 ${
+              isActive
+                ? 'border-vulcan-orange ring-1 ring-vulcan-orange'
+                : 'border-zinc-800 hover:border-zinc-600 opacity-75 hover:opacity-100'
+            }"
+          >
+            <div class="h-14 sm:h-16 w-full rounded overflow-hidden mb-1.5 bg-black relative">
+              <img
+                src="${coach.image}"
+                alt="${coach.name}"
+                onerror="this.src='https://placehold.co/200x200/111111/FF5500?text=COACH'"
+                class="w-full h-full object-cover object-top bw-athletic-photo"
+              />
+              <span class="absolute bottom-0.5 right-0.5 px-1 bg-black/80 font-mono text-[9px] text-vulcan-orange">
+                ${coach.id}
+              </span>
+            </div>
+            <div class="font-display font-bold text-xs uppercase text-white truncate">${coach.name}</div>
+            <div class="font-mono text-[9px] text-zinc-400 truncate">${coach.role}</div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setHeroCoach(idx) {
+      currentHeroCoachIndex = idx;
+      const coach = coachesData[idx];
+      if (!coach) return;
+
+      document.getElementById('hero-coach-img').src = coach.image;
+      document.getElementById('hero-coach-img').alt = coach.name;
+      document.getElementById('hero-coach-code').textContent = `ID // ${coach.id} • ${coach.role.toUpperCase()}`;
+      document.getElementById('hero-coach-cert').textContent = `${coach.certs[0]} // ${coach.certs[1]}`;
+      document.getElementById('hero-coach-name').textContent = coach.name;
+      document.getElementById('hero-coach-specialty').textContent = coach.specialty;
+      document.getElementById('hero-coach-quote').textContent = `"${coach.quote}"`;
+      document.getElementById('hero-coach-exp').textContent = coach.experience;
+      document.getElementById('hero-coach-metric').textContent = coach.metric;
+      document.getElementById('hero-coach-book-btn').setAttribute('onclick', `selectCoachAndScroll('${coach.name}')`);
+
+      renderHeroCoachSelector();
+    }
+
+    // --------------------------------------------------------------------------
+    // 5. RENDER GOAL-BASED CURRICULUM CARDS & FILTER SYSTEM
+    // --------------------------------------------------------------------------
+    function renderCurriculum(filter = 'ALL') {
+      const grid = document.getElementById('curriculum-grid');
+      const countReadout = document.getElementById('curriculum-count-readout');
+      if (!grid) return;
+
+      const filtered = filter === 'ALL'
+        ? curriculumData
+        : curriculumData.filter(item => item.category === filter);
+
+      if (countReadout) {
+        countReadout.textContent = `SHOWING ${filtered.length} OF ${curriculumData.length} PROTOCOLS`;
+      }
+
+      grid.innerHTML = filtered.map(prog => `
+        <article class="industrial-card rounded overflow-hidden flex flex-col justify-between group">
+          <div>
+            <!-- Top Image with High-Contrast B&W + Vignette -->
+            <div class="relative h-52 bg-black focal-vignette dof-edge-blur overflow-hidden border-b border-zinc-800">
+              <img
+                src="${prog.image}"
+                alt="${prog.title}"
+                onerror="this.src='https://placehold.co/600x400/111111/FF5500?text=${encodeURIComponent(prog.code)}'"
+                class="w-full h-full object-cover bw-athletic-photo"
+              />
+              <div class="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded bg-black/90 border border-vulcan-orange text-vulcan-orange font-mono text-[11px] font-bold">
+                  ${prog.code}
+                </span>
+                <span class="px-2 py-0.5 rounded bg-black/90 border border-zinc-700 text-vulcan-silver font-mono text-[10px]">
+                  ${prog.duration}
+                </span>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2 py-0.5 rounded bg-vulcan-orange text-black font-mono text-[10px] font-bold">
+                  ${prog.spotsLeft} SPOTS LEFT
+                </span>
+              </div>
+              <div class="absolute bottom-3 left-3 right-3 z-10">
+                <div class="font-mono text-[10px] text-vulcan-silver uppercase tracking-wider">${prog.categoryLabel}</div>
+                <h3 class="font-display font-bold text-2xl uppercase text-white tracking-wide">${prog.title}</h3>
+              </div>
+            </div>
+
+            <!-- Program Telemetry & Physiological Specs -->
+            <div class="p-4 space-y-3.5">
+              <div>
+                <div class="font-mono text-[10px] text-zinc-500 uppercase">TARGET PHYSIOLOGICAL ADAPTATION</div>
+                <p class="text-xs text-zinc-200 font-medium mt-0.5">${prog.adaptation}</p>
+              </div>
+
+              <!-- Intensity Meters -->
+              <div class="bg-zinc-950 p-3 rounded border border-zinc-800/90 space-y-2 font-mono text-[10px]">
+                <div>
+                  <div class="flex justify-between text-zinc-400 mb-0.5">
+                    <span>CNS NEURAL LOAD</span>
+                    <span class="text-white font-bold">${prog.cnsLoad}%</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded overflow-hidden">
+                    <div class="h-full bg-vulcan-orange" style="width: ${prog.cnsLoad}%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-zinc-400 mb-0.5">
+                    <span>METABOLIC DEMAND</span>
+                    <span class="text-white font-bold">${prog.metabolicLoad}%</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded overflow-hidden">
+                    <div class="h-full bg-vulcan-silver" style="width: ${prog.metabolicLoad}%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-zinc-400 mb-0.5">
+                    <span>HYPERTROPHY STIMULUS</span>
+                    <span class="text-white font-bold">${prog.hypertrophyLoad}%</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded overflow-hidden">
+                    <div class="h-full bg-vulcan-orange" style="width: ${prog.hypertrophyLoad}%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Equipment Arsenal Tags -->
+              <div>
+                <div class="font-mono text-[10px] text-zinc-500 uppercase mb-1.5">ARSENAL &amp; HARDWARE DEPLOYED</div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${prog.equipment.map(eq => `
+                    <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[10px] text-zinc-300">
+                      ${eq}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Schedule & Direct Reserve CTA -->
+          <div class="p-4 pt-3 border-t border-zinc-800/90 bg-zinc-950/60 flex items-center justify-between gap-2">
+            <div class="font-mono text-[10px]">
+              <span class="text-zinc-500 block">DISPATCH SCHEDULE</span>
+              <span class="text-vulcan-silver font-semibold">${prog.schedule}</span>
+            </div>
+            <button
+              type="button"
+              onclick="selectProgramAndScroll('${prog.bookingSelectValue}', '${prog.categoryLabel}', '${prog.coach}')"
+              class="btn-neon px-3.5 py-2 rounded font-display text-xs tracking-wider shrink-0"
+            >
+              RESERVE SPOT →
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // --------------------------------------------------------------------------
+    // 6. RENDER COACH PROFILES GRID & DOSSIER MODAL
+    // --------------------------------------------------------------------------
+    function renderCoaches() {
+      const grid = document.getElementById('coaches-grid');
+      if (!grid) return;
+
+      grid.innerHTML = coachesData.map((coach, idx) => `
+        <article class="industrial-card rounded overflow-hidden flex flex-col justify-between group">
+          <div>
+            <!-- High-Contrast B&W Coach Portrait -->
+            <div class="relative h-64 bg-black focal-vignette dof-edge-blur overflow-hidden border-b border-zinc-800">
+              <img
+                src="${coach.image}"
+                alt="${coach.name}"
+                onerror="this.src='https://placehold.co/600x600/111111/FF5500?text=${encodeURIComponent(coach.name)}'"
+                class="w-full h-full object-cover object-top bw-athletic-photo"
+              />
+              <div class="absolute top-3 left-3 z-10 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-black/90 border border-zinc-700 font-mono text-[11px] text-vulcan-orange font-bold">
+                  ${coach.id}
+                </span>
+                <span class="px-2 py-0.5 rounded bg-black/90 border border-zinc-700 font-mono text-[10px] text-vulcan-silver">
+                  EXP: ${coach.experience}
+                </span>
+              </div>
+              <div class="absolute bottom-3 left-3 right-3 z-10">
+                <div class="font-mono text-[10px] text-vulcan-orange uppercase font-bold">${coach.role}</div>
+                <h3 class="font-display font-bold text-2xl uppercase text-white tracking-wide">${coach.name}</h3>
+              </div>
+            </div>
+
+            <!-- Coach Credentials & Background -->
+            <div class="p-4 space-y-3.5">
+              <div>
+                <div class="font-mono text-[10px] text-zinc-500 uppercase">PRIMARY SPECIALIZATION</div>
+                <div class="font-mono text-xs text-vulcan-silver font-bold mt-0.5">${coach.specialty}</div>
+              </div>
+
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                ${coach.background}
+              </p>
+
+              <!-- Verified Certification Badges -->
+              <div>
+                <div class="font-mono text-[10px] text-zinc-500 uppercase mb-1.5">VERIFIED CERTIFICATIONS &amp; LICENSES</div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${coach.certs.map(cert => `
+                    <span class="px-2 py-0.5 rounded bg-zinc-900 border border-vulcan-silver/30 font-mono text-[10px] text-vulcan-silver">
+                      ✓ ${cert}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Key Telemetry Readout -->
+              <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800 font-mono text-[11px]">
+                <div class="bg-zinc-950 p-2 rounded border border-zinc-800">
+                  <span class="text-[9px] text-zinc-500 block">BENCHMARK OUTPUT</span>
+                  <strong class="text-vulcan-orange">${coach.metric}</strong>
+                </div>
+                <div class="bg-zinc-950 p-2 rounded border border-zinc-800">
+                  <span class="text-[9px] text-zinc-500 block">SQUAD RESULT DELTA</span>
+                  <strong class="text-white">${coach.avgSquatDelta}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coach Card Action Footer -->
+          <div class="p-4 pt-3 border-t border-zinc-800 bg-zinc-950/70 flex items-center gap-2">
+            <button
+              type="button"
+              onclick="openCoachModal(${idx})"
+              class="btn-silver flex-1 py-2 rounded font-mono text-[11px] uppercase"
+            >
+              INSPECT DOSSIER
+            </button>
+            <button
+              type="button"
+              onclick="selectCoachAndScroll('${coach.name}')"
+              class="btn-neon flex-1 py-2 rounded font-display text-xs tracking-wider uppercase"
+            >
+              BOOK WITH COACH →
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openCoachModal(idx) {
+      const coach = coachesData[idx];
+      if (!coach) return;
+
+      const modal = document.getElementById('coach-modal');
+      const content = document.getElementById('coach-modal-content');
+
+      content.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-12">
+          <div class="md:col-span-5 relative min-h-[260px] bg-black focal-vignette">
+            <img
+              src="${coach.image}"
+              alt="${coach.name}"
+              class="w-full h-full object-cover object-top bw-athletic-photo"
+            />
+            <div class="absolute bottom-3 left-3 z-10">
+              <span class="px-2 py-0.5 rounded bg-vulcan-orange text-black font-mono text-[10px] font-bold">
+                ${coach.id} // VERIFIED
+              </span>
+            </div>
+          </div>
+          <div class="md:col-span-7 p-6 space-y-4">
+            <div>
+              <div class="font-mono text-xs text-vulcan-orange uppercase font-bold">${coach.role}</div>
+              <h3 class="font-display font-bold text-3xl uppercase text-white">${coach.name}</h3>
+            </div>
+
+            <blockquote class="text-xs italic text-zinc-300 border-l-2 border-vulcan-orange pl-3">
+              "${coach.quote}"
+            </blockquote>
+
+            <p class="text-xs text-zinc-300 leading-relaxed">${coach.background}</p>
+
+            <div class="grid grid-cols-3 gap-2 font-mono text-xs bg-zinc-950 p-3 rounded border border-zinc-800">
+              <div>
+                <span class="text-[10px] text-zinc-500 block">TENURE</span>
+                <strong class="text-white">${coach.experience}</strong>
+              </div>
+              <div>
+                <span class="text-[10px] text-zinc-500 block">ATHLETES LED</span>
+                <strong class="text-vulcan-orange">${coach.athletesCoached}</strong>
+              </div>
+              <div>
+                <span class="text-[10px] text-zinc-500 block">PEAK METRIC</span>
+                <strong class="text-vulcan-silver">${coach.metric}</strong>
+              </div>
+            </div>
+
+            <div>
+              <div class="font-mono text-[10px] text-zinc-500 uppercase mb-1.5">ACCREDITATIONS</div>
+              <div class="flex flex-wrap gap-1.5">
+                ${coach.certs.map(c => `<span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-vulcan-silver">✓ ${c}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="pt-2 flex gap-3">
+              <button
+                type="button"
+                onclick="closeCoachModal(); selectCoachAndScroll('${coach.name}');"
+                class="w-full btn-neon py-3 rounded font-display text-sm uppercase tracking-wider"
+              >
+                BOOK TRIAL SESSION WITH ${coach.name.toUpperCase()} →
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCoachModal() {
+      const modal = document.getElementById('coach-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // --------------------------------------------------------------------------
+    // 7. RENDER MEMBER TRANSFORMATION CASE STUDIES
+    // --------------------------------------------------------------------------
+    function renderStories(filter = 'ALL') {
+      const grid = document.getElementById('stories-grid');
+      if (!grid) return;
+
+      const filtered = filter === 'ALL'
+        ? memberStoriesData
+        : memberStoriesData.filter(s => s.category === filter);
+
+      grid.innerHTML = filtered.map(story => `
+        <article class="industrial-card rounded overflow-hidden grid grid-cols-1 sm:grid-cols-12 group">
+          <!-- Left Athlete Portrait -->
+          <div class="sm:col-span-5 relative min-h-[260px] bg-black focal-vignette dof-edge-blur border-b sm:border-b-0 sm:border-r border-zinc-800">
+            <img
+              src="${story.image}"
+              alt="${story.name}"
+              onerror="this.src='https://placehold.co/500x600/111111/FF5500?text=MEMBER+CASE'"
+              class="w-full h-full object-cover object-center bw-athletic-photo"
+            />
+            <div class="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+              <span class="px-2 py-0.5 rounded bg-black/90 border border-zinc-700 font-mono text-[10px] text-vulcan-silver">
+                ${story.id}
+              </span>
+              <span class="px-2 py-0.5 rounded bg-vulcan-orange text-black font-mono text-[10px] font-bold">
+                ${story.timeframe}
+              </span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 z-10">
+              <h3 class="font-display font-bold text-xl uppercase text-white">${story.name}</h3>
+              <div class="font-mono text-[10px] text-zinc-300">${story.role}</div>
+            </div>
+          </div>
+
+          <!-- Right Biometric Telemetry & Quote -->
+          <div class="sm:col-span-7 p-4 sm:p-5 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="px-2.5 py-1.5 rounded bg-vulcan-orange/10 border border-vulcan-orange/40 font-mono text-[11px] text-vulcan-orange font-bold">
+                Δ ${story.headlineDelta}
+              </div>
+
+              <!-- Before / After Telemetry Spec Table -->
+              <div class="bg-zinc-950 rounded border border-zinc-800 overflow-hidden font-mono text-[11px]">
+                <div class="grid grid-cols-4 bg-zinc-900/90 px-2.5 py-1.5 text-[10px] text-zinc-400 border-b border-zinc-800">
+                  <span>BIOMETRIC</span>
+                  <span>DAY 01</span>
+                  <span>FINAL</span>
+                  <span class="text-right">NET DELTA</span>
+                </div>
+                ${story.metrics.map(m => `
+                  <div class="grid grid-cols-4 px-2.5 py-1.5 border-b border-zinc-900 last:border-0">
+                    <span class="text-zinc-300 font-semibold">${m.label}</span>
+                    <span class="text-zinc-500">${m.before}</span>
+                    <span class="text-white font-bold">${m.after}</span>
+                    <span class="text-vulcan-orange font-bold text-right">${m.delta}</span>
+                  </div>
+                `).join('')}
+              </div>
+
+              <blockquote class="text-xs text-zinc-300 italic leading-relaxed border-l-2 border-vulcan-silver pl-3">
+                "${story.quote}"
+              </blockquote>
+            </div>
+
+            <div class="pt-3 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px]">
+              <div>
+                <span class="text-zinc-500">PROTOCOL:</span>
+                <strong class="text-vulcan-silver ml-1">${story.program}</strong>
+              </div>
+              <div>
+                <span class="text-zinc-500">COACH:</span>
+                <strong class="text-white ml-1">${story.coach}</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // --------------------------------------------------------------------------
+    // 8. INTERACTIVE BOOKING ENGINE & LIVE BOARDING PASS PREVIEW
+    // --------------------------------------------------------------------------
+    let selectedGoalValue = 'MUSCLE GAIN // HYPERTROPHY';
+
+    function initBookingEngine() {
+      // Set default date to tomorrow
+      const dateInput = document.getElementById('booking-date');
+      if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const yyyy = tomorrow.getFullYear();
+        const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const dd = String(tomorrow.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+      }
+
+      // Goal buttons click listener
+      const goalBtns = document.querySelectorAll('.booking-goal-btn');
+      goalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedGoalValue = btn.getAttribute('data-goal');
+          goalBtns.forEach(b => {
+            b.className = 'booking-goal-btn p-3 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 text-left transition-all';
+          });
+          btn.className = 'booking-goal-btn p-3 rounded border border-vulcan-orange bg-vulcan-orange/15 text-left transition-all';
+          updateLivePassPreview();
+        });
+      });
+
+      // Live input listeners
+      ['booking-program', 'booking-coach', 'booking-date', 'booking-slot', 'athlete-name', 'athlete-level'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', updateLivePassPreview);
+          el.addEventListener('change', updateLivePassPreview);
+        }
+      });
+
+      // Form Submission
+      const form = document.getElementById('trial-booking-form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          generateConfirmedPassModal();
+        });
+      }
+
+      updateLivePassPreview();
+    }
+
+    function updateLivePassPreview() {
+      const nameVal = document.getElementById('athlete-name')?.value.trim() || 'AWAITING INPUT...';
+      const levelVal = document.getElementById('athlete-level')?.value.split(' // ')[0] || 'INTERMEDIATE';
+      const progVal = document.getElementById('booking-program')?.value || 'VLC-HYP-01 // IRON ARCHITECTURE';
+      const coachVal = document.getElementById('booking-coach')?.value.split(' (')[0] || 'Kaelen Vance';
+      const dateVal = document.getElementById('booking-date')?.value || '--';
+      const slotVal = document.getElementById('booking-slot')?.value.split(' // ')[0] || '05:30 AM';
+
+      document.getElementById('preview-athlete-name').textContent = nameVal.toUpperCase();
+      document.getElementById('preview-level-badge').textContent = levelVal;
+      document.getElementById('preview-goal').textContent = selectedGoalValue;
+      document.getElementById('preview-program').textContent = progVal;
+      document.getElementById('preview-coach').textContent = coachVal;
+      document.getElementById('preview-date').textContent = dateVal;
+      document.getElementById('preview-slot').textContent = slotVal;
+    }
+
+    function selectProgramAndScroll(programSelectValue, goalLabel, coachName) {
+      const progSelect = document.getElementById('booking-program');
+      if (progSelect) progSelect.value = programSelectValue;
+
+      // Also match coach
+      const coachObj = coachesData.find(c => c.name === coachName);
+      const coachSelect = document.getElementById('booking-coach');
+      if (coachObj && coachSelect) {
+        coachSelect.value = coachObj.selectValue;
+      }
+
+      // Highlight matching goal button
+      selectedGoalValue = goalLabel;
+      updateLivePassPreview();
+
+      document.getElementById('trial-booking')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function selectCoachAndScroll(coachName) {
+      const coachObj = coachesData.find(c => c.name === coachName);
+      const coachSelect = document.getElementById('booking-coach');
+      if (coachObj && coachSelect) {
+        coachSelect.value = coachObj.selectValue;
+      }
+      updateLivePassPreview();
+      document.getElementById('trial-booking')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function generateConfirmedPassModal() {
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const passCode = `VLC-${randomNum}-LAB`;
+      const nameVal = document.getElementById('athlete-name')?.value.trim() || 'ATHLETE';
+      const progVal = document.getElementById('booking-program')?.value || '';
+      const coachVal = document.getElementById('booking-coach')?.value || '';
+      const dateVal = document.getElementById('booking-date')?.value || '';
+      const slotVal = document.getElementById('booking-slot')?.value || '';
+
+      document.getElementById('preview-pass-id').textContent = passCode;
+      document.getElementById('modal-pass-code').textContent = passCode;
+      document.getElementById('modal-athlete-name').textContent = nameVal.toUpperCase();
+      document.getElementById('modal-goal').textContent = selectedGoalValue;
+      document.getElementById('modal-program').textContent = progVal;
+      document.getElementById('modal-coach').textContent = coachVal;
+      document.getElementById('modal-datetime').textContent = `${dateVal} @ ${slotVal}`;
+
+      const modal = document.getElementById('pass-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePassModal() {
+      const modal = document.getElementById('pass-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function copyPassCode() {
+      const code = document.getElementById('modal-pass-code')?.textContent || 'VLC-8849-X';
+      const tempInput = document.createElement('textarea');
+      tempInput.value = code;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const copyBtn = document.getElementById('copy-pass-btn');
+      if (copyBtn) {
+        const original = copyBtn.textContent;
+        copyBtn.textContent = '✓ PASS CODE COPIED: ' + code;
+        copyBtn.classList.add('border-vulcan-orange', 'text-vulcan-orange');
+        setTimeout(() => {
+          copyBtn.textContent = original;
+        }, 2500);
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 9. INITIALIZE ALL TABS, MOBILE NAV & LIVE TELEMETRY TICKER ON LOAD
+    // --------------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHeroCoachSelector();
+      renderCurriculum('ALL');
+      renderCoaches();
+      renderStories('ALL');
+      initBookingEngine();
+
+      // Curriculum Filter Tabs
+      const currTabs = document.querySelectorAll('.curriculum-tab');
+      currTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const filter = tab.getAttribute('data-filter');
+          currTabs.forEach(t => {
+            t.className = 'curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange';
+          });
+          tab.className = 'curriculum-tab px-4 py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all bg-vulcan-orange text-black shadow-[0_0_15px_rgba(255,85,0,0.35)]';
+          renderCurriculum(filter);
+        });
+      });
+
+      // Member Stories Filter Tabs
+      const storyTabs = document.querySelectorAll('.story-tab');
+      storyTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const filter = tab.getAttribute('data-story-filter');
+          storyTabs.forEach(t => {
+            t.className = 'story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-vulcan-orange';
+          });
+          tab.className = 'story-tab px-3.5 py-2 rounded font-mono text-xs font-bold uppercase bg-vulcan-orange text-black';
+          renderStories(filter);
+        });
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+      }
+
+      // Live Telemetry Micro-Updater (Simulates Barbell Tonnage & Floor Activity)
+      let currentTonnage = 54820;
+      setInterval(() => {
+        currentTonnage += Math.floor(Math.random() * 140) + 40;
+        const tonnageEl = document.getElementById('telemetry-tonnage');
+        if (tonnageEl) {
+          tonnageEl.textContent = currentTonnage.toLocaleString() + ' KG';
+        }
+      }, 4500);
+    });
+  </script>
+</body>
+</html>

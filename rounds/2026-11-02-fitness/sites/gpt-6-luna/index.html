@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111110">
+  <meta name="description" content="IRONVALE is a strength and conditioning club built around serious coaching and a stronger community.">
+  <title>IRONVALE — Strength looks better together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111110;
+      --panel: #191918;
+      --panel-2: #20201f;
+      --line: #363634;
+      --muted: #9a9994;
+      --paper: #f3f1eb;
+      --orange: #ff5b28;
+      --silver: #c1c1bd;
+      --heading: "Barlow Condensed", Impact, sans-serif;
+      --body: "DM Sans", Arial, sans-serif;
+      --page-pad: clamp(20px, 5.1vw, 82px);
+      --wrap: 1440px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; color: var(--paper); background: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .13; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(100%, var(--wrap)); margin-inline: auto; padding-inline: var(--page-pad); }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--silver); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; display: inline-block; width: 22px; height: 2px; background: var(--orange); }
+    .topline { height: 34px; padding: 0 var(--page-pad); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ffffff12; color: #b7b6b0; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+    .topline span:last-child { color: var(--orange); }
+    .site-header { position: absolute; z-index: 20; inset: 34px 0 auto; height: 78px; border-bottom: 1px solid #ffffff18; }
+    .nav { height: 100%; display: flex; align-items: center; justify-content: space-between; padding-inline: var(--page-pad); }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--heading); font-size: 29px; line-height: .84; font-weight: 900; letter-spacing: .02em; }
+    .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--orange); color: var(--orange); font-size: 17px; transform: skew(-8deg); }
+    .brand small { display: block; margin-top: 5px; color: #aaa9a3; font-family: var(--body); font-size: 7px; line-height: 1; font-weight: 700; letter-spacing: .25em; }
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 48px); align-items: center; margin-left: auto; margin-right: 38px; }
+    .nav-links a { color: #d2d0ca; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta, .button { display: inline-flex; min-height: 48px; padding: 0 19px; justify-content: center; align-items: center; gap: 20px; border: 1px solid var(--orange); background: var(--orange); color: #121110; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: .2s ease; }
+    .nav-cta:hover, .button:hover { background: transparent; color: var(--orange); }
+    .button .arrow { font-size: 18px; line-height: 0; transition: transform .2s ease; }
+    .button:hover .arrow { transform: translateX(4px); }
+    .menu-toggle { display: none; border: 0; padding: 8px; background: transparent; }
+    .hero { position: relative; min-height: 735px; height: min(900px, 100svh); display: flex; align-items: center; overflow: hidden; background: #090909; }
+    .hero-photo { position: absolute; inset: 0 0 0 31%; width: 69%; height: 100%; object-fit: cover; object-position: 50% 39%; filter: grayscale(1) contrast(1.11) brightness(.78); }
+    .hero::before { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, #111110 0%, #111110 25%, rgba(17,17,16,.86) 42%, rgba(17,17,16,.19) 74%, rgba(17,17,16,.26) 100%), linear-gradient(0deg, #111110 0%, transparent 25%, transparent 79%, rgba(17,17,16,.46) 100%); }
+    .hero::after { content: ""; position: absolute; z-index: 2; top: 30%; bottom: 17%; left: 6.9%; width: 1px; background: linear-gradient(transparent, #ff5b28 24%, #ff5b28 78%, transparent); opacity: .8; }
+    .hero-inner { position: relative; z-index: 3; width: 100%; padding: 135px var(--page-pad) 48px; }
+    .hero-copy { max-width: 740px; }
+    .hero-copy .eyebrow { margin-bottom: 23px; }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 { margin-bottom: 19px; font-family: var(--heading); font-size: clamp(78px, 11.8vw, 170px); line-height: .77; font-weight: 900; letter-spacing: -.035em; text-transform: uppercase; }
+    .hero h1 span { display: block; color: var(--orange); }
+    .hero-intro { max-width: 370px; margin: 25px 0 27px; color: #d0cec8; font-size: 13px; line-height: 1.65; }
+    .hero-meta { display: flex; align-items: center; gap: 18px; margin-top: 53px; }
+    .coach-stack { display: flex; padding-left: 2px; }
+    .coach-stack img { width: 37px; height: 37px; margin-left: -3px; border: 2px solid var(--ink); border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+    .meta-copy { color: #cbc9c3; font-size: 10px; line-height: 1.45; }
+    .meta-copy strong { display: block; color: var(--paper); font-size: 11px; }
+    .hero-index { position: absolute; z-index: 3; right: var(--page-pad); top: 52%; display: flex; align-items: center; gap: 12px; color: #ddd; font-family: var(--heading); font-size: 13px; letter-spacing: .12em; writing-mode: vertical-rl; }
+    .hero-index::before { content: ""; width: 1px; height: 48px; background: var(--orange); }
+    .hero-caption { position: absolute; z-index: 3; right: var(--page-pad); bottom: 58px; color: #dad9d3; font-size: 9px; font-weight: 700; letter-spacing: .19em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .hero-caption span { color: var(--orange); }
+    .ticker { overflow: hidden; border-block: 1px solid var(--line); background: #171716; }
+    .ticker-track { min-width: max-content; display: flex; align-items: center; gap: 27px; padding: 17px 0; animation: marquee 28s linear infinite; }
+    .ticker-track span { color: #bbb9b2; font-family: var(--heading); font-size: 18px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .ticker-track b { color: var(--orange); font-size: 12px; }
+    @keyframes marquee { to { transform: translateX(-25%); } }
+    .section { padding-block: clamp(75px, 9vw, 128px); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
+    .section-head h2 { margin: 15px 0 0; font-family: var(--heading); font-size: clamp(49px, 7vw, 88px); line-height: .86; font-weight: 800; letter-spacing: -.015em; text-transform: uppercase; }
+    .section-head h2 em { color: var(--orange); font-style: normal; }
+    .section-head p { max-width: 290px; margin: 0 0 4px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+    .stat { position: relative; padding: 27px 22px 25px 0; }
+    .stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+    .stat strong { display: block; margin-bottom: 5px; font-family: var(--heading); font-size: clamp(36px, 5vw, 56px); line-height: .9; }
+    .stat strong span { color: var(--orange); }
+    .stat small { color: #a7a59e; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .programs { background: #181817; }
+    .program-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 17px; background: var(--line); border: 1px solid var(--line); }
+    .program-tab { display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 19px; border: 0; background: #181817; color: #bcbab4; cursor: pointer; font-family: var(--heading); font-size: 23px; font-weight: 700; text-align: left; text-transform: uppercase; transition: .2s ease; }
+    .program-tab span { color: var(--orange); font-family: var(--body); font-size: 10px; }
+    .program-tab[aria-selected="true"] { background: var(--orange); color: #141413; }
+    .program-tab[aria-selected="true"] span { color: #141413; }
+    .program-panel { min-height: 310px; display: grid; grid-template-columns: 1.05fr 1fr 1fr; border: 1px solid var(--line); background: #131312; }
+    .program-image { position: relative; min-height: 310px; overflow: hidden; }
+    .program-image img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: grayscale(1) contrast(1.05) brightness(.75); }
+    .program-image::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, #0e0e0e); }
+    .program-image-label { position: absolute; z-index: 1; left: 19px; bottom: 17px; color: white; font-size: 9px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+    .program-copy { padding: 30px clamp(20px, 3vw, 42px); border-right: 1px solid var(--line); }
+    .program-copy h3 { margin: 10px 0 14px; font-family: var(--heading); font-size: 39px; line-height: .95; text-transform: uppercase; }
+    .program-copy p { max-width: 330px; margin-bottom: 0; color: #aaa8a2; font-size: 11px; line-height: 1.8; }
+    .program-detail { padding: 29px clamp(19px, 3vw, 38px); }
+    .detail-label { color: var(--orange); font-size: 9px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .class-list { margin: 14px 0 0; padding: 0; list-style: none; }
+    .class-list li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #343432; color: #e6e4de; font-size: 11px; font-weight: 600; }
+    .class-list small { color: #98968f; font-size: 9px; font-weight: 500; }
+    .coaches-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .coach-card { position: relative; min-height: 420px; overflow: hidden; background: #242423; }
+    .coach-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05) brightness(.75); transition: transform .6s ease, filter .4s ease; }
+    .coach-card:hover img { transform: scale(1.035); filter: grayscale(.7) contrast(1.06) brightness(.8); }
+    .coach-card::after { content: ""; position: absolute; inset: 30% 0 0; background: linear-gradient(transparent, rgba(10,10,9,.94)); }
+    .coach-number { position: absolute; z-index: 1; top: 17px; left: 17px; padding: 8px 10px; border: 1px solid #ffffff77; color: white; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
+    .coach-info { position: absolute; z-index: 1; right: 21px; bottom: 21px; left: 21px; }
+    .coach-info h3 { margin: 9px 0 4px; font-family: var(--heading); font-size: 35px; line-height: .9; text-transform: uppercase; }
+    .coach-info p { margin: 0; color: #c3c1bb; font-size: 10px; line-height: 1.5; }
+    .credential { display: inline-block; margin-top: 13px; color: var(--orange); font-size: 8px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .coach-role { color: #cbc9c3; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .story { background: #181817; }
+    .story-card { display: grid; grid-template-columns: .94fr 1.06fr; min-height: 440px; border: 1px solid var(--line); }
+    .story-photo { position: relative; min-height: 420px; overflow: hidden; }
+    .story-photo img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: grayscale(1) contrast(1.06) brightness(.74); }
+    .story-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 65%, #181817 100%); }
+    .story-photo-label { position: absolute; z-index: 1; left: 20px; bottom: 19px; padding: 9px 11px; background: var(--orange); color: #171716; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .story-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 5.5vw, 72px); }
+    .story-copy blockquote { margin: 22px 0 27px; font-family: var(--heading); font-size: clamp(28px, 4vw, 46px); line-height: 1.02; font-weight: 700; text-transform: uppercase; }
+    .story-copy blockquote span { color: var(--orange); }
+    .story-byline { margin-bottom: 23px; color: #aaa8a2; font-size: 10px; line-height: 1.6; }
+    .story-metrics { display: flex; gap: clamp(20px, 4vw, 50px); padding-top: 18px; border-top: 1px solid var(--line); }
+    .story-metrics strong { display: block; font-family: var(--heading); font-size: 28px; line-height: 1; }
+    .story-metrics small { color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .join { position: relative; overflow: hidden; background: #111110; }
+    .join::before { content: ""; position: absolute; width: 480px; height: 480px; right: -180px; top: -120px; border: 1px solid #ff5b2838; border-radius: 50%; box-shadow: 0 0 0 36px #ff5b2808, 0 0 0 72px #ff5b2805; }
+    .join-grid { position: relative; display: grid; grid-template-columns: 1fr .85fr; gap: 8vw; align-items: center; }
+    .join-copy h2 { margin: 17px 0 18px; font-family: var(--heading); font-size: clamp(58px, 8vw, 105px); line-height: .8; font-weight: 900; letter-spacing: -.02em; text-transform: uppercase; }
+    .join-copy h2 span { color: var(--orange); }
+    .join-copy p { max-width: 350px; color: #a7a59f; font-size: 12px; line-height: 1.7; }
+    .trial-form { padding: clamp(23px, 3vw, 39px); border: 1px solid #494845; background: #191918; }
+    .form-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 25px; }
+    .form-top h3 { margin: 0; font-family: var(--heading); font-size: 28px; text-transform: uppercase; }
+    .form-top span { color: var(--orange); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .field { display: grid; gap: 7px; margin-bottom: 16px; }
+    .field label { color: #aaa8a1; font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+    .field input, .field select { width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid #454441; border-radius: 0; outline: none; background: #111110; color: var(--paper); font-size: 11px; }
+    .field input:focus, .field select:focus { border-color: var(--orange); }
+    .field input::placeholder { color: #73716c; }
+    .form-submit { width: 100%; justify-content: space-between; margin-top: 4px; cursor: pointer; }
+    .form-note { margin: 11px 0 0; color: #77756e; font-size: 8px; line-height: 1.5; }
+    .form-success { display: none; margin-top: 15px; padding: 11px 12px; border-left: 2px solid var(--orange); background: #252421; color: #ece9e2; font-size: 11px; line-height: 1.5; }
+    .form-success.show { display: block; }
+    .site-footer { padding: 28px var(--page-pad); border-top: 1px solid var(--line); background: #0c0c0b; }
+    .footer-inner { width: min(100%, var(--wrap)); margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-inner p { margin: 0; color: #8c8a84; font-size: 9px; letter-spacing: .06em; }
+    .footer-links { display: flex; gap: 22px; color: #b4b2ac; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .footer-links a:hover { color: var(--orange); }
+    @media (max-width: 850px) {
+      .site-header { height: 68px; }
+      .nav-cta { min-height: 40px; padding-inline: 12px; font-size: 9px; }
+      .nav-links { gap: 18px; margin-right: 20px; }
+      .hero { min-height: 680px; height: 86svh; }
+      .hero-photo { left: 25%; width: 75%; object-position: 51% 50%; }
+      .hero h1 { font-size: clamp(76px, 14vw, 130px); }
+      .program-panel { grid-template-columns: .9fr 1.1fr; }
+      .program-image { display: none; }
+      .coach-card { min-height: 350px; }
+    }
+    @media (max-width: 620px) {
+      :root { --page-pad: 20px; }
+      .topline { height: 30px; font-size: 7px; }
+      .topline span:last-child { display: none; }
+      .site-header { top: 30px; height: 65px; }
+      .brand { font-size: 25px; }
+      .brand-mark { width: 30px; height: 30px; }
+      .nav { position: relative; }
+      .nav-cta { margin-left: auto; margin-right: 8px; min-height: 37px; gap: 8px; font-size: 8px; }
+      .menu-toggle { display: inline-flex; color: var(--paper); }
+      .menu-toggle svg { width: 22px; height: 22px; }
+      .nav-links { display: none; position: absolute; top: 64px; inset-inline: 0; margin: 0; padding: 10px var(--page-pad) 17px; border-bottom: 1px solid var(--line); background: #111110; }
+      .nav-links.open { display: grid; gap: 0; }
+      .nav-links a { padding: 13px 0; border-bottom: 1px solid #ffffff12; }
+      .hero { min-height: 730px; height: 93svh; align-items: end; }
+      .hero-photo { inset: 0; width: 100%; height: 80%; object-position: 54% 30%; }
+      .hero::before { background: linear-gradient(0deg, #111110 8%, #111110 21%, rgba(17,17,16,.88) 38%, rgba(17,17,16,.13) 76%, rgba(17,17,16,.45) 100%); }
+      .hero::after { left: 20px; top: 49%; bottom: 9%; }
+      .hero-inner { padding: 155px var(--page-pad) 25px; }
+      .hero-copy .eyebrow { margin-bottom: 17px; }
+      .hero h1 { font-size: clamp(76px, 18vw, 108px); }
+      .hero-intro { max-width: 300px; margin: 17px 0 20px; font-size: 11px; }
+      .hero-meta { margin-top: 30px; }
+      .hero-index, .hero-caption { display: none; }
+      .ticker-track { padding: 13px 0; }
+      .ticker-track span { font-size: 15px; }
+      .section { padding-block: 72px; }
+      .section-head { display: block; margin-bottom: 28px; }
+      .section-head h2 { font-size: 58px; }
+      .section-head p { margin-top: 17px; font-size: 11px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 18px 10px 18px 0; }
+      .stat + .stat { padding-left: 15px; }
+      .stat:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .stat:nth-child(4) { border-top: 1px solid var(--line); }
+      .stat strong { font-size: 42px; }
+      .stat small { font-size: 8px; }
+      .program-tabs { grid-template-columns: 1fr; }
+      .program-tab { min-height: 51px; font-size: 21px; }
+      .program-panel { grid-template-columns: 1fr; }
+      .program-copy { padding: 24px 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .program-detail { padding: 22px 20px; }
+      .coaches-grid { grid-template-columns: 1fr; gap: 11px; }
+      .coach-card { min-height: 400px; }
+      .coach-card img { object-position: center 30%; }
+      .story-card { grid-template-columns: 1fr; }
+      .story-photo { min-height: 300px; }
+      .story-photo::after { background: linear-gradient(0deg, #181817 0%, transparent 40%); }
+      .story-copy { padding: 25px 22px 28px; }
+      .story-copy blockquote { margin: 18px 0 20px; font-size: 37px; }
+      .story-metrics { justify-content: space-between; gap: 13px; }
+      .story-metrics strong { font-size: 25px; }
+      .story-metrics small { font-size: 7px; }
+      .join-grid { grid-template-columns: 1fr; gap: 30px; }
+      .join-copy h2 { font-size: 72px; }
+      .trial-form { padding: 23px 19px; }
+      .footer-inner { align-items: start; flex-direction: column; }
+      .footer-links { flex-wrap: wrap; gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"><span>Strength · Conditioning · Community</span><span>Built for the work. Made for each other.</span></div>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Ironvale home"><span class="brand-mark">I</span><span>IRONVALE<small>STRENGTH CLUB</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#training">Training</a><a href="#coaches">Coaches</a><a href="#stories">Community</a>
+      </div>
+      <a class="nav-cta" href="#trial">Book a trial <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=2200&q=88" alt="Athlete training with focus in a strength gym" fetchpriority="high">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">A different kind of strength club</div>
+          <h1 id="heroTitle">Stronger <span>together.</span></h1>
+          <p class="hero-intro">Serious coaching. A room full of people who know your name. The kind of strength that follows you everywhere.</p>
+          <a class="button" href="#trial">Find your first session <span class="arrow" aria-hidden="true">↗</span></a>
+          <div class="hero-meta">
+            <div class="coach-stack" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=100&h=100&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=100&h=100&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?auto=format&fit=crop&w=100&h=100&q=80" alt="">
+            </div>
+            <div class="meta-copy"><strong>Coached by people who care.</strong>Train hard. Leave stronger.</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-index">01 / Built in the room</div>
+      <div class="hero-caption"><span>IRONVALE</span> &nbsp; TRAINING FLOOR</div>
+    </section>
+
+    <div class="ticker" aria-label="Our values">
+      <div class="ticker-track" aria-hidden="true">
+        <span>No egos</span><b>✳</b><span>Good coaching</span><b>✳</b><span>Earned confidence</span><b>✳</b><span>Stronger together</span><b>✳</b>
+        <span>No egos</span><b>✳</b><span>Good coaching</span><b>✳</b><span>Earned confidence</span><b>✳</b><span>Stronger together</span><b>✳</b>
+        <span>No egos</span><b>✳</b><span>Good coaching</span><b>✳</b><span>Earned confidence</span><b>✳</b><span>Stronger together</span><b>✳</b>
+        <span>No egos</span><b>✳</b><span>Good coaching</span><b>✳</b><span>Earned confidence</span><b>✳</b><span>Stronger together</span><b>✳</b>
+      </div>
+    </div>
+
+    <section class="section" aria-label="The Ironvale approach">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">A better standard</div><h2>Built on <em>the basics.</em></h2></div>
+          <p>Intentional programming. Coaches on the floor. A crew that keeps showing up. That is how strength becomes part of your life.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>01<span>.</span></strong><small>Real coaching, every session</small></div>
+          <div class="stat"><strong>06<span>+</span></strong><small>Ways to train with purpose</small></div>
+          <div class="stat"><strong>ALL<span>.</span></strong><small>Levels welcome on day one</small></div>
+          <div class="stat"><strong>YOU<span>.</span></strong><small>Progress built around you</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section programs" id="training">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Choose your focus</div><h2>Training with <em>intent.</em></h2></div>
+          <p>Three ways in. One thoughtful approach: move well, get stronger, build momentum that lasts.</p>
+        </div>
+        <div class="program-tabs" role="tablist" aria-label="Training goals">
+          <button class="program-tab" id="tab-build" role="tab" aria-selected="true" aria-controls="programPanel" data-program="build">Build muscle <span>01</span></button>
+          <button class="program-tab" id="tab-lean" role="tab" aria-selected="false" aria-controls="programPanel" data-program="lean">Lose fat <span>02</span></button>
+          <button class="program-tab" id="tab-move" role="tab" aria-selected="false" aria-controls="programPanel" data-program="move">Get fitter <span>03</span></button>
+        </div>
+        <div class="program-panel" id="programPanel" role="tabpanel" aria-labelledby="tab-build">
+          <div class="program-image"><img id="programImage" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=85" alt="Strength athlete working through a training session"><span class="program-image-label" id="programImageLabel">Progressive strength · 6 weeks</span></div>
+          <div class="program-copy"><div class="detail-label" id="programTag">Strength · Hypertrophy</div><h3 id="programTitle">Build strength that shows.</h3><p id="programDescription">A progressive plan built around the big lifts, smart volume and coaching that makes every rep count. Structured enough to move you forward. Personal enough to fit your life.</p></div>
+          <div class="program-detail"><div class="detail-label">On the schedule</div><ul class="class-list" id="programClasses"><li><span>Strength Lab</span><small>60 min · All levels</small></li><li><span>Upper / Lower</span><small>55 min · Progressive</small></li><li><span>Open Lift</span><small>Coach on floor</small></li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="coaches">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Your people on the floor</div><h2>Coaches. <em>Not influencers.</em></h2></div>
+          <p>Experienced eyes, thoughtful cues and a genuine investment in your progress. Meet the crew behind the work.</p>
+        </div>
+        <div class="coaches-grid">
+          <article class="coach-card"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=85" alt="Coach Marcus, strength coach" loading="lazy"><span class="coach-number">COACH / 01</span><div class="coach-info"><div class="coach-role">Head of Strength</div><h3>Marcus Reed</h3><p>Strength built with patience, precision and a plan.</p><span class="credential">CSCS · 10 years coaching</span></div></article>
+          <article class="coach-card"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=1000&q=85" alt="Coach Talia, performance coach" loading="lazy"><span class="coach-number">COACH / 02</span><div class="coach-info"><div class="coach-role">Performance Coach</div><h3>Talia Morgan</h3><p>Better movement. More confidence. Stronger every week.</p><span class="credential">CPT · Precision Nutrition L1</span></div></article>
+          <article class="coach-card"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?auto=format&fit=crop&w=1000&q=85" alt="Coach Jae lifting a barbell in a strength session" loading="lazy"><span class="coach-number">COACH / 03</span><div class="coach-info"><div class="coach-role">Conditioning Coach</div><h3>Jae Kim</h3><p>Hard work, good energy, and just enough push.</p><span class="credential">CPT · Functional Strength</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section story" id="stories">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Member spotlight · training journal</div><h2>Progress has a <em>pulse.</em></h2></div>
+          <p>Real change is more than a before and after. It is the small wins that change how you move through every day.</p>
+        </div>
+        <article class="story-card">
+          <div class="story-photo"><img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1200&q=85" alt="Member training in a focused gym session" loading="lazy"><span class="story-photo-label">16 week strength block</span></div>
+          <div class="story-copy"><div class="eyebrow">Member since 2023</div><blockquote>“I came for a workout. I found <span>my people.</span>”</blockquote><p class="story-byline">Amira · First pull-up at 34 · Now training three days a week<br>Her words: “The biggest change wasn't a number. I stopped feeling like the new person.”</p><div class="story-metrics"><div><strong>3×</strong><small>Weekly sessions</small></div><div><strong>+42<span style="color:var(--orange)">%</span></strong><small>Deadlift strength</small></div><div><strong>1<span style="color:var(--orange)">st</span></strong><small>Unassisted pull-up</small></div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section join" id="trial">
+      <div class="wrap join-grid">
+        <div class="join-copy"><div class="eyebrow">Your first session is on us</div><h2>Come as <span>you are.</span></h2><p>Meet a coach. See the floor. Get a feel for the room. We'll help you find a session that fits where you're starting.</p><div class="eyebrow" style="margin-top:25px">No pressure · Just a good first session</div></div>
+        <form class="trial-form" id="trialForm">
+          <div class="form-top"><h3>Book a trial</h3><span>Free · 45 minutes</span></div>
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="First and last name" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+          <div class="field"><label for="focus">What brings you in?</label><select id="focus" name="focus" required><option value="" disabled selected>Choose your focus</option><option>Build strength</option><option>Lose fat</option><option>Improve fitness</option><option>Find my community</option></select></div>
+          <button class="button form-submit" type="submit">Request my first session <span class="arrow" aria-hidden="true">↗</span></button>
+          <p class="form-note">We’ll get back to you to find a time that works. No mailing lists, no pressure.</p>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner"><a class="brand" href="#home"><span class="brand-mark">I</span><span>IRONVALE<small>STRENGTH CLUB</small></span></a><p>Strong is a place we make together. © IRONVALE</p><div class="footer-links"><a href="#training">Training</a><a href="#coaches">Coaches</a><a href="#trial">Get started ↗</a></div></div>
+  </footer>
+
+  <script>
+    const programs = {
+      build: {
+        tag: 'Strength · Hypertrophy', title: 'Build strength that shows.',
+        description: 'A progressive plan built around the big lifts, smart volume and coaching that makes every rep count. Structured enough to move you forward. Personal enough to fit your life.',
+        image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Strength athlete working through a training session', label: 'Progressive strength · 6 weeks',
+        classes: [['Strength Lab', '60 min · All levels'], ['Upper / Lower', '55 min · Progressive'], ['Open Lift', 'Coach on floor']]
+      },
+      lean: {
+        tag: 'Metabolic · Strength', title: 'Lean out. Keep your power.',
+        description: 'Strength-led training with a purposeful conditioning finish. Build the habits, keep your muscle and make progress you can sustain outside the gym.',
+        image: 'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Athlete finishing a conditioning interval', label: 'Strength + conditioning · 6 weeks',
+        classes: [['Engine Room', '45 min · All levels'], ['Strength & Sweat', '50 min · Scaled options'], ['Foundations', '45 min · Coach-led']]
+      },
+      move: {
+        tag: 'Conditioning · Mobility', title: 'Feel good in your body.',
+        description: 'Build a stronger engine with coached intervals, functional movement and mobility that helps the rest of your training feel better.',
+        image: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Athlete moving through a functional fitness session', label: 'Conditioning · All levels',
+        classes: [['Athletic Conditioning', '45 min · Coach-led'], ['Move Better', '40 min · Mobility'], ['Team Circuit', '45 min · All levels']]
+      }
+    };
+    const tabs = [...document.querySelectorAll('.program-tab')];
+    const panel = document.getElementById('programPanel');
+    function selectProgram(key) {
+      const item = programs[key];
+      tabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.program === key)));
+      panel.setAttribute('aria-labelledby', `tab-${key}`);
+      document.getElementById('programTag').textContent = item.tag;
+      document.getElementById('programTitle').textContent = item.title;
+      document.getElementById('programDescription').textContent = item.description;
+      const photo = document.getElementById('programImage');
+      photo.src = item.image;
+      photo.alt = item.imageAlt;
+      document.getElementById('programImageLabel').textContent = item.label;
+      document.getElementById('programClasses').innerHTML = item.classes.map(([name, detail]) => `<li><span>${name}</span><small>${detail}</small></li>`).join('');
+    }
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectProgram(tab.dataset.program));
+      tab.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault();
+          const next = tabs[(i + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+          next.focus(); next.click();
+        }
+      });
+    });
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+    navLinks.addEventListener('click', event => {
+      if (event.target.closest('a')) { navLinks.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); }
+    });
+    document.getElementById('trialForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+      const name = document.getElementById('name').value.trim().split(/\s+/)[0];
+      const focus = document.getElementById('focus').value.toLowerCase();
+      const success = document.getElementById('formSuccess');
+      success.textContent = `Thanks, ${name}. Your ${focus} trial request is ready. A coach will be in touch to arrange your first session.`;
+      success.classList.add('show');
+      form.querySelector('.form-submit').textContent = 'Request received ✓';
+    });
+  </script>
+</body>
+</html>

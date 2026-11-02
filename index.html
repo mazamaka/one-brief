@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Один бриф — разные модели</title>
+<meta name="description" content="Стенд: один и тот же бриф сайта уходит разным моделям без правок — работы, копии, оценки и совпадения.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151515'/%3E%3Crect x='8' y='8' width='16' height='16' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f5f4f0;--surface:#ffffff;--surface-2:#efeee9;--ink:#141414;--muted:#5d5c57;--line:#dfddd6;
+  --accent:#ff5a1f;--accent-ink:#b63a0c;--good:#1f7a4a;--bad:#a8321c;
+  --radius:14px;--shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px -12px rgba(0,0,0,.18);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d0d0e;--surface:#161618;--surface-2:#1e1e21;--ink:#f1f0ec;--muted:#a19f98;--line:#2b2b2f;
+    --accent:#ff6a33;--accent-ink:#ff9466;--good:#5cc98d;--bad:#ff8a70;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d0d0e;--surface:#161618;--surface-2:#1e1e21;--ink:#f1f0ec;--muted:#a19f98;--line:#2b2b2f;
+  --accent:#ff6a33;--accent-ink:#ff9466;--good:#5cc98d;--bad:#ff8a70;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink);text-underline-offset:3px}
+a:hover{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+@media (min-width:720px){.wrap{padding:0 32px}}
+h1,h2,h3{line-height:1.15;letter-spacing:-.015em;margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top .wrap{padding-top:40px;padding-bottom:32px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.top h1{font-size:clamp(32px,5.4vw,56px);margin-top:10px;font-weight:800}
+.top p{max-width:760px;color:var(--muted);margin:14px 0 0;font-size:17px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;background:var(--surface)}
+.pill:hover{border-color:var(--accent);color:var(--ink)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* round */
+section.round{padding:48px 0 8px}
+.round-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px}
+.round-head h2{font-size:clamp(24px,3.2vw,34px);font-weight:800}
+.chip{font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px;background:var(--surface)}
+.lead{max-width:860px;color:var(--muted);margin:12px 0 0}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:14px;font-weight:600}
+h3.sub{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:36px 0 12px}
+
+/* leaderboard */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%}
+.lb{min-width:980px}
+.lb th,.lb td{padding:12px 8px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+.lb tr:last-child td{border-bottom:0}
+.lb thead th{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+.lb thead th[title]{cursor:help;text-decoration:underline dotted var(--line);text-underline-offset:4px}
+.lb .rank{font-size:22px;font-weight:800;width:44px;text-align:center}
+.lb tr:first-child .rank{color:var(--accent-ink)}
+.lb thead th.sc{white-space:normal;line-height:1.25;font-size:11px}
+.lb .model{min-width:170px}
+.lb .work{min-width:210px}
+.lb .model b{display:block;font-size:15px}
+.lb .model span{font-size:12.5px;color:var(--muted)}
+.lb .work{font-weight:600;font-size:14px}
+.lb .work small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;max-width:240px}
+.sc{width:74px;text-align:center !important;font-weight:700}
+.sc span{display:inline-grid;place-items:center;width:34px;height:30px;border-radius:7px;background:color-mix(in oklab,var(--accent) calc(var(--v) * 5.5%),transparent)}
+.total{white-space:nowrap;min-width:124px}
+.total b{font-size:18px}
+.total i{display:block;height:6px;margin-top:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.total i::after{content:"";display:block;height:100%;width:calc(var(--p) * 1%);background:var(--accent);border-radius:3px}
+.open a{display:block;font-size:13.5px;font-weight:600;white-space:nowrap}
+
+/* cards */
+.cards{display:grid;gap:20px}
+@media (min-width:980px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.shot{position:relative;display:block;background:#0b0b0b;aspect-ratio:16/10;overflow:hidden}
+.shot img.hero{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s ease}
+.shot:hover img.hero{transform:scale(1.015)}
+.shot img.phone{position:absolute;right:14px;bottom:-12%;width:21%;height:auto;border-radius:12px;border:3px solid #1c1c1c;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.badge{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:8px;background:rgba(10,10,10,.82);color:#fff;border-radius:999px;padding:5px 12px 5px 6px;font-size:13px;font-weight:700;backdrop-filter:blur(6px)}
+.badge em{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ff5a1f;color:#111;font-size:13px}
+.card .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h4{margin:0;font-size:21px;font-weight:800;letter-spacing:-.01em}
+.card .meta{font-size:13.5px;color:var(--muted)}
+.card .verdict{font-size:16px;font-weight:600;margin:0}
+.pc{display:grid;gap:10px}
+@media (min-width:640px){.pc{grid-template-columns:1fr 1fr}}
+.pc ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:14px}
+.pc li{position:relative;padding-left:18px}
+.pc li::before{position:absolute;left:0;top:0;font-weight:800}
+.pc .plus li::before{content:"+";color:var(--good)}
+.pc .minus li::before{content:"−";color:var(--bad)}
+.note{font-size:12.5px;color:var(--muted);margin:0;border-top:1px dashed var(--line);padding-top:10px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.btn{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9px;font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn:hover{border-color:var(--accent);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#111}
+
+/* findings, prompt */
+ol.findings{margin:0;padding:0;list-style:none;counter-reset:f;display:grid;gap:12px}
+@media (min-width:900px){ol.findings{grid-template-columns:1fr 1fr}}
+ol.findings li{counter-increment:f;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 52px;position:relative;font-size:15px}
+ol.findings li::before{content:counter(f);position:absolute;left:16px;top:14px;width:24px;height:24px;border-radius:6px;background:var(--accent);color:#111;font-weight:800;font-size:13px;display:grid;place-items:center}
+details.prompt{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.prompt summary{cursor:pointer;padding:14px 18px;font-weight:700;min-height:44px}
+details.prompt pre{margin:0;padding:0 18px 18px;white-space:pre-wrap;font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
+ul.gaps{margin:0;padding-left:20px;color:var(--muted);font-size:14.5px;display:grid;gap:6px}
+
+/* archive */
+.brief{margin-top:18px}
+.brief h4{font-size:16px;margin:0 0 10px}
+.arch{min-width:640px;table-layout:fixed}
+.arch th:nth-child(1){width:20%}.arch th:nth-child(2){width:20%}.arch th:nth-child(3){width:12%}
+.arch th,.arch td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14.5px}
+.arch thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.arch tr:last-child td{border-bottom:0}
+.arch td.t{white-space:nowrap;color:var(--muted)}
+.summary{margin:18px 0 0;max-width:900px;font-size:15px;background:var(--surface);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0}
+
+footer{margin-top:56px;border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-top:24px;padding-bottom:32px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Стенд генерации сайтов</div>
+    <h1>Один бриф — разные модели</h1>
+    <p>Один и тот же бриф сайта уходит разным моделям без единой правки. Здесь лежат сами работы (копии рядом с оригиналами), оценки по брифу и то, в чём модели неожиданно совпали.</p>
+    <nav class="nav" id="nav" aria-label="Раунды"></nav>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<noscript><p class="wrap">Страница собирается скриптом из assets/data.js — включите JavaScript.</p></noscript>
+<footer>
+  <div class="wrap">
+    <span>Копии выложены без правок; оригиналы — по ссылкам «Оригинал».</span>
+    <a id="repo" href="#">Репозиторий</a>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script>
+(function () {
+  var D = window.ONE_BRIEF;
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+  var link = function (href, label, cls) {
+    var ext = /^https?:/.test(href);
+    return '<a class="' + (cls || "") + '" href="' + esc(href) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(label) + "</a>";
+  };
+  var total = function (e) {
+    return D.criteria.reduce(function (s, c) { return s + (e.scores[c.key] || 0); }, 0);
+  };
+  var max = D.criteria.length * 10;
+  var plural = function (n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
+  };
+
+  document.getElementById("repo").href = D.repo;
+  document.getElementById("nav").innerHTML = D.rounds.map(function (r) {
+    return '<a class="pill" href="#' + esc(r.id) + '"><span class="dot"></span>' + esc(r.title) + "</a>";
+  }).join("");
+
+  function scored(r) {
+    var base = "rounds/" + r.id + "/";
+    var ranked = r.entries.map(function (e, i) { return { e: e, t: total(e), i: i }; })
+      .sort(function (a, b) { return b.t - a.t || a.i - b.i; });
+    var hasTime = r.entries.some(function (e) { return e.time; });
+
+    var head = '<tr><th>#</th><th>Модель</th><th>Работа</th>' +
+      D.criteria.map(function (c) { return '<th class="sc" title="' + esc(c.hint) + '">' + esc(c.label) + "</th>"; }).join("") +
+      (hasTime ? "<th>Время</th>" : "") + "<th>Итого</th><th>Открыть</th></tr>";
+    var rows = ranked.map(function (x, n) {
+      var e = x.e;
+      return "<tr>" +
+        '<td class="rank num">' + (n + 1) + "</td>" +
+        '<td class="model"><b>' + esc(e.model) + "</b><span>" + esc(e.env) + "</span></td>" +
+        '<td class="work">' + esc(e.work) + "<small>" + esc(e.verdict) + "</small></td>" +
+        D.criteria.map(function (c) { var v = e.scores[c.key]; return '<td class="sc num"><span style="--v:' + v + '">' + v + "</span></td>"; }).join("") +
+        (hasTime ? '<td class="num">' + esc(e.time || "—") + "</td>" : "") +
+        '<td class="total num" style="--p:' + Math.round(x.t / max * 100) + '"><b>' + x.t + '</b> / ' + max + "<i></i></td>" +
+        '<td class="open">' + link(base + "sites/" + e.slug + "/", "Копия ↗") + (e.original ? link(e.original, "Оригинал ↗") : "") + "</td>" +
+        "</tr>";
+    }).join("");
+
+    var cards = ranked.map(function (x, n) {
+      var e = x.e, shots = base + "shots/" + e.slug;
+      return '<article class="card" id="' + esc(r.id + "-" + e.slug) + '">' +
+        '<a class="shot" href="' + esc(base + "sites/" + e.slug + "/") + '" aria-label="Открыть копию: ' + esc(e.work) + '">' +
+        '<img class="hero" src="' + esc(shots + "-hero.jpg") + '" width="1200" height="750" alt="Первый экран ' + esc(e.work) + ', десктоп 1440" loading="' + (n < 2 ? "eager" : "lazy") + '">' +
+        '<img class="phone" src="' + esc(shots + "-mobile.jpg") + '" width="390" height="844" alt="Первый экран ' + esc(e.work) + ', телефон 390" loading="lazy">' +
+        '<span class="badge"><em>' + (n + 1) + "</em>" + x.t + " / " + max + "</span></a>" +
+        '<div class="body">' +
+        "<div><h4>" + esc(e.model) + " · " + esc(e.work) + '</h4><div class="meta">' + esc(e.env) + (e.time ? " · " + esc(e.time) : "") + "</div></div>" +
+        '<p class="verdict">' + esc(e.verdict) + "</p>" +
+        '<div class="pc"><ul class="plus">' + e.pros.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" +
+        '<ul class="minus">' + e.cons.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul></div>" +
+        (e.note ? '<p class="note">' + esc(e.note) + "</p>" : "") +
+        '<div class="actions">' + link(base + "sites/" + e.slug + "/", "Открыть копию", "btn primary") +
+        (e.original ? link(e.original, "Оригинал ↗", "btn") : "") +
+        (e.extra || []).map(function (l) { return link(l.href, l.label, "btn"); }).join("") + "</div>" +
+        "</div></article>";
+    }).join("");
+
+    return '<h3 class="sub">Рейтинг</h3><div class="scroll"><table class="lb"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table></div>" +
+      '<h3 class="sub">Работы</h3><div class="cards">' + cards + "</div>" +
+      (r.findings ? '<h3 class="sub">Совпадения и выводы</h3><ol class="findings">' + r.findings.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ol>" : "") +
+      (r.prompt ? '<h3 class="sub">Промпт</h3><details class="prompt" data-src="' + esc(r.prompt) + '"><summary>Показать промпт целиком</summary><pre>Загружаю…</pre></details>' : "") +
+      (r.gaps ? '<h3 class="sub">Чего здесь нет</h3><ul class="gaps">' + r.gaps.map(function (g) { return "<li>" + esc(g) + "</li>"; }).join("") + "</ul>" : "");
+  }
+
+  function archived(r) {
+    return r.briefs.map(function (b) {
+      return '<div class="brief"><h4>' + esc(b.name) + '</h4><div class="scroll"><table class="arch"><thead><tr><th>Модель</th><th>Работа</th><th>Время</th><th>Коротко</th></tr></thead><tbody>' +
+        b.entries.map(function (e) {
+          return "<tr><td>" + esc(e.model) + "</td><td>" + link(e.href, e.work + " ↗") + '</td><td class="t num">' + esc(e.time) + "</td><td>" + esc(e.verdict) + "</td></tr>";
+        }).join("") + "</tbody></table></div></div>";
+    }).join("") + (r.summary ? '<p class="summary">' + esc(r.summary) + "</p>" : "");
+  }
+
+  document.getElementById("app").innerHTML = D.rounds.map(function (r) {
+    return '<section class="round" id="' + esc(r.id) + '">' +
+      '<div class="round-head"><h2>' + esc(r.title) + '</h2><span class="chip num">' + esc(r.date) + "</span>" +
+      (r.entries ? '<span class="chip">' + r.entries.length + " " + plural(r.entries.length, "модель", "модели", "моделей") + "</span>" : "") + "</div>" +
+      '<p class="lead">' + esc(r.lead) + "</p>" +
+      '<div class="links">' + (r.audit ? link(D.repo + "/blob/main/" + r.audit, "Полный аудит ↗") : "") +
+      (r.prompt ? link(r.prompt, "Промпт (txt)") : "") + "</div>" +
+      (r.archive ? archived(r) : scored(r)) + "</section>";
+  }).join("");
+
+  document.querySelectorAll("details.prompt").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (!d.open || d.dataset.loaded) return;
+      d.dataset.loaded = "1";
+      fetch(d.dataset.src).then(function (res) { return res.text(); }).then(function (t) {
+        d.querySelector("pre").textContent = t;
+      }).catch(function () {
+        d.querySelector("pre").innerHTML = 'Не загрузился — <a href="' + esc(d.dataset.src) + '">открыть файл</a>.';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

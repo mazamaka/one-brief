@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KINETIK // ATHLETIC LAB — Elite Strength & Conditioning</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Teko, Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Oswald:wght@500;600;700&family=Teko:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kinetik: {
+              black: '#070707',
+              coal: '#0F0F10',
+              graphite: '#161618',
+              surface: '#1F1F23',
+              border: '#2B2B30',
+              orange: '#FF4B00',
+              orangeHover: '#FF5E1A',
+              silver: '#E4E6EB',
+              steel: '#989CA8',
+              muted: '#636773'
+            }
+          },
+          fontFamily: {
+            teko: ['Teko', 'sans-serif'],
+            oswald: ['Oswald', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'marquee': 'marquee 28s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Industrial Carbon & Mesh Pattern */
+    .bg-grid-pattern {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .bg-dots-pattern {
+      background-image: radial-gradient(rgba(255, 75, 0, 0.15) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    /* Neon Glows */
+    .glow-orange {
+      box-shadow: 0 0 24px -2px rgba(255, 75, 0, 0.45);
+    }
+    .glow-orange-sm {
+      box-shadow: 0 0 12px 0 rgba(255, 75, 0, 0.35);
+    }
+    .text-glow {
+      text-shadow: 0 0 18px rgba(255, 75, 0, 0.6);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070707;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2B2B30;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF4B00;
+    }
+    /* Image Treatment */
+    .grayscaled-photo {
+      filter: grayscale(100%) contrast(125%) brightness(88%);
+      transition: filter 0.4s ease, transform 0.5s ease;
+    }
+    .grayscaled-photo:hover {
+      filter: grayscale(40%) contrast(120%) brightness(96%);
+    }
+  </style>
+</head>
+<body class="bg-kinetik-black text-kinetik-silver font-sans antialiased overflow-x-hidden selection:bg-kinetik-orange selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- 1. LIVE STATUS TOP TICKER & TELEMETRY                          -->
+  <!-- ============================================================== -->
+  <div class="sticky top-0 z-50 bg-kinetik-coal/95 backdrop-blur-md border-b border-kinetik-border/70 text-xs font-mono uppercase tracking-wider">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between">
+      <!-- Status Items Left -->
+      <div class="flex items-center space-x-6 overflow-hidden whitespace-nowrap">
+        <div class="flex items-center space-x-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-kinetik-orange opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-kinetik-orange"></span>
+          </span>
+          <span class="text-white font-bold tracking-widest text-[11px]">LAB STATUS: LIVE</span>
+        </div>
+        <div class="hidden sm:flex items-center space-x-2 text-kinetik-steel text-[11px]">
+          <span class="text-kinetik-border">|</span>
+          <span>FLOOR CAPACITY: <span class="text-white font-semibold" id="capacityVal">74%</span></span>
+          <span class="text-kinetik-border">|</span>
+          <span class="text-kinetik-orange font-semibold">COACH RATIO: 1:5 MAX</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-2 text-kinetik-steel text-[11px]">
+          <span class="text-kinetik-border">|</span>
+          <span>CURRENT BLOCK: <span class="text-kinetik-silver">ECCENTRIC TENSION // S04</span></span>
+        </div>
+      </div>
+
+      <!-- Quick Ticker Right: Audio + Time -->
+      <div class="flex items-center space-x-4">
+        <div class="hidden lg:flex items-center space-x-2 text-kinetik-muted text-[11px]">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-kinetik-steel"></i>
+          <span id="liveTimestamp">20:50:00 LOCAL</span>
+        </div>
+        <button id="soundFxBtn" onclick="toggleAudioFx()" title="Tactile Audio Feedback" class="flex items-center space-x-1.5 px-2 py-0.5 rounded border border-kinetik-border text-[10px] text-kinetik-steel hover:text-white hover:border-kinetik-orange transition">
+          <i data-lucide="volume-2" id="soundIcon" class="w-3 h-3 text-kinetik-orange"></i>
+          <span id="soundStatusText">AUDIO FEEDBACK: ON</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MAIN NAVIGATION BAR                                            -->
+  <!-- ============================================================== -->
+  <header class="bg-kinetik-black/90 border-b border-kinetik-border/50 sticky top-9 z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 group">
+          <div class="w-10 h-10 bg-kinetik-orange flex items-center justify-center font-teko text-2xl font-bold text-black transform group-hover:scale-105 transition">
+            K//
+          </div>
+          <div class="flex flex-col">
+            <span class="font-teko text-2xl tracking-widest text-white leading-none group-hover:text-kinetik-orange transition">KINETIK</span>
+            <span class="font-mono text-[9px] tracking-[0.28em] text-kinetik-steel leading-none mt-0.5">ATHLETIC LAB</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 text-xs font-mono uppercase tracking-widest">
+          <a href="#curriculum" class="text-kinetik-steel hover:text-kinetik-orange transition py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-kinetik-orange after:transition-all">01. Curriculum</a>
+          <a href="#coaches" class="text-kinetik-steel hover:text-kinetik-orange transition py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-kinetik-orange after:transition-all">02. Cadre Roster</a>
+          <a href="#transformations" class="text-kinetik-steel hover:text-kinetik-orange transition py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-kinetik-orange after:transition-all">03. Telemetry & Proof</a>
+          <a href="#facility" class="text-kinetik-steel hover:text-kinetik-orange transition py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-kinetik-orange after:transition-all">04. Lab Specs</a>
+        </nav>
+
+        <!-- Right Action Buttons -->
+        <div class="hidden sm:flex items-center space-x-4">
+          <button onclick="openBookingModal()" class="relative group overflow-hidden bg-kinetik-orange px-6 py-2.5 rounded-none font-teko text-xl tracking-wider text-black font-bold uppercase transition transform active:scale-95 glow-orange-sm hover:glow-orange">
+            <span class="relative z-10 flex items-center space-x-2">
+              <span>BOOK TRIAL PASS</span>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+            </span>
+            <div class="absolute inset-0 bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-200 opacity-20"></div>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="md:hidden flex items-center">
+          <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-kinetik-steel hover:text-white">
+            <i data-lucide="menu" id="menuOpenIcon" class="w-6 h-6"></i>
+            <i data-lucide="x" id="menuCloseIcon" class="w-6 h-6 hidden"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden bg-kinetik-coal border-b border-kinetik-border px-6 py-6 space-y-4 font-mono text-sm uppercase">
+      <a href="#curriculum" onclick="toggleMobileMenu()" class="block text-kinetik-steel hover:text-kinetik-orange py-2 border-b border-kinetik-border/40">01. Curriculum</a>
+      <a href="#coaches" onclick="toggleMobileMenu()" class="block text-kinetik-steel hover:text-kinetik-orange py-2 border-b border-kinetik-border/40">02. Cadre Roster</a>
+      <a href="#transformations" onclick="toggleMobileMenu()" class="block text-kinetik-steel hover:text-kinetik-orange py-2 border-b border-kinetik-border/40">03. Telemetry & Proof</a>
+      <a href="#facility" onclick="toggleMobileMenu()" class="block text-kinetik-steel hover:text-kinetik-orange py-2 border-b border-kinetik-border/40">04. Lab Specs</a>
+      <div class="pt-2">
+        <button onclick="toggleMobileMenu(); openBookingModal();" class="w-full bg-kinetik-orange text-black font-teko text-xl py-3 font-bold tracking-wider uppercase glow-orange-sm">
+          CLAIM TRIAL PASS
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- 2. HERO SECTION: BRAND ATTITUDE + LIVE CADRE SHOWCASE          -->
+  <!-- ============================================================== -->
+  <section class="relative min-h-[92vh] flex items-center justify-center bg-grid-pattern overflow-hidden border-b border-kinetik-border">
+    <!-- Atmospheric Ambient Vignettes -->
+    <div class="absolute inset-0 bg-gradient-to-t from-kinetik-black via-transparent to-kinetik-black/80 pointer-events-none"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-kinetik-orange/15 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full blur-[160px] pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 z-10 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Manifesto & Action -->
+        <div class="lg:col-span-7 space-y-8">
+          <!-- Mission Badge -->
+          <div class="inline-flex items-center space-x-3 px-3 py-1 bg-kinetik-graphite border border-kinetik-border rounded-none">
+            <span class="w-2 h-2 bg-kinetik-orange rounded-full animate-ping"></span>
+            <span class="font-mono text-xs text-kinetik-silver font-medium tracking-widest uppercase">
+              // BIOMECHANICAL RIGOR • ZERO EGOS
+            </span>
+          </div>
+
+          <!-- Master Title -->
+          <div class="space-y-2">
+            <h1 class="font-teko text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-white uppercase leading-[0.88]">
+              FORGED IN RESISTANCE.<br>
+              <span class="text-kinetik-orange text-glow">BOUND IN BROTHERHOOD.</span>
+            </h1>
+            <p class="font-mono text-xs sm:text-sm text-kinetik-steel max-w-xl leading-relaxed tracking-wide pt-2">
+              KINETIK is not a boutique fitness studio. We are a heavy-load athletic laboratory engineered for individuals who demand physiological adaptation, quantitative progression, and an uncompromising tribe.
+            </p>
+          </div>
+
+          <!-- Hero Metrics Telemetry Bar -->
+          <div class="grid grid-cols-3 gap-3 p-4 bg-kinetik-coal/90 border border-kinetik-border/80">
+            <div class="border-l-2 border-kinetik-orange pl-3">
+              <span class="font-teko text-3xl sm:text-4xl font-bold text-white leading-none block">1 : 5</span>
+              <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-wider block mt-1">COACH RATIO CAP</span>
+            </div>
+            <div class="border-l-2 border-kinetik-steel pl-3">
+              <span class="font-teko text-3xl sm:text-4xl font-bold text-white leading-none block">94.2%</span>
+              <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-wider block mt-1">DEXA RECOMP SUCCESS</span>
+            </div>
+            <div class="border-l-2 border-kinetik-orange pl-3">
+              <span class="font-teko text-3xl sm:text-4xl font-bold text-white leading-none block">100%</span>
+              <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-wider block mt-1">CSCS & USAW COACHES</span>
+            </div>
+          </div>
+
+          <!-- CTA Controls -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+            <button onclick="openBookingModal()" class="bg-kinetik-orange hover:bg-kinetik-orangeHover text-black font-teko text-2xl px-8 py-3.5 tracking-wider uppercase font-bold flex items-center justify-center space-x-3 transition transform active:scale-95 glow-orange-sm">
+              <span>SECURE TRIAL INTAKE</span>
+              <i data-lucide="chevron-right" class="w-5 h-5 text-black"></i>
+            </button>
+            <button onclick="openReelModal()" class="bg-transparent hover:bg-kinetik-graphite border border-kinetik-border hover:border-kinetik-steel text-white font-mono text-xs px-6 py-4 uppercase tracking-widest flex items-center justify-center space-x-2.5 transition">
+              <i data-lucide="play" class="w-3.5 h-3.5 text-kinetik-orange fill-kinetik-orange"></i>
+              <span>WATCH 60-SEC REEL</span>
+            </button>
+          </div>
+
+          <!-- Live Roster Preview Chips -->
+          <div class="pt-4 border-t border-kinetik-border/60">
+            <div class="flex items-center space-x-3 text-xs font-mono text-kinetik-muted">
+              <span class="text-kinetik-orange font-bold uppercase tracking-widest text-[10px]">ON FLOOR TODAY:</span>
+              <div class="flex -space-x-2 overflow-hidden">
+                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-kinetik-black grayscaled-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Coach Maya" onerror="this.src='https://placehold.co/100x100/111/fff?text=M'">
+                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-kinetik-black grayscaled-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Coach Viktor" onerror="this.src='https://placehold.co/100x100/111/fff?text=V'">
+                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-kinetik-black grayscaled-photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="Coach Jax" onerror="this.src='https://placehold.co/100x100/111/fff?text=J'">
+              </div>
+              <span class="text-kinetik-steel text-[11px]">+3 Performance Cadre Members</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: High-Contrast Athlete Focus Image Block -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative border border-kinetik-border p-2 bg-kinetik-coal">
+            <!-- Framing Corner Brackets -->
+            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-kinetik-orange z-20"></div>
+            <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-kinetik-orange z-20"></div>
+            <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-kinetik-orange z-20"></div>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-kinetik-orange z-20"></div>
+
+            <div class="relative overflow-hidden aspect-[4/5] bg-kinetik-black">
+              <!-- High Contrast B&W Hero Athlete Image -->
+              <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1000&auto=format&fit=crop&q=80" 
+                   alt="Deadlift Tension Athlete" 
+                   class="w-full h-full object-cover grayscaled-photo scale-105 hover:scale-100 transition duration-700"
+                   onerror="this.src='https://placehold.co/600x750/090909/E2E8F0?text=KINETIK+ATHLETE'">
+              
+              <!-- Subtle Telemetry Overlay on Image -->
+              <div class="absolute top-4 left-4 font-mono text-[10px] text-white/90 bg-black/80 px-2.5 py-1 border border-white/20 uppercase tracking-widest backdrop-blur-sm">
+                ISO TENSION // 220KG
+              </div>
+
+              <div class="absolute bottom-4 inset-x-4 bg-black/90 backdrop-blur-md p-4 border border-kinetik-border/90">
+                <div class="flex items-center justify-between text-xs font-mono mb-1">
+                  <span class="text-kinetik-orange font-bold uppercase">FORCE PRODUCTION DATA</span>
+                  <span class="text-kinetik-steel">ZONE 5 ACTIVE</span>
+                </div>
+                <div class="w-full bg-neutral-800 h-1.5 rounded-none overflow-hidden">
+                  <div class="bg-kinetik-orange h-full w-[88%] transition-all duration-1000"></div>
+                </div>
+                <div class="flex justify-between items-center text-[10px] font-mono text-kinetik-steel mt-2">
+                  <span>RATE OF FORCE DEVELOPMENT: 3.2 m/s²</span>
+                  <span class="text-white font-semibold">PEAK CNS DRIVE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 3. MARQUEE TELEMETRY STRIP (HARDWARE & METHODOLOGY)            -->
+  <!-- ============================================================== -->
+  <div class="bg-kinetik-graphite border-y border-kinetik-border overflow-hidden py-3 text-xs font-mono uppercase tracking-widest text-kinetik-steel">
+    <div class="flex whitespace-nowrap animate-marquee">
+      <span class="mx-6 flex items-center"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> ELEIKO SWEDISH STEEL CERTIFIED</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="zap" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> INBODY 770 DEXA-GRADE COMPOSITION</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="activity" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> POLAR TEAM REAL-TIME LACTATE TRACKING</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="droplet" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> -110°C CRYOTHERAPY & 3°C COLD PLUNGE</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> ELEIKO SWEDISH STEEL CERTIFIED</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="zap" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> INBODY 770 DEXA-GRADE COMPOSITION</span>
+      <span class="mx-6 text-kinetik-border">•</span>
+      <span class="mx-6 flex items-center"><i data-lucide="activity" class="w-3.5 h-3.5 text-kinetik-orange mr-2"></i> POLAR TEAM REAL-TIME LACTATE TRACKING</span>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 4. GOAL-ORGANIZED CURRICULUM (INTERACTIVE TAB SYSTEM)          -->
+  <!-- ============================================================== -->
+  <section id="curriculum" class="py-24 bg-kinetik-black relative border-b border-kinetik-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-kinetik-border pb-6">
+        <div>
+          <div class="flex items-center space-x-2 font-mono text-xs text-kinetik-orange uppercase tracking-widest mb-2">
+            <span class="w-1.5 h-1.5 bg-kinetik-orange"></span>
+            <span>PROGRAMMING PARADIGMS</span>
+          </div>
+          <h2 class="font-teko text-5xl sm:text-6xl text-white uppercase tracking-tight">CURRICULUM ARCHITECTURE</h2>
+        </div>
+        <p class="font-mono text-xs text-kinetik-steel max-w-md mt-4 md:mt-0 tracking-wide">
+          Every session is periodized to eliminate plateaus. Select your target physiological adaptation below to analyze the loading protocols.
+        </p>
+      </div>
+
+      <!-- Curriculum Selector Tabs -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 p-1.5 bg-kinetik-coal border border-kinetik-border mb-10">
+        <button onclick="switchCurriculum('hypertrophy')" id="tabBtn-hypertrophy" class="curriculum-tab active-tab text-left p-4 font-mono uppercase transition border border-kinetik-orange bg-kinetik-graphite text-white">
+          <div class="flex justify-between items-center text-xs text-kinetik-steel mb-1">
+            <span>TRACK 01</span>
+            <span class="text-kinetik-orange font-bold">RPE 8.5 - 10</span>
+          </div>
+          <div class="font-teko text-2xl tracking-wide text-white">HYPERTROPHY & MAX TENSION</div>
+          <div class="text-[11px] text-kinetik-steel mt-1 lowercase font-sans">Mechanical overload, myofibrillar growth & eccentric control</div>
+        </button>
+
+        <button onclick="switchCurriculum('metabolic')" id="tabBtn-metabolic" class="curriculum-tab text-left p-4 font-mono uppercase transition border border-transparent hover:border-kinetik-border bg-kinetik-coal text-kinetik-steel hover:text-white">
+          <div class="flex justify-between items-center text-xs text-kinetik-steel mb-1">
+            <span>TRACK 02</span>
+            <span class="text-kinetik-orange font-bold">VO2 MAX 92%</span>
+          </div>
+          <div class="font-teko text-2xl tracking-wide text-white">METABOLIC INCINERATION</div>
+          <div class="text-[11px] text-kinetik-steel mt-1 lowercase font-sans">EPOC threshold pacing, lactate buffering & lipid oxidation</div>
+        </button>
+
+        <button onclick="switchCurriculum('durability')" id="tabBtn-durability" class="curriculum-tab text-left p-4 font-mono uppercase transition border border-transparent hover:border-kinetik-border bg-kinetik-coal text-kinetik-steel hover:text-white">
+          <div class="flex justify-between items-center text-xs text-kinetik-steel mb-1">
+            <span>TRACK 03</span>
+            <span class="text-kinetik-orange font-bold">STRUCTURAL INTEGRITY</span>
+          </div>
+          <div class="font-teko text-2xl tracking-wide text-white">FUNCTIONAL DURABILITY</div>
+          <div class="text-[11px] text-kinetik-steel mt-1 lowercase font-sans">Rotational torque, fascial sling resilience & joint longevity</div>
+        </button>
+      </div>
+
+      <!-- Dynamic Curriculum Content Block -->
+      <div id="curriculumDisplay" class="bg-kinetik-coal border border-kinetik-border p-6 sm:p-10">
+        <!-- Injected via switchCurriculum() -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 5. COACH CADRE PROFILES (HIGH CONTRAST & CREDENTIALS)          -->
+  <!-- ============================================================== -->
+  <section id="coaches" class="py-24 bg-kinetik-coal/40 relative border-b border-kinetik-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-kinetik-border pb-6">
+        <div>
+          <div class="flex items-center space-x-2 font-mono text-xs text-kinetik-orange uppercase tracking-widest mb-2">
+            <span class="w-1.5 h-1.5 bg-kinetik-orange"></span>
+            <span>UNCOMPROMISING LEADERSHIP</span>
+          </div>
+          <h2 class="font-teko text-5xl sm:text-6xl text-white uppercase tracking-tight">THE PERFORMANCE CADRE</h2>
+        </div>
+        <p class="font-mono text-xs text-kinetik-steel max-w-md mt-4 md:mt-0 tracking-wide">
+          Our coaches do not cheerlead. They command, calibrate kinematics, and enforce strict execution. 100% degreed and certified at the highest collegiate and Olympic tiers.
+        </p>
+      </div>
+
+      <!-- Coaches Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Coach 1 -->
+        <div class="group bg-kinetik-coal border border-kinetik-border hover:border-kinetik-orange transition duration-300 flex flex-col justify-between">
+          <div class="relative overflow-hidden aspect-[3/4] bg-kinetik-black">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" 
+                 alt="Coach Maya Lin" 
+                 class="w-full h-full object-cover grayscaled-photo group-hover:scale-105 transition duration-500"
+                 onerror="this.src='https://placehold.co/400x500/111/fff?text=MAYA+LIN'">
+            <div class="absolute top-3 left-3 bg-kinetik-black/80 border border-kinetik-border px-2 py-0.5 text-[10px] font-mono text-kinetik-orange uppercase">
+              HEAD OF KINEMATICS
+            </div>
+            <div class="absolute bottom-3 right-3 bg-black/90 px-2 py-1 border border-white/10 text-[10px] font-mono text-white">
+              CSCS • EX-OLYMPIC LIFTER
+            </div>
+          </div>
+          
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-teko text-3xl text-white uppercase leading-none group-hover:text-kinetik-orange transition">MAYA "IRON" LIN</h3>
+              <p class="font-mono text-xs text-kinetik-steel uppercase tracking-wider mt-1">OLYMPIC WEIGHTLIFTING & CNS RECOVERY</p>
+              <p class="text-xs text-kinetik-silver/80 mt-3 font-sans line-clamp-2">
+                Former National 64kg snatch record holder. Specializes in barbell trajectory efficiency, barbell velocity tracking, and thoracic mobility.
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-kinetik-border flex items-center justify-between">
+              <span class="font-mono text-[10px] text-kinetik-muted">PR SQUAT: 195KG</span>
+              <button onclick="openCoachDossier('maya')" class="font-mono text-xs text-kinetik-orange hover:text-white uppercase flex items-center space-x-1">
+                <span>DOSSIER</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach 2 -->
+        <div class="group bg-kinetik-coal border border-kinetik-border hover:border-kinetik-orange transition duration-300 flex flex-col justify-between">
+          <div class="relative overflow-hidden aspect-[3/4] bg-kinetik-black">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" 
+                 alt="Coach Viktor Vance" 
+                 class="w-full h-full object-cover grayscaled-photo group-hover:scale-105 transition duration-500"
+                 onerror="this.src='https://placehold.co/400x500/111/fff?text=VIKTOR+VANCE'">
+            <div class="absolute top-3 left-3 bg-kinetik-black/80 border border-kinetik-border px-2 py-0.5 text-[10px] font-mono text-kinetik-orange uppercase">
+              DIRECTOR OF HYPERTROPHY
+            </div>
+            <div class="absolute bottom-3 right-3 bg-black/90 px-2 py-1 border border-white/10 text-[10px] font-mono text-white">
+              MS BIOMECHANICS • CSCS
+            </div>
+          </div>
+          
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-teko text-3xl text-white uppercase leading-none group-hover:text-kinetik-orange transition">VIKTOR VANCE</h3>
+              <p class="font-mono text-xs text-kinetik-steel uppercase tracking-wider mt-1">MECHANICAL TENSION & RECOMPOSITION</p>
+              <p class="text-xs text-kinetik-silver/80 mt-3 font-sans line-clamp-2">
+                12 years preparing heavyweight powerlifters and physique competitors. Author of progressive tension cadence manuals.
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-kinetik-border flex items-center justify-between">
+              <span class="font-mono text-[10px] text-kinetik-muted">DEADLIFT: 325KG</span>
+              <button onclick="openCoachDossier('viktor')" class="font-mono text-xs text-kinetik-orange hover:text-white uppercase flex items-center space-x-1">
+                <span>DOSSIER</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach 3 -->
+        <div class="group bg-kinetik-coal border border-kinetik-border hover:border-kinetik-orange transition duration-300 flex flex-col justify-between">
+          <div class="relative overflow-hidden aspect-[3/4] bg-kinetik-black">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80" 
+                 alt="Coach Jax Thorne" 
+                 class="w-full h-full object-cover grayscaled-photo group-hover:scale-105 transition duration-500"
+                 onerror="this.src='https://placehold.co/400x500/111/fff?text=JAX+THORNE'">
+            <div class="absolute top-3 left-3 bg-kinetik-black/80 border border-kinetik-border px-2 py-0.5 text-[10px] font-mono text-kinetik-orange uppercase">
+              METABOLIC CHIEF
+            </div>
+            <div class="absolute bottom-3 right-3 bg-black/90 px-2 py-1 border border-white/10 text-[10px] font-mono text-white">
+              EX-TACTICAL S&C • USAW-L2
+            </div>
+          </div>
+          
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-teko text-3xl text-white uppercase leading-none group-hover:text-kinetik-orange transition">JAX THORNE</h3>
+              <p class="font-mono text-xs text-kinetik-steel uppercase tracking-wider mt-1">ENERGY SYSTEMS & LACTATE DYNAMICS</p>
+              <p class="text-xs text-kinetik-silver/80 mt-3 font-sans line-clamp-2">
+                Former military fitness instructor. Designs high-density conditioning cycles that fortify cardiovascular capacity without sacrificing lean mass.
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-kinetik-border flex items-center justify-between">
+              <span class="font-mono text-[10px] text-kinetik-muted">2K ROW: 5:58.2</span>
+              <button onclick="openCoachDossier('jax')" class="font-mono text-xs text-kinetik-orange hover:text-white uppercase flex items-center space-x-1">
+                <span>DOSSIER</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach 4 -->
+        <div class="group bg-kinetik-coal border border-kinetik-border hover:border-kinetik-orange transition duration-300 flex flex-col justify-between">
+          <div class="relative overflow-hidden aspect-[3/4] bg-kinetik-black">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80" 
+                 alt="Coach Elena Rostova" 
+                 class="w-full h-full object-cover grayscaled-photo group-hover:scale-105 transition duration-500"
+                 onerror="this.src='https://placehold.co/400x500/111/fff?text=ELENA+ROSTOVA'">
+            <div class="absolute top-3 left-3 bg-kinetik-black/80 border border-kinetik-border px-2 py-0.5 text-[10px] font-mono text-kinetik-orange uppercase">
+              REHABILITATION & DURABILITY
+            </div>
+            <div class="absolute bottom-3 right-3 bg-black/90 px-2 py-1 border border-white/10 text-[10px] font-mono text-white">
+              DPT • FMS CERTIFIED
+            </div>
+          </div>
+          
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-teko text-3xl text-white uppercase leading-none group-hover:text-kinetik-orange transition">DR. ELENA ROSTOVA</h3>
+              <p class="font-mono text-xs text-kinetik-steel uppercase tracking-wider mt-1">FASCIAL INTEGRATION & JOINT HEALTH</p>
+              <p class="text-xs text-kinetik-silver/80 mt-3 font-sans line-clamp-2">
+                Doctor of Physical Therapy. Bridges the gap between acute orthopedic injury return and heavy triple-digit multi-joint loading.
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-kinetik-border flex items-center justify-between">
+              <span class="font-mono text-[10px] text-kinetik-muted">SNATCH PR: 102KG</span>
+              <button onclick="openCoachDossier('elena')" class="font-mono text-xs text-kinetik-orange hover:text-white uppercase flex items-center space-x-1">
+                <span>DOSSIER</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 6. MEMBER STORIES & TRIBE ACCOUNTABILITY (DEXA TELEMETRY)      -->
+  <!-- ============================================================== -->
+  <section id="transformations" class="py-24 bg-kinetik-black relative border-b border-kinetik-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-kinetik-border pb-6">
+        <div>
+          <div class="flex items-center space-x-2 font-mono text-xs text-kinetik-orange uppercase tracking-widest mb-2">
+            <span class="w-1.5 h-1.5 bg-kinetik-orange"></span>
+            <span>VERIFIED PHYSIOLOGICAL ADAPTATION</span>
+          </div>
+          <h2 class="font-teko text-5xl sm:text-6xl text-white uppercase tracking-tight">TRIBE ACCOUNTABILITY CASE STUDIES</h2>
+        </div>
+        <p class="font-mono text-xs text-kinetik-steel max-w-md mt-4 md:mt-0 tracking-wide">
+          No airbrushed lighting. No gimmicks. DEXA scan calibrated biometric data and real members who embraced the grind of brotherhood.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Case Study 1 -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between relative group hover:border-kinetik-steel transition">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-kinetik-border/70 pb-3">
+              <div>
+                <span class="font-teko text-2xl text-white uppercase block leading-none">MARCUS K., 34</span>
+                <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-widest">VP OF LOGISTICS • 16-WEEK PROTOCOL</span>
+              </div>
+              <span class="px-2 py-0.5 bg-kinetik-orange/10 border border-kinetik-orange text-kinetik-orange font-mono text-[10px] uppercase font-bold">
+                RECOMP // HYPERTROPHY
+              </span>
+            </div>
+
+            <!-- Telemetry Metrics Grid -->
+            <div class="grid grid-cols-2 gap-2 font-mono text-xs py-2">
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">BODY FAT</span>
+                <span class="text-kinetik-orange font-bold text-sm">22.4% → 11.2%</span>
+                <span class="text-[9px] text-kinetik-muted block">(-11.2% DEXA)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">BACK SQUAT</span>
+                <span class="text-white font-bold text-sm">115KG → 180KG</span>
+                <span class="text-[9px] text-kinetik-muted block">(+65KG OVERLOAD)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">RESTING HR</span>
+                <span class="text-white font-bold text-sm">71 BPM → 52 BPM</span>
+                <span class="text-[9px] text-kinetik-muted block">(CARDIOVASCULAR SHIFT)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">LEAN TISSUE MASS</span>
+                <span class="text-kinetik-orange font-bold text-sm">+5.4 KG</span>
+                <span class="text-[9px] text-kinetik-muted block">(SKELETAL MUSCLE)</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-kinetik-silver font-sans italic leading-relaxed pt-2">
+              "Commercial gyms gave me complacency. At KINETIK, there's no hiding in the back row. When Coach Viktor put 160kg on my back, four other members stayed by the rack to ensure my depth was legitimate. That brotherhood is rare in modern life."
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-kinetik-border/60 flex items-center justify-between text-xs font-mono text-kinetik-steel">
+            <span>COACH: VIKTOR VANCE</span>
+            <span class="text-kinetik-orange flex items-center space-x-1 font-bold">
+              <span>SCAN #9914 VERIFIED</span>
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Case Study 2 -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between relative group hover:border-kinetik-steel transition">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-kinetik-border/70 pb-3">
+              <div>
+                <span class="font-teko text-2xl text-white uppercase block leading-none">SARAH T., 29</span>
+                <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-widest">SURGICAL RESIDENT • 24-WEEK PROTOCOL</span>
+              </div>
+              <span class="px-2 py-0.5 bg-kinetik-orange/10 border border-kinetik-orange text-kinetik-orange font-mono text-[10px] uppercase font-bold">
+                METABOLIC // POWER
+              </span>
+            </div>
+
+            <!-- Telemetry Metrics Grid -->
+            <div class="grid grid-cols-2 gap-2 font-mono text-xs py-2">
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">VO2 MAX</span>
+                <span class="text-kinetik-orange font-bold text-sm">34.2 → 49.8 mL</span>
+                <span class="text-[9px] text-kinetik-muted block">(TOP 4% AEROBIC)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">TRAP BAR DEADLIFT</span>
+                <span class="text-white font-bold text-sm">70KG → 145KG</span>
+                <span class="text-[9px] text-kinetik-muted block">(+107% MAXIMUM TENSION)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">LACTATE CLEARANCE</span>
+                <span class="text-white font-bold text-sm">4.2 min → 1.8 min</span>
+                <span class="text-[9px] text-kinetik-muted block">(RAPID HOMEOSTASIS)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">FAT OXIDATION PEAK</span>
+                <span class="text-kinetik-orange font-bold text-sm">+38% AT 140BPM</span>
+                <span class="text-[9px] text-kinetik-muted block">(SUB-MAX EFFICIENCY)</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-kinetik-silver font-sans italic leading-relaxed pt-2">
+              "My shifts are 14 hours on my feet in the OR. I used to be chronically exhausted. KINETIK reprogrammed my physical threshold. The cold plunges, heavy pulls, and precision conditioning give me unbreakable mental endurance under pressure."
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-kinetik-border/60 flex items-center justify-between text-xs font-mono text-kinetik-steel">
+            <span>COACH: JAX THORNE</span>
+            <span class="text-kinetik-orange flex items-center space-x-1 font-bold">
+              <span>SCAN #8821 VERIFIED</span>
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Case Study 3 -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between relative group hover:border-kinetik-steel transition">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-kinetik-border/70 pb-3">
+              <div>
+                <span class="font-teko text-2xl text-white uppercase block leading-none">DAVID B., 42</span>
+                <span class="font-mono text-[10px] text-kinetik-steel uppercase tracking-widest">FOUNDER & CYBER ARCHITECT • 20 WEEKS</span>
+              </div>
+              <span class="px-2 py-0.5 bg-kinetik-orange/10 border border-kinetik-orange text-kinetik-orange font-mono text-[10px] uppercase font-bold">
+                DURABILITY // REHAB
+              </span>
+            </div>
+
+            <!-- Telemetry Metrics Grid -->
+            <div class="grid grid-cols-2 gap-2 font-mono text-xs py-2">
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">L4/L5 COMPRESSION</span>
+                <span class="text-kinetik-orange font-bold text-sm">PAIN 8/10 → 0/10</span>
+                <span class="text-[9px] text-kinetik-muted block">(FASCIAL DELOAD)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">POWER CLEAN PR</span>
+                <span class="text-white font-bold text-sm">0KG → 105KG</span>
+                <span class="text-[9px] text-kinetik-muted block">(TRIPLE EXTENSION)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">THORACIC MOBILITY</span>
+                <span class="text-white font-bold text-sm">+32 DEGREES</span>
+                <span class="text-[9px] text-kinetik-muted block">(INCLINE PRESS DEPTH)</span>
+              </div>
+              <div class="bg-kinetik-graphite p-2.5 border border-kinetik-border/50">
+                <span class="text-kinetik-steel text-[10px] block">TOTAL BODY COMP</span>
+                <span class="text-kinetik-orange font-bold text-sm">-8.8 KG FAT</span>
+                <span class="text-[9px] text-kinetik-muted block">(+3.8 KG CONTRACTILE)</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-kinetik-silver font-sans italic leading-relaxed pt-2">
+              "I walked in with severe lumbar sciatica from 15 years behind keyboards. Dr. Elena dissected my gait, corrected my glute firing patterns, and rebuild me from the bone outward. Today I sprint and pull heavy iron completely pain-free."
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-kinetik-border/60 flex items-center justify-between text-xs font-mono text-kinetik-steel">
+            <span>COACH: DR. ELENA ROSTOVA</span>
+            <span class="text-kinetik-orange flex items-center space-x-1 font-bold">
+              <span>SCAN #7740 VERIFIED</span>
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 7. INTERACTIVE TRIAL PASS INTAKE ENGINE                        -->
+  <!-- ============================================================== -->
+  <section id="intake-engine" class="py-24 bg-kinetik-coal relative border-b border-kinetik-border">
+    <!-- Grid overlay texture -->
+    <div class="absolute inset-0 bg-dots-pattern opacity-40 pointer-events-none"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="inline-flex items-center space-x-2 font-mono text-xs text-kinetik-orange uppercase tracking-widest mb-2">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>PHYSIOLOGICAL INTAKE ALGORITHM</span>
+        </div>
+        <h2 class="font-teko text-5xl sm:text-6xl text-white uppercase tracking-tight">BUILD YOUR CUSTOM TRIAL PASS</h2>
+        <p class="font-mono text-xs text-kinetik-steel mt-2">
+          Select your training targets and technical proficiency. We calibrate your entry session, allocate your cadre supervisor, and generate your biometric trial token.
+        </p>
+      </div>
+
+      <!-- Interactive Generator Container -->
+      <div class="bg-kinetik-black border border-kinetik-border p-6 sm:p-10 shadow-2xl relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Generator Controls (Left 7 Cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <!-- Step 1: Goal -->
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-wider text-kinetik-steel mb-2 flex items-center justify-between">
+                <span>01. PRIMARY ADAPTATION TARGET</span>
+                <span class="text-kinetik-orange text-[10px]">*REQUIRED</span>
+              </label>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="selectPassGoal('hypertrophy', this)" class="pass-goal-btn active-goal-btn p-3 bg-kinetik-graphite border border-kinetik-orange text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold text-kinetik-orange">HYPERTROPHY</span>
+                  <span class="text-[10px] text-kinetik-steel">Tension & Mass</span>
+                </button>
+                <button type="button" onclick="selectPassGoal('metabolic', this)" class="pass-goal-btn p-3 bg-kinetik-coal border border-kinetik-border text-kinetik-steel hover:text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold">METABOLIC</span>
+                  <span class="text-[10px] text-kinetik-steel">VO2 & Shred</span>
+                </button>
+                <button type="button" onclick="selectPassGoal('durability', this)" class="pass-goal-btn p-3 bg-kinetik-coal border border-kinetik-border text-kinetik-steel hover:text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold">DURABILITY</span>
+                  <span class="text-[10px] text-kinetik-steel">Joint Longevity</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Experience Tier -->
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-wider text-kinetik-steel mb-2 flex items-center justify-between">
+                <span>02. TRAINING AGE & BARBELL PROFICIENCY</span>
+                <span class="text-kinetik-orange text-[10px]">*REQUIRED</span>
+              </label>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="selectPassExp('novice', this)" class="pass-exp-btn p-3 bg-kinetik-coal border border-kinetik-border text-kinetik-steel hover:text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold">&lt; 1 YEAR</span>
+                  <span class="text-[10px] text-kinetik-steel">Movement Focus</span>
+                </button>
+                <button type="button" onclick="selectPassExp('intermediate', this)" class="pass-exp-btn active-exp-btn p-3 bg-kinetik-graphite border border-kinetik-orange text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold text-kinetik-orange">1 - 3 YEARS</span>
+                  <span class="text-[10px] text-kinetik-steel">Solid Form</span>
+                </button>
+                <button type="button" onclick="selectPassExp('elite', this)" class="pass-exp-btn p-3 bg-kinetik-coal border border-kinetik-border text-kinetik-steel hover:text-white font-mono text-xs uppercase text-left transition">
+                  <span class="block font-bold">3+ YEARS</span>
+                  <span class="text-[10px] text-kinetik-steel">Competitive / Elite</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Contact Inputs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-mono text-xs uppercase text-kinetik-steel mb-1">ATHLETE FULL NAME</label>
+                <input type="text" id="passAthleteName" oninput="updatePassPreview()" placeholder="e.g. Alex Thorne" class="w-full bg-kinetik-coal border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-sm text-white font-mono outline-none">
+              </div>
+              <div>
+                <label class="block font-mono text-xs uppercase text-kinetik-steel mb-1">PHONE NUMBER</label>
+                <input type="tel" id="passAthletePhone" placeholder="+1 (555) 000-0000" class="w-full bg-kinetik-coal border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-sm text-white font-mono outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-mono text-xs uppercase text-kinetik-steel mb-1">TARGET ENTRY DATE</label>
+                <select id="passTargetDate" onchange="updatePassPreview()" class="w-full bg-kinetik-coal border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-sm text-white font-mono outline-none">
+                  <option value="TUESDAY // 06:30 AM (DAWN BLOCK)">Tuesday // 06:30 AM (Dawn Block)</option>
+                  <option value="WEDNESDAY // 12:00 PM (MIDDAY HYBRID)">Wednesday // 12:00 PM (Midday Hybrid)</option>
+                  <option value="THURSDAY // 06:00 PM (CNS OVERLOAD)">Thursday // 06:00 PM (CNS Overload)</option>
+                  <option value="SATURDAY // 09:00 AM (TRIBE COMPOUND)">Saturday // 09:00 AM (Tribe Compound)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-mono text-xs uppercase text-kinetik-steel mb-1">RECOVERY ADD-ON</label>
+                <div class="flex items-center space-x-2 pt-2">
+                  <input type="checkbox" id="passRecoveryPlunge" checked class="accent-kinetik-orange h-4 w-4 rounded-none bg-kinetik-coal border-kinetik-border">
+                  <label for="passRecoveryPlunge" class="text-xs font-mono text-kinetik-silver">Include 3°C Cold Plunge & Cryo</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onclick="generateAndConfirmPass()" class="w-full bg-kinetik-orange hover:bg-kinetik-orangeHover text-black font-teko text-2xl py-3 tracking-wider uppercase font-bold transition flex items-center justify-center space-x-2 glow-orange-sm">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-black"></i>
+              <span>CONFIRM & TRANSMIT INTAKE PASS</span>
+            </button>
+            <p class="text-[10px] font-mono text-kinetik-muted text-center">
+              Strict 48-hour validity upon generation. Zero drop-ins permitted without verified pass clearance.
+            </p>
+          </div>
+
+          <!-- Live Dynamic Mock Pass Graphic (Right 5 Cols) -->
+          <div class="lg:col-span-5 flex flex-col justify-center">
+            <div id="livePassGraphic" class="bg-gradient-to-b from-kinetik-graphite to-kinetik-coal border-2 border-kinetik-orange/80 p-6 relative shadow-2xl overflow-hidden">
+              
+              <!-- Background Watermark -->
+              <div class="absolute -right-6 -bottom-6 font-teko text-9xl text-white/5 select-none pointer-events-none">
+                LAB
+              </div>
+
+              <!-- Pass Top Bar -->
+              <div class="flex justify-between items-start border-b border-kinetik-border pb-4">
+                <div>
+                  <span class="font-teko text-2xl text-white tracking-widest leading-none block">KINETIK // PASS</span>
+                  <span class="font-mono text-[9px] text-kinetik-orange tracking-widest uppercase">LAB ACCESS TOKEN</span>
+                </div>
+                <div class="text-right font-mono text-[9px] text-kinetik-steel">
+                  <span>SEC-ID: <span class="text-white font-bold" id="passSecId">#KN-8924</span></span>
+                  <div class="text-[8px] text-kinetik-muted">STATUS: PENDING CONFIRM</div>
+                </div>
+              </div>
+
+              <!-- Athlete Data -->
+              <div class="my-5 space-y-3 font-mono text-xs">
+                <div>
+                  <span class="text-[9px] text-kinetik-steel block uppercase">ATHLETE NAME</span>
+                  <span class="text-white font-bold text-base tracking-wide" id="previewName">ALEXANDER THORNE</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[11px] pt-1">
+                  <div>
+                    <span class="text-[9px] text-kinetik-steel block uppercase">FOCUS VECTOR</span>
+                    <span class="text-kinetik-orange font-bold uppercase" id="previewGoal">HYPERTROPHY & TENSION</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-kinetik-steel block uppercase">TRAINING AGE</span>
+                    <span class="text-white font-bold uppercase" id="previewExp">1-3 YEARS (INTERMEDIATE)</span>
+                  </div>
+                </div>
+
+                <div class="pt-1">
+                  <span class="text-[9px] text-kinetik-steel block uppercase">SESSION SLOT ALLOCATION</span>
+                  <span class="text-white font-bold text-xs" id="previewDate">TUESDAY // 06:30 AM (DAWN BLOCK)</span>
+                </div>
+
+                <div>
+                  <span class="text-[9px] text-kinetik-steel block uppercase">SUPERVISING CADRE</span>
+                  <span class="text-kinetik-silver text-xs" id="previewCoach">VIKTOR VANCE (CSCS)</span>
+                </div>
+              </div>
+
+              <!-- Barcode / QR Simulation & Verification -->
+              <div class="pt-4 border-t border-dashed border-kinetik-border/90 flex items-center justify-between">
+                <!-- Mock QR Vector -->
+                <div class="w-14 h-14 bg-white p-1 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" class="w-full h-full text-black fill-current">
+                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm-2 10h8v8H2v-8zm2 2v4h4v-4H4zm10-14h8v8h-8V2zm2 2v4h4V4h-4zm2 10h2v2h-2v-2zm-2 2h2v2h-2v-2zm4 0h2v4h-2v-4zm-4 4h4v2h-4v-2zm6-4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                  </svg>
+                </div>
+                <div class="text-right font-mono text-[9px] text-kinetik-steel space-y-0.5">
+                  <div class="text-white font-bold tracking-wider">PREP REQUIREMENT:</div>
+                  <div>• FASTED DEXA ARRIVAL 15-MIN PRIOR</div>
+                  <div>• ZERO LIFTING STRAPS ON COMPOUND 1</div>
+                  <div>• BRING HARDENED BARBELL FOOTWEAR</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 8. FACILITY SPECS & RECOVERY SANCTUARY                         -->
+  <!-- ============================================================== -->
+  <section id="facility" class="py-24 bg-kinetik-black relative border-b border-kinetik-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-kinetik-border pb-6">
+        <div>
+          <div class="flex items-center space-x-2 font-mono text-xs text-kinetik-orange uppercase tracking-widest mb-2">
+            <span class="w-1.5 h-1.5 bg-kinetik-orange"></span>
+            <span>HARDWARE & BIOMECHANICAL ENVIRONMENT</span>
+          </div>
+          <h2 class="font-teko text-5xl sm:text-6xl text-white uppercase tracking-tight">FACILITY SPECIFICATIONS</h2>
+        </div>
+        <p class="font-mono text-xs text-kinetik-steel max-w-md mt-4 md:mt-0 tracking-wide">
+          8,500 square feet of competition-grade metallurgy, surgical recovery tanks, and custom pneumatic loading bays. No retail gimmicks.
+        </p>
+      </div>
+
+      <!-- Facility Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Bento 1: Heavy Iron -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between group hover:border-kinetik-orange transition">
+          <div class="space-y-4">
+            <div class="w-10 h-10 bg-kinetik-graphite border border-kinetik-border flex items-center justify-center text-kinetik-orange">
+              <i data-lucide="dumbbell" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-teko text-3xl text-white uppercase tracking-wide">COMPETITION STEEL ZONE</h3>
+            <p class="text-xs text-kinetik-steel font-sans leading-relaxed">
+              10x Eleiko IPF Olympic Power Racks with integrated force plates. Over 14,000 lbs of calibrated steel plates with precise 10-gram tolerance. Specialized power bars, safety squat bars, and Texas deadlift bars.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-kinetik-border flex justify-between font-mono text-[10px] text-kinetik-steel">
+            <span>BARBELL TOLERANCE: ±10G</span>
+            <span class="text-white">ELEIKO ONLY</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: Pneumatics & Velocity -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between group hover:border-kinetik-orange transition">
+          <div class="space-y-4">
+            <div class="w-10 h-10 bg-kinetik-graphite border border-kinetik-border flex items-center justify-center text-kinetik-orange">
+              <i data-lucide="gauge" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-teko text-3xl text-white uppercase tracking-wide">PNEUMATIC VELOCITY BAY</h3>
+            <p class="text-xs text-kinetik-steel font-sans leading-relaxed">
+              Keiser Air300 pneumatic functional trainers allowing maximum acceleration with zero eccentric shock on connective joints. GymAware laser units on every platform for real-time velocity-based training (VBT).
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-kinetik-border flex justify-between font-mono text-[10px] text-kinetik-steel">
+            <span>TELEMETRY: GYMAWARE L2</span>
+            <span class="text-white">AIR DYNAMICS</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Recovery Suite -->
+        <div class="bg-kinetik-coal border border-kinetik-border p-6 flex flex-col justify-between group hover:border-kinetik-orange transition">
+          <div class="space-y-4">
+            <div class="w-10 h-10 bg-kinetik-graphite border border-kinetik-border flex items-center justify-center text-kinetik-orange">
+              <i data-lucide="snowflake" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-teko text-3xl text-white uppercase tracking-wide">CRYO & CONTRAST SUITE</h3>
+            <p class="text-xs text-kinetik-steel font-sans leading-relaxed">
+              Twin 3°C cold plunge tubs with continuous ozonated filtration and sub-zero chillers. Dual 90°C traditional Finnish dry saunas + infrared spectrum lamps. Whole-body electric cryotherapy chamber operating at -110°C.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-kinetik-border flex justify-between font-mono text-[10px] text-kinetik-steel">
+            <span>TEMP DELTA: 3°C TO 90°C</span>
+            <span class="text-white">RAPID VASODILATION</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Numbers Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 font-mono text-xs">
+        <div class="p-4 bg-kinetik-coal/60 border border-kinetik-border text-center">
+          <div class="text-kinetik-orange font-teko text-4xl font-bold leading-none">8,500 SQ FT</div>
+          <span class="text-kinetik-steel text-[10px] uppercase">HEAVY LOAD TRAINING FLOOR</span>
+        </div>
+        <div class="p-4 bg-kinetik-coal/60 border border-kinetik-border text-center">
+          <div class="text-white font-teko text-4xl font-bold leading-none">10 PLATFORMS</div>
+          <span class="text-kinetik-steel text-[10px] uppercase">SOLID OAK DROPPING ZONES</span>
+        </div>
+        <div class="p-4 bg-kinetik-coal/60 border border-kinetik-border text-center">
+          <div class="text-kinetik-orange font-teko text-4xl font-bold leading-none">-110° CELSIUS</div>
+          <span class="text-kinetik-steel text-[10px] uppercase">WHOLE BODY CRYO CHAMBER</span>
+        </div>
+        <div class="p-4 bg-kinetik-coal/60 border border-kinetik-border text-center">
+          <div class="text-white font-teko text-4xl font-bold leading-none">12 ATHLETES MAX</div>
+          <span class="text-kinetik-steel text-[10px] uppercase">CAPPED SESSION INTAKE</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 9. FOOTER & LOCATION SPECIFICATIONS                            -->
+  <!-- ============================================================== -->
+  <footer class="bg-kinetik-black border-t border-kinetik-border pt-16 pb-12 font-mono text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-kinetik-border/70">
+        
+        <!-- Brand & Ethos (4 cols) -->
+        <div class="md:col-span-4 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-kinetik-orange flex items-center justify-center font-teko text-xl font-bold text-black">
+              K//
+            </div>
+            <span class="font-teko text-2xl tracking-widest text-white">KINETIK // ATHLETIC LAB</span>
+          </div>
+          <p class="text-kinetik-steel text-xs font-sans leading-relaxed max-w-sm">
+            High-tension training methodology built on biomechanical science, brotherhood accountability, and quantitative metrics. We build bodies that produce real force.
+          </p>
+          <div class="pt-2 text-kinetik-muted text-[11px]">
+            FACILITY LICENSE: #KNTK-LAB-2026 // DIVISION S&C
+          </div>
+        </div>
+
+        <!-- Hours & Access (3 cols) -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="font-teko text-xl text-white uppercase tracking-wider text-kinetik-orange">OPERATING CADENCE</h4>
+          <ul class="space-y-2 text-kinetik-steel text-[11px]">
+            <li class="flex justify-between border-b border-kinetik-border/40 pb-1">
+              <span>MON - FRI:</span>
+              <span class="text-white font-bold">05:30 - 21:30</span>
+            </li>
+            <li class="flex justify-between border-b border-kinetik-border/40 pb-1">
+              <span>SATURDAY:</span>
+              <span class="text-white font-bold">07:00 - 18:00</span>
+            </li>
+            <li class="flex justify-between border-b border-kinetik-border/40 pb-1">
+              <span>SUNDAY:</span>
+              <span class="text-kinetik-orange font-bold">RECOVERY & PLUNGE ONLY</span>
+            </li>
+            <li class="pt-1 text-[10px] text-kinetik-muted">
+              *All sessions must be pre-reserved via member token.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Location & Fast Copy (3 cols) -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="font-teko text-xl text-white uppercase tracking-wider text-kinetik-orange">COMPOUND COORDINATES</h4>
+          <p class="text-kinetik-silver text-xs font-sans">
+            KINETIK COMPOUND 01<br>
+            484 Industrial Parkway, Sector 9<br>
+            Metropolitan Athletic District
+          </p>
+          <button onclick="copyAddressToClipboard()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-kinetik-graphite border border-kinetik-border text-kinetik-steel hover:text-white hover:border-kinetik-orange transition text-[11px]">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-kinetik-orange"></i>
+            <span id="copyBtnText">COPY VENUE ADDRESS</span>
+          </button>
+        </div>
+
+        <!-- Direct Contact (2 cols) -->
+        <div class="md:col-span-2 space-y-3">
+          <h4 class="font-teko text-xl text-white uppercase tracking-wider text-kinetik-orange">DIRECT LINE</h4>
+          <div class="space-y-1 text-xs">
+            <div class="text-white font-bold">COMMS: (555) 892-4410</div>
+            <div class="text-kinetik-steel hover:text-kinetik-orange transition cursor-pointer">cadre@kinetiklab.com</div>
+            <div class="pt-3">
+              <span class="inline-block px-2 py-0.5 bg-green-950/60 border border-green-600/60 text-green-400 text-[10px] font-bold">
+                PLATFORM READY
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Legal / Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-kinetik-muted text-[10px] space-y-3 sm:space-y-0">
+        <div>
+          © 2026 KINETIK ATHLETIC LAB. ALL RIGHTS RESERVED. NO COPIES WITHOUT RECOGNITION.
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="hover:text-white transition">SAFETY CODES</a>
+          <a href="#" class="hover:text-white transition">DEXA PROTOCOLS</a>
+          <a href="#" class="hover:text-white transition">PRIVACY CHARTER</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 1: COACH DOSSIER SLIDEOVER/MODAL                        -->
+  <!-- ============================================================== -->
+  <div id="coachModal" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeCoachDossier()"></div>
+    
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+      <div class="w-screen max-w-md bg-kinetik-black border-l border-kinetik-border p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+        <div>
+          <div class="flex items-center justify-between border-b border-kinetik-border pb-4">
+            <span class="font-mono text-xs text-kinetik-orange font-bold uppercase tracking-widest">// CADRE DOSSIER</span>
+            <button onclick="closeCoachDossier()" class="text-kinetik-steel hover:text-white p-1">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <div id="dossierContent" class="py-6 space-y-6">
+            <!-- Dynamic Coach info injected via openCoachDossier() -->
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-kinetik-border">
+          <button onclick="closeCoachDossier(); openBookingModal();" class="w-full bg-kinetik-orange hover:bg-kinetik-orangeHover text-black font-teko text-2xl py-3 uppercase tracking-wider font-bold transition glow-orange-sm">
+            REQUEST INTAKE UNDER THIS COACH
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 2: CINEMATIC LAB REEL VIDEO POPUP                        -->
+  <!-- ============================================================== -->
+  <div id="reelModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeReelModal()"></div>
+    
+    <div class="relative bg-kinetik-coal border border-kinetik-border max-w-3xl w-full p-4 z-10">
+      <div class="flex items-center justify-between pb-3 border-b border-kinetik-border mb-3 font-mono text-xs text-kinetik-steel">
+        <div class="flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-kinetik-orange animate-ping"></span>
+          <span class="text-white uppercase font-bold">KINETIK LAB // 60-SEC REEL (4K ARCHIVE)</span>
+        </div>
+        <button onclick="closeReelModal()" class="text-kinetik-steel hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Cinematic Video Player Simulation -->
+      <div class="relative aspect-video bg-black flex items-center justify-center overflow-hidden border border-kinetik-border">
+        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&auto=format&fit=crop&q=80" 
+             alt="Cinematic Barbell Lift" 
+             class="w-full h-full object-cover grayscaled-photo opacity-60">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60 flex flex-col justify-between p-6">
+          <div class="font-mono text-[10px] text-kinetik-orange uppercase tracking-widest">
+            SESSION RECAP // 200KG SYNCHRONIZED PULLS
+          </div>
+
+          <div class="text-center space-y-2">
+            <div class="w-16 h-16 rounded-full bg-kinetik-orange/90 text-black flex items-center justify-center mx-auto cursor-pointer hover:scale-110 transition glow-orange">
+              <i data-lucide="play" class="w-8 h-8 fill-black translate-x-0.5"></i>
+            </div>
+            <div class="font-teko text-3xl text-white uppercase tracking-wider">AUDIO TRACK: LAB TRANSMISSION 04</div>
+            <p class="font-mono text-xs text-kinetik-steel">High-fidelity 120 FPS recording of our Tuesday Heavy Lower Compound wave.</p>
+          </div>
+
+          <div class="flex items-center justify-between font-mono text-[10px] text-kinetik-muted">
+            <span>RES: 3840 x 2160 @ 60FPS</span>
+            <span>RAW UNFILTERED FOOTAGE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 3: INSTANT TRIAL PASS CLAIM MODAL                        -->
+  <!-- ============================================================== -->
+  <div id="bookingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/85 backdrop-blur-sm" onclick="closeBookingModal()"></div>
+    
+    <div class="relative bg-kinetik-coal border border-kinetik-border max-w-xl w-full p-6 sm:p-8 z-10 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-kinetik-border pb-4 mb-6">
+        <div>
+          <span class="font-mono text-[10px] text-kinetik-orange uppercase tracking-widest block">// TRIAL PASS CLEARANCE</span>
+          <h3 class="font-teko text-3xl sm:text-4xl text-white uppercase leading-none">CLAIM YOUR 48-HOUR ACCESS PASS</h3>
+        </div>
+        <button onclick="closeBookingModal()" class="text-kinetik-steel hover:text-white p-1">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleQuickBooking(event)" class="space-y-4 font-mono text-xs">
+        <div>
+          <label class="block text-kinetik-steel uppercase mb-1">YOUR FULL NAME</label>
+          <input type="text" required placeholder="Marcus King" class="w-full bg-kinetik-black border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-white outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-kinetik-steel uppercase mb-1">EMAIL ADDRESS</label>
+            <input type="email" required placeholder="marcus@domain.com" class="w-full bg-kinetik-black border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-kinetik-steel uppercase mb-1">MOBILE (FOR PASS PIN)</label>
+            <input type="tel" required placeholder="+1 555-019-2831" class="w-full bg-kinetik-black border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-white outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-kinetik-steel uppercase mb-1">PREFERRED TRIAL FOCUS</label>
+          <select class="w-full bg-kinetik-black border border-kinetik-border focus:border-kinetik-orange px-3 py-2.5 text-white outline-none">
+            <option>Hypertrophy & Heavy Compound Barbell</option>
+            <option>Metabolic Threshold & VO2 Max Engine</option>
+            <option>Structural Durability & Fascial Sling</option>
+            <option>Full Athletic Assessment & DEXA Scan</option>
+          </select>
+        </div>
+
+        <div class="p-3 bg-kinetik-graphite border border-kinetik-border/70 text-[11px] text-kinetik-steel space-y-1">
+          <div class="text-white font-bold uppercase flex items-center space-x-1.5">
+            <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-kinetik-orange"></i>
+            <span>LAB PROTOCOL MANDATE:</span>
+          </div>
+          <p>Please arrive 15 minutes before the session for movement screening. No sleeveless tanks with open seams; chalk is provided on every platform.</p>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full bg-kinetik-orange hover:bg-kinetik-orangeHover text-black font-teko text-2xl py-3.5 uppercase tracking-wider font-bold transition flex items-center justify-center space-x-2 glow-orange-sm">
+            <span>GENERATE BIOMETRIC PASS</span>
+            <i data-lucide="arrow-right" class="w-5 h-5 text-black"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- FLOATING TOAST NOTIFICATION CONTAINER                           -->
+  <!-- ============================================================== -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT LOGIC & APPLICATION ENGINE                          -->
+  <!-- ============================================================== -->
+  <script>
+    // Initialize Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderCurriculum('hypertrophy');
+      initClock();
+      randomizeCapacity();
+    });
+
+    // -------------------------------------------------------------
+    // AUDIO SYNTHESIZER (TACTILE CLICK / CONFIRM CHIRP)
+    // -------------------------------------------------------------
+    let audioFeedbackActive = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function playTactileSound(freq = 440, type = 'sine', duration = 0.04) {
+      if (!audioFeedbackActive) return;
+      try {
+        const ctx = getAudioContext();
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {
+        // AudioContext not permitted or supported silently
+      }
+    }
+
+    function toggleAudioFx() {
+      audioFeedbackActive = !audioFeedbackActive;
+      const soundStatusText = document.getElementById('soundStatusText');
+      const soundIcon = document.getElementById('soundIcon');
+      if (audioFeedbackActive) {
+        soundStatusText.textContent = 'AUDIO FEEDBACK: ON';
+        soundIcon.classList.remove('text-kinetik-muted');
+        soundIcon.classList.add('text-kinetik-orange');
+        playTactileSound(660, 'sine', 0.08);
+        showToast('SYSTEM AUDIO: FEEDBACK ONLINE', 'success');
+      } else {
+        soundStatusText.textContent = 'AUDIO FEEDBACK: MUTED';
+        soundIcon.classList.remove('text-kinetik-orange');
+        soundIcon.classList.add('text-kinetik-muted');
+        showToast('SYSTEM AUDIO: MUTED', 'info');
+      }
+    }
+
+    // Attach click feedback to all buttons
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) {
+        playTactileSound(520, 'triangle', 0.03);
+      }
+    });
+
+    // -------------------------------------------------------------
+    // CLOCK & CAPACITY SIMULATION
+    // -------------------------------------------------------------
+    function initClock() {
+      setInterval(() => {
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        const el = document.getElementById('liveTimestamp');
+        if (el) el.textContent = `${hrs}:${mins}:${secs} LOCAL`;
+      }, 1000);
+    }
+
+    function randomizeCapacity() {
+      setInterval(() => {
+        const el = document.getElementById('capacityVal');
+        if (el) {
+          const cap = Math.floor(Math.random() * (84 - 68 + 1)) + 68;
+          el.textContent = `${cap}%`;
+        }
+      }, 12000);
+    }
+
+    // -------------------------------------------------------------
+    // CURRICULUM DATA & TAB SWITCHER
+    // -------------------------------------------------------------
+    const curriculumData = {
+      hypertrophy: {
+        tag: 'TRACK 01 // MECHANICAL TENSION PROTOCOL',
+        title: 'HYPERTROPHY & MAXIMUM TENSION',
+        description: 'Engineered specifically for myofibrillar protein synthesis via high-tension eccentric loading (3-4 second descents) and systemic overload. Every exercise targets peak sarcomere stretch with measured DEXA body composition verification every 14 days.',
+        stats: [
+          { label: 'MECHANICAL OVERLOAD', val: 'RPE 8.5 - 9.5', color: 'text-kinetik-orange' },
+          { label: 'CADENCE FOCUS', val: '4:0:1:0 ECCENTRIC', color: 'text-white' },
+          { label: 'DEXA CALIBRATION', val: 'BI-WEEKLY', color: 'text-kinetik-orange' },
+          { label: 'CNS RECOVERY WINDOW', val: '48 HOURS', color: 'text-white' }
+        ],
+        heartRateZone: 'ZONE 3 - 4 (72% - 84% HR MAX)',
+        epocGauge: '84%',
+        primaryLifts: ['High-Bar Paused Squats', 'Snatch-Grip Romanian Deadlifts', 'Incline Dumbbell Low-Angle Press', 'Weighted Chest-to-Bar Pullups'],
+        sampleSlots: [
+          { time: '06:30 AM', coach: 'Viktor Vance', spotsLeft: '2 SPOTS' },
+          { time: '12:00 PM', coach: 'Maya Lin', spotsLeft: 'FULL (WAITLIST)' },
+          { time: '06:00 PM', coach: 'Viktor Vance', spotsLeft: '1 SPOT LEFT' }
+        ]
+      },
+      metabolic: {
+        tag: 'TRACK 02 // LACTATE CLEARANCE & EPOC ACCELERATION',
+        title: 'METABOLIC INCINERATION',
+        description: 'Engineered for rapid lipid oxidation and maximal mitochondrial density. We leverage Keiser pneumatic trainers, concept2 ergometers, and high-density intervals to hold athletes above their anaerobic lactate threshold while maintaining strict kinematic integrity.',
+        stats: [
+          { label: 'AEROBIC PEAK', val: '92% VO2 MAX', color: 'text-kinetik-orange' },
+          { label: 'LACTATE CLEARANCE', val: '&lt; 120 SECONDS', color: 'text-white' },
+          { label: 'EPOC DURATION', val: '36H AFTERBURN', color: 'text-kinetik-orange' },
+          { label: 'SUBSTRATE PROFILE', val: 'FAT / GLYCOGEN HYBRID', color: 'text-white' }
+        ],
+        heartRateZone: 'ZONE 4 - 5 (85% - 96% HR MAX)',
+        epocGauge: '96%',
+        primaryLifts: ['Pneumatic Push-Press Intervals', 'AirBike 30s Lactate Bursts', 'Trap Bar Farmers Carries (Bodyweight)', 'Continuous Sled Sprint Drags'],
+        sampleSlots: [
+          { time: '07:30 AM', coach: 'Jax Thorne', spotsLeft: '3 SPOTS' },
+          { time: '01:00 PM', coach: 'Jax Thorne', spotsLeft: '2 SPOTS' },
+          { time: '07:00 PM', coach: 'Elena Rostova', spotsLeft: '4 SPOTS' }
+        ]
+      },
+      durability: {
+        tag: 'TRACK 03 // FASCIAL SLING & ORTHOPEDIC RESILIENCE',
+        title: 'FUNCTIONAL DURABILITY & MOBILITY',
+        description: 'Joint longevity and fascial elasticity for athletes who refuse to break down. We reprogram kinetic chain dysfunctions, decompress lumbar spine tension, and develop rotational torque through multi-planar loading and controlled end-range articular rotations (CARs).',
+        stats: [
+          { label: 'JOINT ARTICULATION', val: 'END-RANGE CARs', color: 'text-kinetik-orange' },
+          { label: 'ROTATIONAL FORCE', val: 'TRANSVERSE AXIS', color: 'text-white' },
+          { label: 'SPINAL DECOMPRESSION', val: 'INTEGRATED DAILY', color: 'text-kinetik-orange' },
+          { label: 'CONNECTIVE INTEGRITY', val: 'TENDON TENSIONING', color: 'text-white' }
+        ],
+        heartRateZone: 'ZONE 2 - 3 (60% - 75% HR MAX)',
+        epocGauge: '58%',
+        primaryLifts: ['Jefferson Curls from Deficit', 'Cable Woodchopper High-Velocity', 'Copenhagen Adductor Planks', 'Kettlebell Turkish Get-Up Ladders'],
+        sampleSlots: [
+          { time: '08:30 AM', coach: 'Dr. Elena Rostova', spotsLeft: '1 SPOT' },
+          { time: '04:30 PM', coach: 'Dr. Elena Rostova', spotsLeft: '2 SPOTS' },
+          { time: '06:30 PM', coach: 'Maya Lin', spotsLeft: 'FULL' }
+        ]
+      }
+    };
+
+    function switchCurriculum(type) {
+      document.querySelectorAll('.curriculum-tab').forEach(btn => {
+        btn.classList.remove('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+        btn.classList.add('border-transparent', 'bg-kinetik-coal', 'text-kinetik-steel');
+      });
+      const activeBtn = document.getElementById(`tabBtn-${type}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'bg-kinetik-coal', 'text-kinetik-steel');
+        activeBtn.classList.add('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+      }
+      renderCurriculum(type);
+    }
+
+    function renderCurriculum(type) {
+      const data = curriculumData[type];
+      const container = document.getElementById('curriculumDisplay');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <div class="font-mono text-xs text-kinetik-orange uppercase tracking-wider mb-1">${data.tag}</div>
+              <h3 class="font-teko text-4xl sm:text-5xl text-white uppercase tracking-tight leading-none">${data.title}</h3>
+              <p class="text-sm font-sans text-kinetik-silver/90 mt-3 leading-relaxed">${data.description}</p>
+            </div>
+
+            <!-- Stats Matrix -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+              ${data.stats.map(s => `
+                <div class="p-3 bg-kinetik-graphite border border-kinetik-border/70">
+                  <span class="text-[9px] text-kinetik-steel block uppercase">${s.label}</span>
+                  <span class="font-bold text-sm ${s.color} block mt-0.5">${s.val}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Focus Movements -->
+            <div class="p-4 bg-kinetik-graphite/40 border border-kinetik-border">
+              <span class="font-mono text-[10px] text-kinetik-orange uppercase font-bold tracking-wider block mb-2">PRIMARY COMPOUND MOVEMENTS</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-white">
+                ${data.primaryLifts.map(lift => `
+                  <div class="flex items-center space-x-2">
+                    <span class="w-1.5 h-1.5 bg-kinetik-orange"></span>
+                    <span>${lift}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Schedule & Heart Rate Zone (Right 5 Cols) -->
+          <div class="lg:col-span-5 bg-kinetik-graphite p-6 border border-kinetik-border space-y-6">
+            <!-- Telemetry Intensity Meter -->
+            <div>
+              <div class="flex justify-between items-center font-mono text-xs mb-2">
+                <span class="text-kinetik-steel uppercase">ENERGY EXPENDITURE // EPOC</span>
+                <span class="text-kinetik-orange font-bold">${data.epocGauge} PEAK</span>
+              </div>
+              <div class="w-full bg-kinetik-black h-2 overflow-hidden">
+                <div class="bg-kinetik-orange h-full transition-all duration-700" style="width: ${data.epocGauge}"></div>
+              </div>
+              <div class="flex justify-between items-center font-mono text-[10px] text-kinetik-muted mt-1.5">
+                <span>INTENSITY: ${data.heartRateZone}</span>
+                <span>POLAR VERIFIED</span>
+              </div>
+            </div>
+
+            <!-- Next Scheduled Blocks -->
+            <div class="space-y-3">
+              <div class="flex justify-between items-center font-mono text-xs text-white border-b border-kinetik-border/80 pb-2">
+                <span class="uppercase tracking-wider">UPCOMING SLOTS</span>
+                <span class="text-[10px] text-kinetik-steel">SESSION CAPACITY: 12</span>
+              </div>
+
+              <div class="space-y-2">
+                ${data.sampleSlots.map(slot => `
+                  <div class="p-3 bg-kinetik-coal border border-kinetik-border flex items-center justify-between text-xs font-mono">
+                    <div>
+                      <span class="text-white font-bold block">${slot.time}</span>
+                      <span class="text-[10px] text-kinetik-steel">COACH: ${slot.coach}</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="text-[10px] font-bold ${slot.spotsLeft.includes('FULL') ? 'text-kinetik-muted' : 'text-kinetik-orange'} block">${slot.spotsLeft}</span>
+                      <button onclick="openBookingModal()" class="text-[10px] text-white underline hover:text-kinetik-orange uppercase mt-0.5">RESERVE</button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <button onclick="openBookingModal()" class="w-full bg-white hover:bg-kinetik-orange text-black font-teko text-xl py-2.5 uppercase tracking-wider font-bold transition flex items-center justify-center space-x-2">
+              <span>REGISTER FOR THIS TRACK</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-black"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // COACH DOSSIER DRAWER
+    // -------------------------------------------------------------
+    const coachDossiers = {
+      maya: {
+        name: 'MAYA "IRON" LIN',
+        role: 'HEAD OF KINEMATICS & OLYMPIC LIFTING',
+        certs: 'CSCS • USAW SENIOR COACH • EX-NATIONAL RECORD HOLDER',
+        pr: 'SNATCH: 104KG | CLEAN & JERK: 132KG | BACK SQUAT: 195KG',
+        bio: 'Maya competed internationally for 8 years in the 64kg weight category before taking over kinematic education at KINETIK. She uses video motion tracking to analyze bar displacement within 2-millimeter accuracy.',
+        ethos: '"Barbell mechanics are purely physics. Any motion outside the optimal vertical path is wasted energy and unnecessary spinal shear. We do not accept sloppy reps."'
+      },
+      viktor: {
+        name: 'VIKTOR VANCE',
+        role: 'DIRECTOR OF HYPERTROPHY & HEAVY TENSION',
+        certs: 'MS BIOMECHANICS • CSCS • FMS LEVEL 2',
+        pr: 'DEADLIFT: 325KG | BENCH PRESS: 215KG | FRONT SQUAT: 230KG',
+        bio: 'With over a decade of research into high-threshold motor unit recruitment, Viktor designs progressive volume frameworks that prioritize muscle cross-sectional expansion without connective breakdown.',
+        ethos: '"Fatigue is not a proxy for adaptation. Precision tension, controlled eccentrics, and uncompromising depth create permanent muscular armor."'
+      },
+      jax: {
+        name: 'JAX THORNE',
+        role: 'METABOLIC CHIEF & TACTICAL S&C',
+        certs: 'EX-MILITARY LEAD INSTRUCTOR • USAW-L2 • POLAR SYSTEM LEAD',
+        pr: '2K ROW: 5:58.2 | 100M SLED PUSH: 42 SECONDS @ 240KG',
+        bio: 'Jax oversaw conditioning protocols for Tier-1 operators. At KINETIK, he programs work:rest ratios that expand aerobic recovery capacity and turn lactic acid into an efficient fuel source.',
+        ethos: '"Your heart is an engine that will either carry you or abandon you. We build engines that run cold when the room is on fire."'
+      },
+      elena: {
+        name: 'DR. ELENA ROSTOVA',
+        role: 'DIRECTOR OF REHABILITATION & DURABILITY',
+        certs: 'DOCTOR OF PHYSICAL THERAPY (DPT) • CSCS • PRI TRAINED',
+        pr: 'CLEAN & JERK: 120KG | CONVENTIONAL PULL: 210KG',
+        bio: 'Dr. Rostova bridges the divide between surgical rehabilitation and intense multi-joint powerlifting. She eliminates structural asymmetries and revitalizes compromised joints for long-term load capacity.',
+        ethos: '"Do not accept pain as the tax of lifting heavy iron. If the architecture is balanced, the body can handle extraordinary force indefinitely."'
+      }
+    };
+
+    function openCoachDossier(coachKey) {
+      const data = coachDossiers[coachKey];
+      if (!data) return;
+
+      const container = document.getElementById('dossierContent');
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div>
+            <span class="font-mono text-[10px] text-kinetik-orange uppercase tracking-wider block">${data.role}</span>
+            <h3 class="font-teko text-4xl text-white uppercase leading-none mt-1">${data.name}</h3>
+            <span class="font-mono text-xs text-kinetik-steel block mt-2 border-b border-kinetik-border pb-3">${data.certs}</span>
+          </div>
+
+          <div class="p-3 bg-kinetik-coal border border-kinetik-border font-mono text-xs">
+            <span class="text-kinetik-orange font-bold block text-[10px] uppercase">VERIFIED PERSONAL RECORDS</span>
+            <span class="text-white text-xs block mt-1">${data.pr}</span>
+          </div>
+
+          <div class="space-y-2">
+            <span class="font-mono text-xs text-white uppercase font-bold block">BACKGROUND & METHODOLOGY</span>
+            <p class="text-xs font-sans text-kinetik-silver leading-relaxed">${data.bio}</p>
+          </div>
+
+          <div class="p-4 bg-kinetik-graphite border-l-2 border-kinetik-orange italic font-sans text-xs text-white leading-relaxed">
+            ${data.ethos}
+          </div>
+        </div>
+      `;
+      document.getElementById('coachModal').classList.remove('hidden');
+    }
+
+    function closeCoachDossier() {
+      document.getElementById('coachModal').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------
+    // INTERACTIVE TRIAL PASS BUILDER
+    // -------------------------------------------------------------
+    let passState = {
+      goal: 'HYPERTROPHY & TENSION',
+      exp: '1-3 YEARS (INTERMEDIATE)',
+      name: 'ALEXANDER THORNE',
+      date: 'TUESDAY // 06:30 AM (DAWN BLOCK)',
+      coach: 'VIKTOR VANCE (CSCS)'
+    };
+
+    function selectPassGoal(goalType, btn) {
+      document.querySelectorAll('.pass-goal-btn').forEach(b => {
+        b.classList.remove('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+        b.classList.add('border-kinetik-border', 'bg-kinetik-coal', 'text-kinetik-steel');
+      });
+      btn.classList.remove('border-kinetik-border', 'bg-kinetik-coal', 'text-kinetik-steel');
+      btn.classList.add('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+
+      if (goalType === 'hypertrophy') {
+        passState.goal = 'HYPERTROPHY & TENSION';
+        passState.coach = 'VIKTOR VANCE (CSCS)';
+      } else if (goalType === 'metabolic') {
+        passState.goal = 'METABOLIC INCINERATION';
+        passState.coach = 'JAX THORNE (USAW-L2)';
+      } else {
+        passState.goal = 'FUNCTIONAL DURABILITY';
+        passState.coach = 'DR. ELENA ROSTOVA (DPT)';
+      }
+      updatePassPreview();
+    }
+
+    function selectPassExp(expType, btn) {
+      document.querySelectorAll('.pass-exp-btn').forEach(b => {
+        b.classList.remove('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+        b.classList.add('border-kinetik-border', 'bg-kinetik-coal', 'text-kinetik-steel');
+      });
+      btn.classList.remove('border-kinetik-border', 'bg-kinetik-coal', 'text-kinetik-steel');
+      btn.classList.add('border-kinetik-orange', 'bg-kinetik-graphite', 'text-white');
+
+      if (expType === 'novice') {
+        passState.exp = '&lt; 1 YR (MOVEMENT FOCUS)';
+      } else if (expType === 'intermediate') {
+        passState.exp = '1-3 YRS (INTERMEDIATE)';
+      } else {
+        passState.exp = '3+ YRS (COMPETITIVE/ELITE)';
+      }
+      updatePassPreview();
+    }
+
+    function updatePassPreview() {
+      const nameInput = document.getElementById('passAthleteName').value.trim();
+      const dateSelect = document.getElementById('passTargetDate').value;
+      
+      passState.name = nameInput.length > 0 ? nameInput.toUpperCase() : 'ALEXANDER THORNE';
+      passState.date = dateSelect;
+
+      document.getElementById('previewName').textContent = passState.name;
+      document.getElementById('previewGoal').textContent = passState.goal;
+      document.getElementById('previewExp').innerHTML = passState.exp;
+      document.getElementById('previewDate').textContent = passState.date;
+      document.getElementById('previewCoach').textContent = passState.coach;
+    }
+
+    function generateAndConfirmPass() {
+      const nameVal = document.getElementById('passAthleteName').value.trim();
+      const phoneVal = document.getElementById('passAthletePhone').value.trim();
+
+      if (!nameVal || !phoneVal) {
+        showToast('PLEASE ENTER ATHLETE NAME AND PHONE NUMBER', 'error');
+        return;
+      }
+
+      // Generate randomized token
+      const randToken = '#KN-' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('passSecId').textContent = randToken;
+
+      const passGraphic = document.getElementById('livePassGraphic');
+      passGraphic.classList.add('glow-orange');
+      setTimeout(() => {
+        passGraphic.classList.remove('glow-orange');
+      }, 1500);
+
+      playTactileSound(880, 'sine', 0.15);
+      showToast(`PASS CLEARED: ${randToken} TRANSMITTED TO ${phoneVal}`, 'success');
+    }
+
+    // -------------------------------------------------------------
+    // MODAL HANDLERS
+    // -------------------------------------------------------------
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    function handleQuickBooking(e) {
+      e.preventDefault();
+      closeBookingModal();
+      playTactileSound(880, 'sine', 0.2);
+      showToast('INTAKE CONFIRMED. CHECK SMS FOR VENUE SECURITY PIN.', 'success');
+    }
+
+    function openReelModal() {
+      document.getElementById('reelModal').classList.remove('hidden');
+    }
+
+    function closeReelModal() {
+      document.getElementById('reelModal').classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const openIcon = document.getElementById('menuOpenIcon');
+      const closeIcon = document.getElementById('menuCloseIcon');
+      
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        openIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        openIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    }
+
+    // -------------------------------------------------------------
+    // COPY TO CLIPBOARD UTILITY (iFrame safe)
+    // -------------------------------------------------------------
+    function copyAddressToClipboard() {
+      const textToCopy = "KINETIK ATHLETIC LAB, 484 Industrial Parkway, Sector 9, Metro District";
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        document.getElementById('copyBtnText').textContent = 'COPIED TO CLIPBOARD!';
+        setTimeout(() => {
+          document.getElementById('copyBtnText').textContent = 'COPY VENUE ADDRESS';
+        }, 2500);
+        showToast('FACILITY COORDINATES COPIED TO CLIPBOARD', 'success');
+      } catch (err) {
+        showToast('COULD NOT AUTO-COPY ADDRESS', 'error');
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // -------------------------------------------------------------
+    // CUSTOM TOAST NOTIFICATIONS (NO alert() CALLS)
+    // -------------------------------------------------------------
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      const borderColor = type === 'success' ? 'border-kinetik-orange' : (type === 'error' ? 'border-red-600' : 'border-neutral-500');
+      const textColor = type === 'success' ? 'text-kinetik-orange' : (type === 'error' ? 'text-red-400' : 'text-white');
+      
+      toast.className = `pointer-events-auto bg-kinetik-coal border ${borderColor} px-4 py-3 shadow-2xl flex items-center space-x-3 transform transition-all duration-300 translate-y-2 opacity-0 font-mono text-xs uppercase`;
+      toast.innerHTML = `
+        <span class="w-2 h-2 ${type === 'success' ? 'bg-kinetik-orange' : (type === 'error' ? 'bg-red-500' : 'bg-white')} rounded-full"></span>
+        <span class="${textColor} font-bold tracking-wide">${message}</span>
+      `;
+      
+      container.appendChild(toast);
+      
+      // Animate in
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      // Remove after 4 seconds
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => {
+          if (toast.parentNode) {
+            container.removeChild(toast);
+          }
+        }, 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

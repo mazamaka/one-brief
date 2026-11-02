@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anvil Strength Club — Home</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#050505}
+a{color:#C9CBCF;text-decoration:none}
+a:hover{color:var(--accent,#FF5A1F)}
+.anv,.anv *{box-sizing:border-box}
+.anv{font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#F3F3F1}
+.anv h1,.anv h2,.anv h3,.anv h4,.anv p,.anv ul,.anv ol,.anv figure{margin:0}
+.anv ul,.anv ol{padding:0;list-style:none}
+.display{font-family:'Anton','Barlow Condensed',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.92}
+.cond{font-family:'Barlow Condensed','Barlow',sans-serif}
+.label{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;line-height:1.25}
+.wrap{max-width:1360px;margin:0 auto;padding-left:clamp(16px,3.5vw,40px);padding-right:clamp(16px,3.5vw,40px)}
+.silver{background-image:linear-gradient(100deg,#F4F5F7 0%,#B8BCC3 32%,#ECEDEF 48%,#8D9299 68%,#D8DADD 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.knurl{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.045) 0 1px,rgba(255,255,255,0) 1px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.045) 0 1px,rgba(255,255,255,0) 1px 7px)}
+.hero-bg{background-image:radial-gradient(55% 45% at 18% 28%,rgba(255,90,31,.12),rgba(255,90,31,0) 70%),repeating-linear-gradient(45deg,rgba(255,255,255,.045) 0 1px,rgba(255,255,255,0) 1px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.045) 0 1px,rgba(255,255,255,0) 1px 7px)}
+.tex-off .knurl,.tex-off .hero-bg{background-image:none}
+.grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:soft-light;opacity:.7}
+.grain-dim{mix-blend-mode:screen;opacity:.08}
+.tex-off .grain{display:none}
+.ph{position:relative;overflow:hidden;isolation:isolate;background-color:#1C1C1C;background-image:radial-gradient(60% 50% at 68% 24%,rgba(255,255,255,.36),rgba(255,255,255,0) 62%),radial-gradient(38% 46% at 42% 88%,rgba(0,0,0,.6),rgba(0,0,0,0) 70%),linear-gradient(200deg,rgba(255,255,255,.10) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.7) 100%)}
+.ph-b{background-color:#1A1A1A;background-image:radial-gradient(70% 55% at 30% 18%,rgba(255,255,255,.32),rgba(255,255,255,0) 65%),radial-gradient(36% 44% at 50% 86%,rgba(0,0,0,.6),rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 100%)}
+.ph-c{background-color:#171717;background-image:radial-gradient(95% 70% at 50% 0%,rgba(255,255,255,.24),rgba(255,255,255,0) 70%),radial-gradient(34% 42% at 50% 90%,rgba(0,0,0,.55),rgba(0,0,0,0) 72%)}
+.vf::before,.vf::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--accent,#FF5A1F);z-index:2}
+.vf::before{top:10px;left:10px;border-right:0;border-bottom:0}
+.vf::after{bottom:10px;right:10px;border-left:0;border-top:0}
+.shot{position:absolute;left:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#D5D7DA;max-width:calc(100% - 24px);line-height:1.2}
+.shot-tag{background:var(--accent,#FF5A1F);color:#050505;padding:3px 6px;font-weight:700;flex:0 0 auto}
+.ghost-num{position:absolute;right:14px;top:4px;z-index:1;color:rgba(255,255,255,.06);line-height:1;pointer-events:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:700;font-size:17px;letter-spacing:.08em;text-transform:uppercase;border:0;cursor:pointer;text-decoration:none;transition:background-color .15s,color .15s,border-color .15s;white-space:nowrap}
+.btn-primary{background-color:var(--accent,#FF5A1F);color:#050505}
+.btn-primary:hover{background-color:#F3F3F1;color:#050505}
+.btn-ghost{background-color:transparent;color:#F3F3F1;border:1px solid #3A3A3A}
+.btn-ghost:hover{border-color:var(--accent,#FF5A1F);color:var(--accent,#FF5A1F)}
+.navlink{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#C9CBCF;padding:6px 0;border-bottom:2px solid transparent}
+.navlink:hover{color:#F3F3F1;border-bottom-color:var(--accent,#FF5A1F)}
+.chip{display:inline-flex;align-items:center;gap:7px;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#D5D7DA;border:1px solid #2E2E2E;padding:5px 9px;background-color:#0A0A0A;line-height:1.2}
+.chip::before{content:"";width:6px;height:6px;background:var(--accent,#FF5A1F);flex:0 0 6px}
+.input{width:100%;background-color:#0A0A0A;border:1px solid #2E2E2E;color:#F3F3F1;font-family:'Barlow',system-ui,sans-serif;font-weight:500;font-size:15px;padding:12px 14px;min-height:48px;border-radius:0}
+.input::placeholder{color:#7F7F7B}
+.input:focus{outline:2px solid var(--accent,#FF5A1F);outline-offset:0;border-color:var(--accent,#FF5A1F)}
+select.input{appearance:none;-webkit-appearance:none;padding-right:42px}
+.radio{accent-color:var(--accent,#FF5A1F);width:18px;height:18px;margin:0}
+.coachcard:hover .coachname{color:var(--accent,#FF5A1F)}
+.story-stat+.story-stat{border-left:1px solid #222222;padding-left:10px}
+</style>
+</head>
+<body>
+<div id="top" class="anv tex-on" style="--accent: #FF5A1F; min-height: 100%; background-color: #050505; color: #F3F3F1">
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <filter id="grainF">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header style="border-top:3px solid var(--accent,#FF5A1F);border-bottom:1px solid #1F1F1F;background-color:#050505">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;min-height:72px;padding-top:10px;padding-bottom:10px">
+    <a href="#top" aria-label="Anvil Strength Club — home" style="display:flex;align-items:center;gap:12px;color:#F3F3F1">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="15" cy="15" r="13.5" fill="#1C1C1C" stroke="#C9CBCF" stroke-width="1.5"></circle>
+        <circle cx="15" cy="15" r="8" fill="none" stroke-width="2" style="stroke:var(--accent,#FF5A1F)"></circle>
+        <circle cx="15" cy="15" r="2.6" style="fill:var(--accent,#FF5A1F)"></circle>
+      </svg>
+      <span class="display" style="font-size:30px;line-height:1">Anvil</span>
+      <span class="label" style="color:#9A9A96;margin-top:3px">Strength Club</span>
+    </a>
+    <nav aria-label="Primary" style="display:flex;gap:26px;flex-wrap:wrap;align-items:center">
+      <a class="navlink" href="#programs">Programs</a>
+      <a class="navlink" href="#coaches">Coaches</a>
+      <a class="navlink" href="#stories">Stories</a>
+      <a class="navlink" href="#club">The club</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+      <a class="label" href="#login" style="color:#9A9A96">Member login</a>
+      <a class="btn btn-primary" href="#trial" style="min-height:44px;font-size:15px;padding:0 20px">Book a trial</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero-bg" style="position:relative;background-color:#070707;border-bottom:1px solid #1F1F1F;overflow:hidden">
+  <svg class="grain grain-dim" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg>
+  <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:36px 48px;padding-top:56px;padding-bottom:36px;align-items:stretch">
+    <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:26px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span aria-hidden="true" style="display:inline-block;width:30px;height:3px;background-color:var(--accent,#FF5A1F)"></span>
+        <span class="label" style="color:var(--accent,#FF5A1F)">Small-group strength &amp; conditioning</span>
+      </div>
+      <h1 class="display" style="font-size:clamp(60px,8.2vw,124px);color:#F3F3F1">Built heavy.<br><span class="silver">Built together.</span></h1>
+      <p style="max-width:580px;font-size:17px;line-height:1.42;color:#C9CBCF">Coach-led sessions capped at twelve athletes. Every lift logged, every block reviewed with your coach. No mirrors, no machines in a row, and no one training alone.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#trial">Book a trial class</a>
+        <a class="btn btn-ghost" href="#programs">See the programs</a>
+      </div>
+      <ul style="display:flex;gap:16px 34px;flex-wrap:wrap;padding-top:18px;border-top:1px solid #222222">
+        <li><div class="cond" style="font-weight:700;font-size:30px;line-height:1">12</div><div class="label" style="color:#9A9A96;margin-top:5px">Athletes max per session</div></li>
+        <li><div class="cond" style="font-weight:700;font-size:30px;line-height:1">1:6</div><div class="label" style="color:#9A9A96;margin-top:5px">Coach to athlete ratio</div></li>
+        <li><div class="cond" style="font-weight:700;font-size:30px;line-height:1">4 wk</div><div class="label" style="color:#9A9A96;margin-top:5px">Review cycle, every block</div></li>
+        <li><div class="cond" style="font-weight:700;font-size:30px;line-height:1">05:30</div><div class="label" style="color:#9A9A96;margin-top:5px">First bar loaded, Mon–Fri</div></li>
+      </ul>
+    </div>
+    <figure class="ph vf" style="flex:1 1 420px;min-width:0;min-height:580px;border:1px solid #2A2A2A">
+      <svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg>
+      <div class="display ghost-num" style="font-size:180px">01</div>
+      <figcaption class="shot"><span class="shot-tag">Photo</span><span>Deadlift lockout, chalk in the air · B&amp;W · 85 mm · athlete sharp, floor blurred</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap" style="position:relative;padding-bottom:48px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-bottom:14px;padding-top:18px;border-top:1px solid #222222">
+      <div class="label" style="color:#9A9A96">The coaching team — six coaches, one method</div>
+      <a class="label" href="#coaches" style="color:var(--accent,#FF5A1F)">Full profiles &amp; certifications ↓</a>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="coachcard" href="#coach-1" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Marcus Hale</div>
+        <div class="label" style="color:#9A9A96">Head coach · Strength</div>
+      </a>
+      <a class="coachcard" href="#coach-2" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Dana Okafor</div>
+        <div class="label" style="color:#9A9A96">Lead coach · Conditioning</div>
+      </a>
+      <a class="coachcard" href="#coach-3" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Tomas Lindqvist</div>
+        <div class="label" style="color:#9A9A96">Coach · Hypertrophy</div>
+      </a>
+      <a class="coachcard" href="#coach-4" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Lena Varga</div>
+        <div class="label" style="color:#9A9A96">Coach · Movement &amp; mobility</div>
+      </a>
+      <a class="coachcard" href="#coach-5" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Jamal Price</div>
+        <div class="label" style="color:#9A9A96">Coach · Athletic performance</div>
+      </a>
+      <a class="coachcard" href="#coach-6" style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:8px;color:#F3F3F1">
+        <div class="ph ph-b" style="aspect-ratio:1 / 1;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span><span>Portrait · B&amp;W</span></div></div>
+        <div class="coachname cond" style="font-weight:700;font-size:19px;line-height:1.1">Sofia Marin</div>
+        <div class="label" style="color:#9A9A96">Coach · Nutrition &amp; recomp</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div aria-hidden="true" style="background-color:#050505;border-bottom:1px solid #1F1F1F;overflow:hidden">
+  <div class="cond" style="display:flex;gap:32px;align-items:center;padding:13px 24px;white-space:nowrap;font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#C9CBCF">
+    <span style="color:var(--accent,#FF5A1F)">Discipline</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Community</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span style="color:var(--accent,#FF5A1F)">Progress</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Small groups</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span style="color:var(--accent,#FF5A1F)">Tracked lifts</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Coached every session</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span style="color:var(--accent,#FF5A1F)">Discipline</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Community</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span style="color:var(--accent,#FF5A1F)">Progress</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Small groups</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span style="color:var(--accent,#FF5A1F)">Tracked lifts</span><span style="display:inline-block;width:6px;height:6px;background-color:#3A3A3A;flex:0 0 6px"></span>
+    <span>Coached every session</span>
+  </div>
+</div>
+
+<!-- ============ CURRICULUM ============ -->
+<section id="programs" style="background-color:#0A0A0A;border-bottom:1px solid #1F1F1F">
+  <div class="wrap" style="padding-top:64px;padding-bottom:64px;display:flex;flex-direction:column;gap:30px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between">
+      <div style="flex:1 1 420px;min-width:0">
+        <div class="label" style="color:var(--accent,#FF5A1F)">Curriculum — organised by goal</div>
+        <h2 class="display" style="font-size:clamp(44px,5.5vw,84px);margin-top:10px">Pick the goal.<br>We build the track.</h2>
+      </div>
+      <p style="flex:1 1 340px;max-width:520px;color:#C9CBCF;font-size:15px;line-height:1.45">Three tracks, nine programs, one method: progressive overload, tracked in your log and reviewed with your coach every four weeks. Switch tracks whenever the goal changes — the log comes with you.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+
+      <article style="flex:1 1 320px;min-width:0;background-color:#111111;border:1px solid #1F1F1F;border-top:3px solid var(--accent,#FF5A1F);display:flex;flex-direction:column">
+        <div style="padding:18px 22px 14px;border-bottom:1px solid #1F1F1F;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+          <div><div class="label" style="color:#9A9A96">01 · Muscle gain</div><h3 class="display" style="font-size:42px;margin-top:6px">Build</h3></div>
+          <div class="label" style="color:var(--accent,#FF5A1F);padding-bottom:6px">3 programs</div>
+        </div>
+        <p style="padding:14px 22px;border-bottom:1px solid #1F1F1F;color:#9A9A96;font-size:13.5px;line-height:1.4">For athletes who want visible size and strength numbers that move. Lifting 3–4× per week, eating to grow.</p>
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Hypertrophy Block</div><div class="label" style="color:#9A9A96;white-space:nowrap">12 wk · 4×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Upper/lower split, tempo-controlled sets, weekly volume ramps. Every working set logged.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Powerbuilding</div><div class="label" style="color:#9A9A96;white-space:nowrap">8 wk · 3×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Squat, bench and deadlift strength work first, hypertrophy accessories after. For lifters chasing numbers and size.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Mass Foundations</div><div class="label" style="color:#9A9A96;white-space:nowrap">6 wk · 3×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">First-time lifters: technique, tempo, bracing and how to eat for growth. Graduates into Hypertrophy Block.</p>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:16px 22px"><a class="btn btn-ghost" href="#trial" style="width:100%">Start with a trial →</a></div>
+      </article>
+
+      <article style="flex:1 1 320px;min-width:0;background-color:#111111;border:1px solid #1F1F1F;border-top:3px solid var(--accent,#FF5A1F);display:flex;flex-direction:column">
+        <div style="padding:18px 22px 14px;border-bottom:1px solid #1F1F1F;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+          <div><div class="label" style="color:#9A9A96">02 · Fat loss</div><h3 class="display" style="font-size:42px;margin-top:6px">Burn</h3></div>
+          <div class="label" style="color:var(--accent,#FF5A1F);padding-bottom:6px">3 programs</div>
+        </div>
+        <p style="padding:14px 22px;border-bottom:1px solid #1F1F1F;color:#9A9A96;font-size:13.5px;line-height:1.4">For members who want to lose fat and keep the muscle. Lifting plus conditioning, heart-rate zones, nutrition coaching built in.</p>
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Engine 45</div><div class="label" style="color:#9A9A96;white-space:nowrap">45 min · up to 5×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Sled, rower, ski erg and bike intervals programmed by heart-rate zone. Hard, measurable, repeatable.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Strength Circuit</div><div class="label" style="color:#9A9A96;white-space:nowrap">50 min · 3×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Kettlebell and barbell complexes with short rest. Strength stimulus, conditioning density.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">12-Week Recomp</div><div class="label" style="color:#9A9A96;white-space:nowrap">12 wk · 3 lifts + 2 cond.</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Full plan with weekly weigh-ins, nutrition check-ins and a coach review every four weeks.</p>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:16px 22px"><a class="btn btn-ghost" href="#trial" style="width:100%">Start with a trial →</a></div>
+      </article>
+
+      <article style="flex:1 1 320px;min-width:0;background-color:#111111;border:1px solid #1F1F1F;border-top:3px solid var(--accent,#FF5A1F);display:flex;flex-direction:column">
+        <div style="padding:18px 22px 14px;border-bottom:1px solid #1F1F1F;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+          <div><div class="label" style="color:#9A9A96">03 · Fitness &amp; longevity</div><h3 class="display" style="font-size:42px;margin-top:6px">Move</h3></div>
+          <div class="label" style="color:var(--accent,#FF5A1F);padding-bottom:6px">3 programs</div>
+        </div>
+        <p style="padding:14px 22px;border-bottom:1px solid #1F1F1F;color:#9A9A96;font-size:13.5px;line-height:1.4">For anyone who wants to move well, get strong and still be lifting at seventy. Technique first, load second.</p>
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Foundations</div><div class="label" style="color:#9A9A96;white-space:nowrap">4 wk · 2×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">The six patterns: squat, hinge, push, pull, carry, brace. Required for every new member before any track.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Mobility &amp; Core</div><div class="label" style="color:#9A9A96;white-space:nowrap">40 min · 2×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Joint prep, loaded stretching, trunk stability. The session every other program is built on.</p>
+          </div>
+          <div style="padding:14px 22px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em">Athletic</div><div class="label" style="color:#9A9A96;white-space:nowrap">60 min · 2×/wk</div></div>
+            <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Sprint mechanics, jumps, change of direction, game days. For members who miss playing sport.</p>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:16px 22px"><a class="btn btn-ghost" href="#trial" style="width:100%">Start with a trial →</a></div>
+      </article>
+
+    </div>
+    <p class="label" style="color:#9A9A96">Not sure which track? Book a trial — the movement screen decides, and your coach assigns the first block.</p>
+  </div>
+</section>
+
+<!-- ============ COACHES ============ -->
+<section id="coaches" class="knurl" style="background-color:#070707;border-bottom:1px solid #1F1F1F">
+  <div class="wrap" style="padding-top:64px;padding-bottom:64px;display:flex;flex-direction:column;gap:30px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between">
+      <div style="flex:1 1 420px;min-width:0">
+        <div class="label" style="color:var(--accent,#FF5A1F)">Coaching staff</div>
+        <h2 class="display" style="font-size:clamp(44px,5.5vw,84px);margin-top:10px">Credentials<br>you can check.</h2>
+      </div>
+      <p style="flex:1 1 340px;max-width:520px;color:#C9CBCF;font-size:15px;line-height:1.45">Every coach holds a current, verifiable certification and at least five years on the floor. Backgrounds below; ask them anything on your trial.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+
+      <article id="coach-1" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Head coach · Strength</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Marcus Hale</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">14</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">Powerbuilding</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">Former national-level powerlifter (−93 kg, 700 kg total) turned coach. Wrote the club's strength curriculum and still coaches the 06:00 barbell sessions. Known for fixing a deadlift in one cue.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">NSCA-CSCS</span><span class="chip">StrongFirst SFG II</span><span class="chip">Precision Nutrition L1</span>
+        </div>
+      </article>
+
+      <article id="coach-2" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Lead coach · Conditioning</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Dana Okafor</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">9</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">Engine 45</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">Ex-400 m sprinter and collegiate national finalist. Designed the Burn track and runs Saturday Team Session. Programs conditioning by heart-rate zone, never by exhaustion.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">ACE-CPT</span><span class="chip">USAW Level 1</span><span class="chip">Concept2 Instructor</span>
+        </div>
+      </article>
+
+      <article id="coach-3" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Coach · Hypertrophy</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Tomas Lindqvist</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">8</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">Hypertrophy Block</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">Natural bodybuilder with three regional titles. Obsessive about tempo, rep quality and volume tracking. Runs the weekly "last set" reviews where every member's log gets read.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">NASM-CPT</span><span class="chip">NASM-PES</span><span class="chip">Precision Nutrition L2</span>
+        </div>
+      </article>
+
+      <article id="coach-4" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Coach · Movement &amp; mobility</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Lena Varga</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">11</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">Foundations</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">Ten years as a professional dancer, then a physiotherapy assistant. Runs Foundations and Mobility &amp; Core; every new member's movement screen goes through her first.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">FRC Mobility Specialist</span><span class="chip">Pilates Mat &amp; Reformer</span><span class="chip">ACE-CPT</span>
+        </div>
+      </article>
+
+      <article id="coach-5" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Coach · Athletic performance</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Jamal Price</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">7</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">Athletic</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">Seven seasons as a rugby academy strength and conditioning coach. Sprint mechanics, jumps, change of direction and return-to-play progressions, built for people who still want to play.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">UKSCA Accredited</span><span class="chip">NSCA-CSCS</span><span class="chip">EXOS Performance Specialist</span>
+        </div>
+      </article>
+
+      <article id="coach-6" style="flex:1 1 400px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:flex;gap:16px;padding:16px 16px 12px">
+          <div class="ph ph-b" style="flex:0 0 124px;width:124px;height:156px;border:1px solid #2A2A2A"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">Photo</span></div></div>
+          <div style="min-width:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px">
+            <div class="label" style="color:var(--accent,#FF5A1F)">Coach · Nutrition &amp; recomp</div>
+            <h3 class="cond" style="font-weight:700;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.01em">Sofia Marin</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+              <div><div class="cond" style="font-weight:700;font-size:22px;line-height:1">6</div><div class="label" style="color:#9A9A96;margin-top:3px">Years coaching</div></div>
+              <div><div class="cond" style="font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase;padding-top:4px">12-Week Recomp</div><div class="label" style="color:#9A9A96;margin-top:4px">Leads</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="padding:0 16px 14px;font-size:14px;line-height:1.45;color:#C9CBCF">MSc Sports Nutrition. Runs the 12-Week Recomp check-ins and the nutrition side of every fat-loss plan. Weekly weigh-ins, no crash diets, no supplement pitch.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;margin-top:auto">
+          <span class="chip">SENr Registered</span><span class="chip">Precision Nutrition L2</span><span class="chip">ISAK Level 1</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEMBER STORIES ============ -->
+<section id="stories" style="background-color:#0A0A0A;border-bottom:1px solid #1F1F1F">
+  <div class="wrap" style="padding-top:64px;padding-bottom:64px;display:flex;flex-direction:column;gap:30px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between">
+      <div style="flex:1 1 420px;min-width:0">
+        <div class="label" style="color:var(--accent,#FF5A1F)">Member stories</div>
+        <h2 class="display" style="font-size:clamp(44px,5.5vw,84px);margin-top:10px">Measured,<br>not marketed.</h2>
+      </div>
+      <p style="flex:1 1 340px;max-width:520px;color:#C9CBCF;font-size:15px;line-height:1.45">Case studies straight from the training log, published with each member's permission. Every number was recorded by their coach, on the floor, on the date it happened.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+
+      <article style="flex:1 1 380px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:2px;background-color:#1F1F1F;border-bottom:1px solid #1F1F1F">
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag" style="background-color:#C9CBCF">Before</span><span>Day 1 · gym floor</span></div></div>
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">After</span><span>Month 9 · same spot, same light</span></div></div>
+        </div>
+        <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:5px">
+          <h3 class="cond" style="font-weight:700;font-size:24px;line-height:1;text-transform:uppercase">Petra K., 34</h3>
+          <div class="label" style="color:var(--accent,#FF5A1F)">12-Week Recomp → Hypertrophy Block · 9 months</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));margin:12px 16px 0;padding:10px 0;border-top:1px solid #222222;border-bottom:1px solid #222222">
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Bodyweight</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">−18.4 kg</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">84.2 → 65.8</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Deadlift</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">140 kg</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from 60</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Resting HR</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">58 bpm</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from 76</div></div>
+        </div>
+        <p style="padding:14px 16px 18px;font-size:15px;line-height:1.45;color:#D5D7DA"><span class="display" aria-hidden="true" style="color:var(--accent,#FF5A1F);font-size:34px;line-height:0;vertical-align:-10px;margin-right:6px">“</span>I came for the fat loss. I stayed because Saturday Team Session is the best hour of my week.</p>
+      </article>
+
+      <article style="flex:1 1 380px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:2px;background-color:#1F1F1F;border-bottom:1px solid #1F1F1F">
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag" style="background-color:#C9CBCF">Before</span><span>Day 1 · rack</span></div></div>
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">After</span><span>Month 6 · 150 kg on the bar</span></div></div>
+        </div>
+        <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:5px">
+          <h3 class="cond" style="font-weight:700;font-size:24px;line-height:1;text-transform:uppercase">Daniel R., 29</h3>
+          <div class="label" style="color:var(--accent,#FF5A1F)">Foundations → Powerbuilding · 6 months</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));margin:12px 16px 0;padding:10px 0;border-top:1px solid #222222;border-bottom:1px solid #222222">
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Strict pull-ups</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">0 → 10</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">first rep, week 7</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Back squat</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">150 kg</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from 80</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Body fat</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">15%</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from 24, ISAK</div></div>
+        </div>
+        <p style="padding:14px 16px 18px;font-size:15px;line-height:1.45;color:#D5D7DA"><span class="display" aria-hidden="true" style="color:var(--accent,#FF5A1F);font-size:34px;line-height:0;vertical-align:-10px;margin-right:6px">“</span>Everything is tracked. For the first time I could see the work adding up, week by week.</p>
+      </article>
+
+      <article style="flex:1 1 380px;min-width:0;background-color:#101010;border:1px solid #1F1F1F;display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:2px;background-color:#1F1F1F;border-bottom:1px solid #1F1F1F">
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag" style="background-color:#C9CBCF">Before</span><span>Day 1 · mobility floor</span></div></div>
+          <div class="ph ph-c" style="aspect-ratio:3 / 4"><svg class="grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg><div class="shot"><span class="shot-tag">After</span><span>Month 12 · trap bar, 110 kg</span></div></div>
+        </div>
+        <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:5px">
+          <h3 class="cond" style="font-weight:700;font-size:24px;line-height:1;text-transform:uppercase">Helena M., 47</h3>
+          <div class="label" style="color:var(--accent,#FF5A1F)">Mobility &amp; Core → Build · 12 months</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));margin:12px 16px 0;padding:10px 0;border-top:1px solid #222222;border-bottom:1px solid #222222">
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Trap-bar deadlift</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">110 kg</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from 40</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Squat</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">Full depth</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">from half rep</div></div>
+          <div class="story-stat"><div class="label" style="color:#9A9A96">Sessions logged</div><div class="cond" style="font-weight:700;font-size:24px;line-height:1;margin-top:5px">142</div><div style="font-size:12px;color:#9A9A96;margin-top:4px">in 12 months</div></div>
+        </div>
+        <p style="padding:14px 16px 18px;font-size:15px;line-height:1.45;color:#D5D7DA"><span class="display" aria-hidden="true" style="color:var(--accent,#FF5A1F);font-size:34px;line-height:0;vertical-align:-10px;margin-right:6px">“</span>I was told to stop lifting at forty-five. Here I was taught to lift properly.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CLUB ============ -->
+<section id="club" class="knurl" style="position:relative;background-color:#070707;border-bottom:1px solid #1F1F1F;overflow:hidden">
+  <svg class="grain grain-dim" aria-hidden="true"><rect width="100%" height="100%" filter="url(#grainF)"></rect></svg>
+  <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:40px 64px;padding-top:72px;padding-bottom:72px">
+    <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
+      <div class="label" style="color:var(--accent,#FF5A1F)">The club</div>
+      <h2 class="display" style="font-size:clamp(56px,7.5vw,118px)"><span class="silver">Not a gym.</span><br>A club.</h2>
+      <p style="max-width:560px;font-size:16px;line-height:1.45;color:#C9CBCF">Belonging is a training variable. The people who expect you back on Monday are the reason you come back on Monday. Membership is capped so every coach knows every name, every lift and every excuse.</p>
+      <ol style="display:flex;flex-direction:column;border-top:1px solid #222222;max-width:560px">
+        <li style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #222222"><span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px">01</span><span class="display" style="font-size:34px">Show up.</span></li>
+        <li style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #222222"><span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px">02</span><span class="display" style="font-size:34px">Load the bar.</span></li>
+        <li style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #222222"><span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px">03</span><span class="display" style="font-size:34px">Log every rep.</span></li>
+        <li style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #222222"><span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px">04</span><span class="display" style="font-size:34px">Spot your neighbour.</span></li>
+      </ol>
+    </div>
+    <div style="flex:1 1 420px;min-width:0;background-color:#0E0E0E;border:1px solid #1F1F1F;display:flex;flex-direction:column;align-self:flex-start">
+      <div class="label" style="padding:14px 18px;border-bottom:1px solid #1F1F1F;color:#9A9A96;display:flex;justify-content:space-between;gap:12px"><span>What every membership includes</span><span style="color:var(--accent,#FF5A1F)">No add-ons</span></div>
+      <div style="padding:14px 18px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em">Saturday Team Session</h3><span class="label" style="color:#9A9A96;white-space:nowrap">Sat · 09:00</span></div>
+        <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Partner lifts, shared loads, music too loud. The best-attended hour of the week.</p>
+      </div>
+      <div style="padding:14px 18px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em">Quarterly Challenge</h3><span class="label" style="color:#9A9A96;white-space:nowrap">Club-wide</span></div>
+        <p style="font-size:14px;line-height:1.4;color:#C9CBCF">One target the whole club chases together. This quarter: 100,000 kg lifted, counted from every log.</p>
+      </div>
+      <div style="padding:14px 18px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em">Four-week reviews</h3><span class="label" style="color:#9A9A96;white-space:nowrap">1:1 · 20 min</span></div>
+        <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Sit down with your coach, read the log, set the next block. Nobody drifts.</p>
+      </div>
+      <div style="padding:14px 18px;border-bottom:1px solid #1F1F1F;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em">Members' channel</h3><span class="label" style="color:#9A9A96;white-space:nowrap">Always on</span></div>
+        <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Swap sessions, find a spotter, argue about breakfast.</p>
+      </div>
+      <div style="padding:14px 18px;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em">Open floor hours</h3><span class="label" style="color:#9A9A96;white-space:nowrap">Daily</span></div>
+        <p style="font-size:14px;line-height:1.4;color:#C9CBCF">Train outside class with a coach on the floor. Included, not extra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A TRIAL ============ -->
+<section id="trial" style="position:relative;background-color:#050505;border-bottom:1px solid #1F1F1F;overflow:hidden">
+  <svg viewBox="0 0 400 400" aria-hidden="true" style="position:absolute;right:-140px;top:50%;transform:translateY(-50%);width:560px;height:560px;opacity:.5;pointer-events:none">
+    <defs>
+      <radialGradient id="plateG" cx="35%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#3A3A3A"></stop>
+        <stop offset="1" stop-color="#090909"></stop>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="196" fill="url(#plateG)" stroke="#2A2A2A" stroke-width="2"></circle>
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#2A2A2A" stroke-width="2"></circle>
+    <circle cx="200" cy="200" r="122" fill="none" stroke-width="3" stroke-dasharray="4 10" style="stroke:var(--accent,#FF5A1F)"></circle>
+    <circle cx="200" cy="200" r="30" fill="#050505" stroke="#2A2A2A" stroke-width="2"></circle>
+  </svg>
+  <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:40px 64px;padding-top:72px;padding-bottom:72px;align-items:flex-start">
+    <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:24px">
+      <div class="label" style="color:var(--accent,#FF5A1F)">Book a trial class</div>
+      <h2 class="display" style="font-size:clamp(46px,5.8vw,84px)">One hour.<br>One coach.<br><span class="silver">A plan to leave with.</span></h2>
+      <ol style="display:flex;flex-direction:column;border-top:1px solid #222222;max-width:560px">
+        <li style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #222222">
+          <span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px;padding-top:4px">01</span>
+          <div style="min-width:0;flex:1 1 auto"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase">Movement screen</h3><span class="label" style="color:#9A9A96;white-space:nowrap">15 min</span></div><p style="font-size:14px;line-height:1.4;color:#C9CBCF;margin-top:3px">A coach watches you squat, hinge, push and pull. Nothing heavy yet.</p></div>
+        </li>
+        <li style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #222222">
+          <span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px;padding-top:4px">02</span>
+          <div style="min-width:0;flex:1 1 auto"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase">Coached session</h3><span class="label" style="color:#9A9A96;white-space:nowrap">40 min</span></div><p style="font-size:14px;line-height:1.4;color:#C9CBCF;margin-top:3px">You train in a real small group, loads scaled to you, coach on the floor.</p></div>
+        </li>
+        <li style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #222222">
+          <span class="cond" style="font-weight:700;font-size:14px;color:var(--accent,#FF5A1F);letter-spacing:.1em;flex:0 0 36px;padding-top:4px">03</span>
+          <div style="min-width:0;flex:1 1 auto"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 class="cond" style="min-width:0;font-weight:700;font-size:20px;text-transform:uppercase">Your track</h3><span class="label" style="color:#9A9A96;white-space:nowrap">5 min</span></div><p style="font-size:14px;line-height:1.4;color:#C9CBCF;margin-top:3px">Which program, which days, and what the first four weeks look like.</p></div>
+        </li>
+      </ol>
+      <p class="label" style="color:#9A9A96">Free for first-timers · No sales pitch · Bring shoes you can lift in</p>
+    </div>
+
+    <form style="flex:1 1 420px;min-width:0;background-color:#0E0E0E;border:1px solid #1F1F1F;border-top:3px solid var(--accent,#FF5A1F);padding:22px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+        <h3 class="display" style="font-size:30px">Claim your trial</h3>
+        <span class="label" style="color:#9A9A96;white-space:nowrap">Takes 30 seconds</span>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1 1 180px;min-width:0"><label class="label" for="t-name" style="display:block;color:#9A9A96;margin-bottom:6px">Full name</label><input class="input" id="t-name" name="name" type="text" placeholder="Your name" autocomplete="name"></div>
+        <div style="flex:1 1 180px;min-width:0"><label class="label" for="t-email" style="display:block;color:#9A9A96;margin-bottom:6px">Email</label><input class="input" id="t-email" name="email" type="email" placeholder="you@email.com" autocomplete="email"></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1 1 180px;min-width:0"><label class="label" for="t-goal" style="display:block;color:#9A9A96;margin-bottom:6px">Goal</label>
+          <div style="position:relative"><select class="input" id="t-goal" name="goal"><option>Build — muscle gain</option><option>Burn — fat loss</option><option>Move — fitness &amp; longevity</option><option>Not sure yet</option></select><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none"><path d="M2 5l5 5 5-5" fill="none" stroke="#C9CBCF" stroke-width="2"></path></svg></div>
+        </div>
+        <div style="flex:1 1 180px;min-width:0"><label class="label" for="t-time" style="display:block;color:#9A9A96;margin-bottom:6px">Preferred time</label>
+          <div style="position:relative"><select class="input" id="t-time" name="time"><option>Early — 05:30 to 08:00</option><option>Midday — 11:30 to 14:00</option><option>Evening — 17:00 to 21:00</option><option>Saturday Team Session</option></select><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none"><path d="M2 5l5 5 5-5" fill="none" stroke="#C9CBCF" stroke-width="2"></path></svg></div>
+        </div>
+      </div>
+      <fieldset style="border:0;padding:0;margin:0;min-width:0">
+        <legend class="label" style="color:#9A9A96;margin-bottom:8px;padding:0">Training experience</legend>
+        <div style="display:flex;gap:10px 20px;flex-wrap:wrap">
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#D5D7DA;min-height:28px"><input class="radio" type="radio" name="exp" value="new" checked>New to lifting</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#D5D7DA;min-height:28px"><input class="radio" type="radio" name="exp" value="some">1–3 years</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#D5D7DA;min-height:28px"><input class="radio" type="radio" name="exp" value="exp">3+ years</label>
+        </div>
+      </fieldset>
+      <button type="button" class="btn btn-primary" style="width:100%;min-height:58px;font-size:20px;margin-top:4px">Book my trial class →</button>
+      <p style="font-size:12.5px;line-height:1.4;color:#9A9A96">We confirm by text within one working day. No membership required, no card on file.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="background-color:#050505">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:28px 48px;padding-top:48px;padding-bottom:28px">
+    <div style="flex:2 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+          <circle cx="15" cy="15" r="13.5" fill="#1C1C1C" stroke="#C9CBCF" stroke-width="1.5"></circle>
+          <circle cx="15" cy="15" r="8" fill="none" stroke-width="2" style="stroke:var(--accent,#FF5A1F)"></circle>
+          <circle cx="15" cy="15" r="2.6" style="fill:var(--accent,#FF5A1F)"></circle>
+        </svg>
+        <span class="display" style="font-size:30px;line-height:1">Anvil</span>
+        <span class="label" style="color:#9A9A96;margin-top:3px">Strength Club</span>
+      </div>
+      <p style="font-size:14px;line-height:1.45;color:#9A9A96;max-width:320px">Strength and conditioning studio. Small groups, big bars, no egos.</p>
+    </div>
+    <div style="flex:1 1 170px;min-width:0">
+      <div class="label" style="color:#F3F3F1;margin-bottom:10px">Studio</div>
+      <ul style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#9A9A96"><li>[Street address]</li><li>[City, postcode]</li><li>Mon–Fri 05:30–22:00</li><li>Sat–Sun 07:00–18:00</li></ul>
+    </div>
+    <div style="flex:1 1 170px;min-width:0">
+      <div class="label" style="color:#F3F3F1;margin-bottom:10px">Contact</div>
+      <ul style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#9A9A96"><li>[Phone number]</li><li>[hello@yourstudio.com]</li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul>
+    </div>
+    <div style="flex:1 1 170px;min-width:0">
+      <div class="label" style="color:#F3F3F1;margin-bottom:10px">Explore</div>
+      <ul style="display:flex;flex-direction:column;gap:6px;font-size:14px"><li><a href="#programs">Programs</a></li><li><a href="#coaches">Coaches</a></li><li><a href="#stories">Member stories</a></li><li><a href="#club">The club</a></li><li><a href="#trial" style="color:var(--accent,#FF5A1F)">Book a trial</a></li></ul>
+    </div>
+  </div>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding-top:16px;padding-bottom:22px;border-top:1px solid #1F1F1F">
+    <div class="label" style="color:#7F7F7B">© 2026 Anvil Strength Club</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap"><a class="label" href="#" style="color:#7F7F7B">Privacy</a><a class="label" href="#" style="color:#7F7F7B">Terms</a><a class="label" href="#" style="color:#7F7F7B">Membership agreement</a></div>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
