@@ -238,7 +238,7 @@ footer .wrap{padding-top:24px;padding-bottom:32px;font-size:14px;color:var(--mut
   document.getElementById("app").innerHTML = D.rounds.map(function (r) {
     return '<section class="round" id="' + esc(r.id) + '">' +
       '<div class="round-head"><h2>' + esc(r.title) + '</h2><span class="chip num">' + esc(r.date) + "</span>" +
-      (r.entries ? '<span class="chip">' + r.entries.length + " " + plural(r.entries.length, "модель", "модели", "моделей") + "</span>" : "") + "</div>" +
+      (r.entries ? '<span class="chip">' + r.entries.length + " " + plural(r.entries.length, "работа", "работы", "работ") + "</span>" : "") + "</div>" +
       '<p class="lead">' + esc(r.lead) + "</p>" +
       '<div class="links">' + (r.audit ? link(D.repo + "/blob/main/" + r.audit, "Полный аудит ↗") : "") +
       (r.prompt ? link(r.prompt, "Промпт (txt)") : "") + "</div>" +
